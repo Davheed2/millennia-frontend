@@ -14,6 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BlogPost } from "@/lib/blog-utils";
 import BlogSearch from "./BlogSearch";
+import BlogSkeleton from "./BlogSkeleton";
 
 interface BlogListProps {
   posts: BlogPost[];
@@ -29,9 +30,13 @@ export default function BlogList({
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All Topics");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false); // Simulated loading
   const postsPerPage = 6;
 
-  // Filter posts based on search query and selected category
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedCategory]);
+
   const filteredPosts = [featuredPost, ...posts].filter((post) => {
     const matchesSearch =
       searchQuery === "" ||
@@ -46,17 +51,10 @@ export default function BlogList({
     return matchesSearch && matchesCategory;
   });
 
-  // Reset page when filters change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchQuery, selectedCategory]);
-
-  // Pagination logic
   const indexOfLastPost = currentPage * postsPerPage;
   const currentPosts = filteredPosts.slice(0, indexOfLastPost);
   const hasMorePosts = indexOfLastPost < filteredPosts.length;
 
-  // Check if we should show the featured post
   const showingFeaturedPost =
     currentPage === 1 &&
     (selectedCategory === "All Topics" ||
@@ -67,9 +65,12 @@ export default function BlogList({
       featuredPost.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
       featuredPost.category.toLowerCase().includes(searchQuery.toLowerCase()));
 
-  // Handle load more
   const handleLoadMore = () => {
-    setCurrentPage((prev) => prev + 1);
+    setIsLoading(true);
+    setTimeout(() => {
+      setCurrentPage((prev) => prev + 1);
+      setIsLoading(false);
+    }, 1000); // Simulate loading
   };
 
   return (
@@ -82,7 +83,7 @@ export default function BlogList({
         searchQuery={searchQuery}
       />
 
-      {filteredPosts.length === 0 ? (
+      {filteredPosts.length === 0 && !isLoading ? (
         <div className="max-w-4xl mx-auto text-center py-16">
           <h2 className="heading-lg mb-4">No articles found</h2>
           <p className="text-muted-foreground mb-8">
@@ -149,51 +150,60 @@ export default function BlogList({
               {searchQuery ? "Search Results" : "Latest Articles"}
             </h2>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              {currentPosts
-                .filter(
-                  (post) => post.id !== featuredPost.id || !showingFeaturedPost
-                )
-                .map((post) => (
-                  <Card
-                    key={post.id}
-                    className="overflow-hidden flex flex-col h-full"
-                  >
-                    <div className="relative h-48">
-                      <Image
-                        src={post.image}
-                        alt={post.title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <CardHeader>
-                      <Badge className="w-fit mb-2 bg-invest/10 text-invest">
-                        {post.category}
-                      </Badge>
-                      <CardTitle className="text-xl">{post.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex-grow">
-                      <p className="text-muted-foreground">{post.excerpt}</p>
-                    </CardContent>
-                    <CardFooter className="flex justify-between items-center">
-                      <div>
-                        <p className="text-sm text-muted-foreground">
-                          {post.date} • {post.author}
-                        </p>
-                      </div>
-                      <Link href={`/blog/${post.id}`}>
-                        <Button variant="ghost" className="text-invest">
-                          Read More →
-                        </Button>
-                      </Link>
-                    </CardFooter>
-                  </Card>
+            {isLoading ? (
+              <div className="grid md:grid-cols-2 gap-8">
+                {[...Array(postsPerPage)].map((_, i) => (
+                  <BlogSkeleton key={i} />
                 ))}
-            </div>
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 gap-8">
+                {currentPosts
+                  .filter(
+                    (post) =>
+                      post.id !== featuredPost.id || !showingFeaturedPost
+                  )
+                  .map((post) => (
+                    <Card
+                      key={post.id}
+                      className="overflow-hidden flex flex-col h-full"
+                    >
+                      <div className="relative h-48">
+                        <Image
+                          src={post.image}
+                          alt={post.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <CardHeader>
+                        <Badge className="w-fit mb-2 bg-invest/10 text-invest">
+                          {post.category}
+                        </Badge>
+                        <CardTitle className="text-xl">{post.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="flex-grow">
+                        <p className="text-muted-foreground">{post.excerpt}</p>
+                      </CardContent>
+                      <CardFooter className="flex justify-between items-center">
+                        <div>
+                          <p className="text-sm text-muted-foreground">
+                            {post.date} • {post.author}
+                          </p>
+                        </div>
+                        <Link href={`/blog/${post.id}`}>
+                          <Button variant="ghost" className="text-invest">
+                            Read More →
+                          </Button>
+                        </Link>
+                      </CardFooter>
+                    </Card>
+                  ))}
+              </div>
+            )}
 
             <div className="text-center mt-10">
-              {hasMorePosts ? (
+              {hasMorePosts && !isLoading ? (
                 <Button
                   className="bg-invest hover:bg-invest-secondary text-white"
                   onClick={handleLoadMore}
@@ -201,6 +211,7 @@ export default function BlogList({
                   Load More Articles
                 </Button>
               ) : (
+                !isLoading &&
                 filteredPosts.length > 0 && (
                   <p className="text-muted-foreground">
                     You&apos;ve reached the end of the articles.
