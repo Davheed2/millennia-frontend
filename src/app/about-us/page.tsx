@@ -1,0 +1,190 @@
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { Users, BarChart, Shield, Lightbulb } from "lucide-react";
+import Image from "next/image";
+
+export default function AboutUs() {
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <main className="flex-grow">
+        <div className="container mx-auto py-12">
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <h1 className="heading-xl gradient-text mb-6">About Investo</h1>
+            <p className="text-lg text-muted-foreground">
+              We&apos;re on a mission to democratize investing and help everyone
+              build a better financial future, regardless of their background or
+              starting point.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+            <div>
+              <h2 className="heading-lg mb-6">Our Story</h2>
+              <p className="mb-4 text-muted-foreground">
+                Investo was founded in 2018 by a team of financial experts and
+                technology innovators who believed that sophisticated investment
+                strategies shouldn&apos;t be reserved for the ultra-wealthy.
+              </p>
+              <p className="mb-4 text-muted-foreground">
+                We started with a simple idea: use cutting-edge technology to
+                provide everyone access to intelligent investing tools that were
+                previously available only to those with significant resources.
+              </p>
+              <p className="text-muted-foreground">
+                Today, we serve hundreds of thousands of clients, managing
+                billions in assets with the same commitment to accessibility,
+                transparency, and customer service that drove our founding.
+              </p>
+            </div>
+            <div className="relative h-[400px] w-full rounded-xl overflow-hidden">
+              <Image
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2940&auto=format&fit=crop"
+                alt="Investo team collaboration"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+
+          <Separator className="my-16" />
+
+          <div className="max-w-3xl mx-auto mb-16">
+            <h2 className="heading-lg text-center mb-12">Our Values</h2>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="flex items-start gap-4">
+                <div className="bg-invest/10 p-3 rounded-full flex items-center justify-center mt-1">
+                  <Users className="h-6 w-6 text-invest" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">Client First</h3>
+                  <p className="text-muted-foreground">
+                    We build every feature, make every decision, and structure
+                    every offering with our clients&apos; best interests in
+                    mind.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="bg-invest/10 p-3 rounded-full flex items-center justify-center mt-1">
+                  <Shield className="h-6 w-6 text-invest" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">
+                    Trust & Security
+                  </h3>
+                  <p className="text-muted-foreground">
+                    We safeguard your investments and personal information with
+                    the highest security standards in the industry.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="bg-invest/10 p-3 rounded-full flex items-center justify-center mt-1">
+                  <BarChart className="h-6 w-6 text-invest" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">Data-Driven</h3>
+                  <p className="text-muted-foreground">
+                    We make investment decisions based on rigorous research,
+                    comprehensive data analysis, and proven financial theories.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="bg-invest/10 p-3 rounded-full flex items-center justify-center mt-1">
+                  <Lightbulb className="h-6 w-6 text-invest" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">Innovation</h3>
+                  <p className="text-muted-foreground">
+                    We continuously explore new technologies and strategies to
+                    improve our platform and provide better outcomes for our
+                    clients.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="max-w-3xl mx-auto mb-16">
+            <h2 className="heading-lg text-center mb-12">Leadership Team</h2>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="relative h-40 w-40 mx-auto mb-4 rounded-full overflow-hidden">
+                  <Image
+                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=2787&auto=format&fit=crop"
+                    alt="Michael Chen, CEO"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold mb-1">Michael Chen</h3>
+                <p className="text-invest mb-2">CEO & Co-Founder</p>
+                <p className="text-muted-foreground text-sm">
+                  Former fintech executive with 15+ years of experience in
+                  wealth management.
+                </p>
+              </div>
+
+              <div className="text-center">
+                <div className="relative h-40 w-40 mx-auto mb-4 rounded-full overflow-hidden">
+                  <Image
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2876&auto=format&fit=crop"
+                    alt="Sarah Johnson, CTO"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold mb-1">Sarah Johnson</h3>
+                <p className="text-invest mb-2">CTO & Co-Founder</p>
+                <p className="text-muted-foreground text-sm">
+                  AI researcher and software architect specializing in financial
+                  algorithms.
+                </p>
+              </div>
+
+              <div className="text-center">
+                <div className="relative h-40 w-40 mx-auto mb-4 rounded-full overflow-hidden">
+                  <Image
+                    src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=2787&auto=format&fit=crop"
+                    alt="David Rodriguez, CIO"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold mb-1">David Rodriguez</h3>
+                <p className="text-invest mb-2">Chief Investment Officer</p>
+                <p className="text-muted-foreground text-sm">
+                  Former hedge fund manager with a focus on quantitative
+                  investing strategies.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="max-w-3xl mx-auto bg-invest/5 p-8 rounded-xl">
+            <h2 className="heading-md text-center mb-6">Join Our Mission</h2>
+            <p className="text-center mb-6">
+              We&apos;re always looking for talented individuals who are
+              passionate about transforming financial services.
+            </p>
+            <div className="flex justify-center">
+              <Button className="bg-invest hover:bg-invest-secondary text-white">
+                View Open Positions
+              </Button>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}
