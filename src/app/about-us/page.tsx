@@ -1,52 +1,56 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
 import { Users, BarChart, Shield, Lightbulb } from "lucide-react";
 import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function AboutUs() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-grow">
+        <div className="relative h-[400px] w-full overflow-hidden">
+          <Image
+            src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2940&auto=format&fit=crop"
+            alt="Team collaboration"
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
+          <div className="absolute inset-0 flex items-center justify-center text-center">
+            <div className="max-w-3xl px-6">
+              <h1 className="heading-xl gradient-text mb-6">
+                About Millenia Trades
+              </h1>
+              <p className="text-lg text-muted-foreground">
+                We&apos;re on a mission to democratize investing and help
+                everyone build a better financial future, regardless of their
+                background or starting point.
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="container mx-auto py-12">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h1 className="heading-xl gradient-text mb-6">About Investo</h1>
-            <p className="text-lg text-muted-foreground">
-              We&apos;re on a mission to democratize investing and help everyone
-              build a better financial future, regardless of their background or
-              starting point.
+            <h2 className="heading-lg mb-6">Our Story</h2>
+            <p className="mb-4 text-muted-foreground">
+              Millenia Trades was founded in 2017 by a team of financial experts
+              and technology innovators who believed that sophisticated
+              investment strategies shouldn&apos;t be reserved for the
+              ultra-wealthy.
             </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-            <div>
-              <h2 className="heading-lg mb-6">Our Story</h2>
-              <p className="mb-4 text-muted-foreground">
-                Investo was founded in 2018 by a team of financial experts and
-                technology innovators who believed that sophisticated investment
-                strategies shouldn&apos;t be reserved for the ultra-wealthy.
-              </p>
-              <p className="mb-4 text-muted-foreground">
-                We started with a simple idea: use cutting-edge technology to
-                provide everyone access to intelligent investing tools that were
-                previously available only to those with significant resources.
-              </p>
-              <p className="text-muted-foreground">
-                Today, we serve hundreds of thousands of clients, managing
-                billions in assets with the same commitment to accessibility,
-                transparency, and customer service that drove our founding.
-              </p>
-            </div>
-            <div className="relative h-[400px] w-full rounded-xl overflow-hidden">
-              <Image
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2940&auto=format&fit=crop"
-                alt="Investo team collaboration"
-                fill
-                className="object-cover"
-              />
-            </div>
+            <p className="mb-4 text-muted-foreground">
+              We started with a simple idea: use cutting-edge technology to
+              provide everyone access to intelligent investing tools that were
+              previously available only to those with significant resources.
+            </p>
+            <p className="text-muted-foreground">
+              Today, we serve hundreds of thousands of clients, managing
+              billions in assets with the same commitment to accessibility,
+              transparency, and customer service that drove our founding.
+            </p>
           </div>
 
           <Separator className="my-16" />
@@ -118,14 +122,14 @@ export default function AboutUs() {
 
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center">
-                <div className="relative h-40 w-40 mx-auto mb-4 rounded-full overflow-hidden">
-                  <Image
+                <Avatar className="h-40 w-40 mx-auto mb-4">
+                  <AvatarImage
                     src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=2787&auto=format&fit=crop"
                     alt="Michael Chen, CEO"
-                    fill
                     className="object-cover"
                   />
-                </div>
+                  <AvatarFallback className="text-2xl">MC</AvatarFallback>
+                </Avatar>
                 <h3 className="text-xl font-semibold mb-1">Michael Chen</h3>
                 <p className="text-invest mb-2">CEO & Co-Founder</p>
                 <p className="text-muted-foreground text-sm">
@@ -135,14 +139,14 @@ export default function AboutUs() {
               </div>
 
               <div className="text-center">
-                <div className="relative h-40 w-40 mx-auto mb-4 rounded-full overflow-hidden">
-                  <Image
+                <Avatar className="h-40 w-40 mx-auto mb-4">
+                  <AvatarImage
                     src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2876&auto=format&fit=crop"
                     alt="Sarah Johnson, CTO"
-                    fill
                     className="object-cover"
                   />
-                </div>
+                  <AvatarFallback className="text-2xl">SJ</AvatarFallback>
+                </Avatar>
                 <h3 className="text-xl font-semibold mb-1">Sarah Johnson</h3>
                 <p className="text-invest mb-2">CTO & Co-Founder</p>
                 <p className="text-muted-foreground text-sm">
@@ -152,14 +156,14 @@ export default function AboutUs() {
               </div>
 
               <div className="text-center">
-                <div className="relative h-40 w-40 mx-auto mb-4 rounded-full overflow-hidden">
-                  <Image
+                <Avatar className="h-40 w-40 mx-auto mb-4">
+                  <AvatarImage
                     src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=2787&auto=format&fit=crop"
                     alt="David Rodriguez, CIO"
-                    fill
                     className="object-cover"
                   />
-                </div>
+                  <AvatarFallback className="text-2xl">DR</AvatarFallback>
+                </Avatar>
                 <h3 className="text-xl font-semibold mb-1">David Rodriguez</h3>
                 <p className="text-invest mb-2">Chief Investment Officer</p>
                 <p className="text-muted-foreground text-sm">
@@ -170,7 +174,7 @@ export default function AboutUs() {
             </div>
           </div>
 
-          <div className="max-w-3xl mx-auto bg-invest/5 p-8 rounded-xl">
+          {/* <div className="max-w-3xl mx-auto bg-invest/5 p-8 rounded-xl">
             <h2 className="heading-md text-center mb-6">Join Our Mission</h2>
             <p className="text-center mb-6">
               We&apos;re always looking for talented individuals who are
@@ -181,7 +185,7 @@ export default function AboutUs() {
                 View Open Positions
               </Button>
             </div>
-          </div>
+          </div> */}
         </div>
       </main>
       <Footer />

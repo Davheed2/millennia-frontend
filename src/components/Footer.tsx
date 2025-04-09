@@ -1,8 +1,8 @@
 import {
-  Facebook,
-  Twitter,
-  Instagram,
-  Linkedin,
+  // Facebook,
+  // Twitter,
+  // Instagram,
+  // Linkedin,
   Mail,
   Phone,
 } from "lucide-react";
@@ -11,8 +11,8 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <footer className="bg-invest-dark text-white">
-      <div className="container py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
+      <div className="container py-12 mds:py-16">
+        <div className="grid grid-cols-1 mds:grid-cols-4 gap-6 mds:gap-6">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <div className="relative h-8 w-8 overflow-hidden rounded-full bg-gradient-to-br from-invest to-invest-accent">
@@ -20,13 +20,13 @@ const Footer = () => {
                   <div className="h-4 w-4 rounded-full bg-gradient-to-br from-invest to-invest-accent"></div>
                 </div>
               </div>
-              <span className="text-xl font-bold">Investo</span>
+              <span className="text-xl font-bold">Millenia Trades</span>
             </div>
             <p className="text-white/70">
               Invest smarter, not harder. Build your wealth with our data-driven
               platform.
             </p>
-            <div className="flex space-x-4">
+            {/* <div className="flex space-x-4">
               <a
                 href="#"
                 className="text-white/70 hover:text-white transition-colors"
@@ -51,7 +51,7 @@ const Footer = () => {
               >
                 <Linkedin size={20} />
               </a>
-            </div>
+            </div> */}
           </div>
 
           <div>
@@ -81,22 +81,6 @@ const Footer = () => {
                   Portfolio Management
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/tax-loss-harvesting"
-                  className="text-white/70 hover:text-white transition-colors"
-                >
-                  Tax-Loss Harvesting
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/socially-responsible"
-                  className="text-white/70 hover:text-white transition-colors"
-                >
-                  Socially Responsible
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -111,22 +95,14 @@ const Footer = () => {
                   About Us
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   href="/careers"
                   className="text-white/70 hover:text-white transition-colors"
                 >
                   Careers
                 </Link>
-              </li>
-              <li>
-                <Link
-                  href="/press"
-                  className="text-white/70 hover:text-white transition-colors"
-                >
-                  Press
-                </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   href="/blog"
@@ -149,22 +125,22 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-lg mb-4">Contact Us</h4>
             <ul className="space-y-4">
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-3 ml-0">
                 <Mail size={18} className="text-invest-accent" />
                 <a
-                  href="mailto:support@investo.com"
+                  href="mailto:support@milleniatrades.com"
                   className="text-white/70 hover:text-white transition-colors"
                 >
-                  support@investo.com
+                  support@milleniatrades.com
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-invest-accent" />
                 <a
-                  href="tel:+1234567890"
+                  href="tel:+16726482157"
                   className="text-white/70 hover:text-white transition-colors"
                 >
-                  +1 (234) 567-890
+                  +1 (672) 6482-157
                 </a>
               </li>
             </ul>
@@ -185,11 +161,11 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <div className="border-t border-white/10 mt-12 pt-8 flex flex-col mds:flex-row justify-between items-center">
           <p className="text-white/60 text-sm">
-            © {new Date().getFullYear()} Investo. All rights reserved.
+            © {new Date().getFullYear()} Millenia Trades. All rights reserved.
           </p>
-          <div className="flex gap-6 mt-4 md:mt-0">
+          <div className="flex gap-6 mt-4 mds:mt-0">
             <Link
               href="/privacy"
               className="text-white/60 hover:text-white text-sm transition-colors"
@@ -203,7 +179,7 @@ const Footer = () => {
               Terms of Service
             </Link>
             <a
-              href="#"
+              href="/cookie-policy"
               className="text-white/60 hover:text-white text-sm transition-colors"
             >
               Cookie Policy

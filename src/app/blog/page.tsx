@@ -12,7 +12,7 @@ export default function Blog() {
       <main className="flex-grow">
         <div className="container mx-auto py-12">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h1 className="heading-xl gradient-text mb-6">Investo Blog</h1>
+            <h1 className="heading-xl gradient-text mb-6">Millenia Trades Blog</h1>
             <p className="text-lg text-muted-foreground">
               Insights, education, and expert perspectives to help you make
               smarter investment decisions.

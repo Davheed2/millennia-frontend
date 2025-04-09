@@ -1,198 +1,163 @@
+"use client";
+import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useForm } from "react-hook-form";
+import Image from "next/image";
+import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
-export default function Contact() {
+export default function ContactUs() {
+  const form = useForm({
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      message: "",
+      privacyPolicy: false,
+    },
+  });
+
+  const onSubmit = (data: unknown) => {
+    console.log(data);
+    // Here you would typically send the form data to your backend
+    alert("Message sent successfully!");
+    //form.reset();
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-grow">
-        <div className="container mx-auto py-12">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h1 className="heading-xl gradient-text mb-6">Contact Us</h1>
+      <main className="flex-grow py-12">
+        <div className="container mx-auto max-w-6xl px-4">
+          <div className="text-center mb-10">
+            <h1 className="heading-xl gradient-text mb-4">Get in Touch</h1>
             <p className="text-lg text-muted-foreground">
-              Have questions or need assistance? Our team is here to help. Reach
-              out through any of the channels below.
+              We&apos;d love to solve your problem. Kindly fill out this form.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <div className="bg-invest/10 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <Phone className="h-8 w-8 text-invest" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Phone Support</h3>
-                <p className="text-muted-foreground mb-2">
-                  Speak directly with our investment specialists
-                </p>
-                <a
-                  href="tel:+18001234567"
-                  className="text-invest font-medium hover:underline block"
-                >
-                  +1 (800) 123-4567
-                </a>
-                <p className="text-sm text-muted-foreground mt-2">
-                  Monday-Friday, 8am-8pm EST
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <div className="bg-invest/10 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <Mail className="h-8 w-8 text-invest" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Email</h3>
-                <p className="text-muted-foreground mb-2">
-                  Send us a message anytime
-                </p>
-                <a
-                  href="mailto:support@investo.com"
-                  className="text-invest font-medium hover:underline block"
-                >
-                  support@investo.com
-                </a>
-                <p className="text-sm text-muted-foreground mt-2">
-                  We typically respond within 24 hours
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <div className="bg-invest/10 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <MapPin className="h-8 w-8 text-invest" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Office Location</h3>
-                <p className="text-muted-foreground mb-2">
-                  Visit our headquarters
-                </p>
-                <p className="text-invest font-medium">123 Financial Street</p>
-                <p className="text-invest font-medium">New York, NY 10001</p>
-                <p className="text-sm text-muted-foreground mt-2">
-                  By appointment only
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="max-w-4xl mx-auto grid md:grid-cols-5 gap-8 mb-16">
-            <div className="md:col-span-2 space-y-6">
-              <h2 className="heading-md">Get in Touch</h2>
-              <p className="text-muted-foreground">
-                Fill out the form and one of our team members will get back to
-                you as soon as possible.
-              </p>
-
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <Clock className="h-5 w-5 text-invest mt-1" />
-                  <div>
-                    <h4 className="font-medium">Business Hours</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Monday-Friday: 8am-8pm EST
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Saturday: 10am-4pm EST
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Sunday: Closed
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <Phone className="h-5 w-5 text-invest mt-1" />
-                  <div>
-                    <h4 className="font-medium">Departments</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Customer Support: +1 (800) 123-4567
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      New Accounts: +1 (800) 987-6543
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Technical Support: +1 (800) 456-7890
-                    </p>
-                  </div>
-                </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Contact image */}
+            <div className="relative rounded-lg overflow-hidden h-[500px] md:h-auto hidden md:flex">
+              <Image
+                src="/contact2.jpg"
+                alt="Contact our team"
+                fill
+                className="object-cover"
+              />
+              {/* <div className="absolute inset-0 bg-black bg-opacity-20"></div> */}
+              <div className="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white p-4">
+                <p className="font-medium">Millenia Trades</p>
               </div>
             </div>
 
-            <div className="md:col-span-3 space-y-6 bg-gray-50 p-6 rounded-xl">
-              <h3 className="text-xl font-semibold">Contact Form</h3>
-              <form className="space-y-4">
+            {/* Contact form */}
+            <Card className="p-6 shadow-none">
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="firstName">First Name</Label>
-                    <Input id="firstName" placeholder="Enter your first name" />
+                  <div className="space-y-1">
+                    <label htmlFor="firstName" className="text-sm font-medium">
+                      First Name
+                    </label>
+                    <Input
+                      type="text"
+                      autoFocus
+                      id="firstName"
+                      aria-label="First Name"
+                      placeholder="First Name"
+                      className={`min-h-[45px] text-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 placeholder:text-sm`}
+                    />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="lastName">Last Name</Label>
-                    <Input id="lastName" placeholder="Enter your last name" />
+                  <div className="space-y-1">
+                    <label htmlFor="lastName" className="text-sm font-medium">
+                      Last Name
+                    </label>
+                    <Input
+                      type="text"
+                      id="lastName"
+                      aria-label="Last Name"
+                      placeholder="Last Name"
+                      className={`min-h-[45px] text-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 placeholder:text-sm`}
+                    />
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                <div className="space-y-1">
+                  <label htmlFor="email" className="text-sm font-medium">
+                    Email
+                  </label>
                   <Input
-                    id="email"
                     type="email"
-                    placeholder="Enter your email"
+                    id="email"
+                    aria-label="Email address"
+                    placeholder="Email Address"
+                    className={`min-h-[45px] border-gray-300 focus:border-blue-500 focus:ring-blue-500 placeholder:text-sm`}
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone (optional)</Label>
-                  <Input id="phone" placeholder="Enter your phone number" />
+                <div className="space-y-1">
+                  <label htmlFor="phone" className="text-sm font-medium">
+                    Phone number
+                  </label>
+                  <div className="relative">
+                    <Input
+                      type="text"
+                      id="phone"
+                      aria-label="Phone Number"
+                      placeholder="Phone Number"
+                      className={`min-h-[45px] text-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 placeholder:text-sm`}
+                    />
+                  </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="inquiry">Type of Inquiry</Label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select an option" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="general">General Question</SelectItem>
-                      <SelectItem value="account">Account Support</SelectItem>
-                      <SelectItem value="technical">Technical Issue</SelectItem>
-                      <SelectItem value="investing">
-                        Investment Advice
-                      </SelectItem>
-                      <SelectItem value="feedback">Feedback</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="message">Message</Label>
+                <div className="space-y-1">
+                  <label htmlFor="message" className="text-sm font-medium">
+                    Message
+                  </label>
                   <Textarea
                     id="message"
-                    placeholder="Please describe how we can help you"
+                    placeholder="Tell us your problem..."
+                    className="resize-none"
                     rows={5}
+                    {...form.register("message", { required: true })}
                   />
                 </div>
 
-                <Button className="w-full bg-invest hover:bg-invest-secondary text-white">
-                  Submit Message
+                <div className="flex items-start space-x-2">
+                  <Checkbox
+                    id="privacyPolicy"
+                    {...form.register("privacyPolicy", { required: true })}
+                  />
+                  <label htmlFor="privacyPolicy" className="text-sm">
+                    You agree to our friendly{" "}
+                    <Link
+                      href="/privacy"
+                      className="text-invest hover:underline"
+                    >
+                      privacy policy
+                    </Link>
+                    .
+                  </label>
+                </div>
+
+                <Button
+                  type="submit"
+                  className="w-full bg-[#1a5fb4] hover:bg-[#1552a0] text-white"
+                >
+                  Send message
                 </Button>
               </form>
-            </div>
+            </Card>
           </div>
 
           <Separator className="my-16" />
@@ -242,21 +207,6 @@ export default function Contact() {
                   clients in multiple languages.
                 </p>
               </div>
-            </div>
-          </div>
-
-          <div className="max-w-3xl mx-auto bg-invest/5 p-8 rounded-xl">
-            <h2 className="heading-md text-center mb-6">
-              Need Immediate Assistance?
-            </h2>
-            <p className="text-center mb-6">
-              For urgent matters, please call our priority support line for
-              faster service.
-            </p>
-            <div className="flex justify-center">
-              <Button className="bg-invest hover:bg-invest-secondary text-white">
-                <Phone className="mr-2 h-4 w-4" /> Call Priority Support
-              </Button>
             </div>
           </div>
         </div>

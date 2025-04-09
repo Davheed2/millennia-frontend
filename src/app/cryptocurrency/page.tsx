@@ -10,6 +10,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Bitcoin, Shield, Zap, Lock } from "lucide-react";
+import Link from "next/link";
 
 export default function Cryptocurrency() {
   return (
@@ -45,9 +46,12 @@ export default function Cryptocurrency() {
                       </div>
                       <span>Bitcoin (BTC)</span>
                     </div>
-                    <Button variant="outline" size="sm">
-                      Buy
-                    </Button>
+
+                    <Link href="/signin">
+                      <Button variant="outline" size="sm">
+                        Buy
+                      </Button>
+                    </Link>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -56,9 +60,11 @@ export default function Cryptocurrency() {
                       </div>
                       <span>Ethereum (ETH)</span>
                     </div>
-                    <Button variant="outline" size="sm">
-                      Buy
-                    </Button>
+                    <Link href="/signin">
+                      <Button variant="outline" size="sm">
+                        Buy
+                      </Button>
+                    </Link>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -67,9 +73,11 @@ export default function Cryptocurrency() {
                       </div>
                       <span>Solana (SOL)</span>
                     </div>
-                    <Button variant="outline" size="sm">
-                      Buy
-                    </Button>
+                    <Link href="/signin">
+                      <Button variant="outline" size="sm">
+                        Buy
+                      </Button>
+                    </Link>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -78,14 +86,19 @@ export default function Cryptocurrency() {
                       </div>
                       <span>Polkadot (DOT)</span>
                     </div>
-                    <Button variant="outline" size="sm">
-                      Buy
-                    </Button>
+                    <Link href="/signin">
+                      <Button variant="outline" size="sm">
+                        Buy
+                      </Button>
+                    </Link>
                   </div>
                 </div>
-                <Button className="w-full mt-6 bg-invest hover:bg-invest-secondary text-white">
-                  View All Cryptocurrencies
-                </Button>
+
+                <Link href="/crypto">
+                  <Button className="w-full mt-6 bg-invest hover:bg-invest-secondary text-white">
+                    View All Cryptocurrencies
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 

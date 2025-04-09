@@ -1,6 +1,6 @@
-"use client";
+// "use client";
 
-import { useState } from "react";
+// import { useState } from "react";
 
 export interface BlogPost {
   id: string;
@@ -21,7 +21,7 @@ export const featuredPost: BlogPost = {
   excerpt:
     "As environmental and social governance factors become increasingly important to investors, we examine the key trends shaping the future of sustainable investing.",
   category: "Investment Trends",
-  date: "April 2, 2025",
+  date: "April 30, 2025",
   author: "Sarah Johnson",
   authorRole: "Chief Investment Officer",
   image:
@@ -73,7 +73,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Market fluctuations can be intimidating for beginners. Learn how to navigate volatility and stay focused on long-term goals.",
     category: "Investing Basics",
-    date: "March 28, 2025",
+    date: "April 28, 2025",
     author: "Michael Chen",
     image:
       "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2070&auto=format&fit=crop",
@@ -81,7 +81,7 @@ export const blogPosts: BlogPost[] = [
       <h2>What Is Market Volatility?</h2>
       <p>Market volatility refers to the rate at which the price of assets in a market increases or decreases. Higher volatility means that prices change rapidly and significantly, while lower volatility indicates more stable and predictable price movements.</p>
       
-      <p>For new investors, volatility can be unsettling. Seeing your investments fluctuate in value—sometimes dramatically—can trigger emotional responses that lead to poor decision-making.</p>
+      <p>For new investors, volatility can be unsettling. Seeing your investments fluctuate in value sometimes dramatically can trigger emotional responses that lead to poor decision-making.</p>
       
       <h2>Why Markets Experience Volatility</h2>
       <p>Understanding the causes of market volatility can help you respond more rationally when it occurs. Common factors include:</p>
@@ -100,7 +100,7 @@ export const blogPosts: BlogPost[] = [
       <p>One of the most important strategies for dealing with volatility is to focus on your long-term investment goals rather than short-term market movements. Historically, markets have trended upward over long periods despite experiencing significant short-term volatility along the way.</p>
       
       <h3>2. Diversify Your Portfolio</h3>
-      <p>Diversification—spreading your investments across different asset classes, sectors, and geographic regions—can help reduce the impact of volatility on your overall portfolio. When some investments are performing poorly, others may be doing well, helping to smooth out returns.</p>
+      <p>Diversification spreading your investments across different asset classes, sectors, and geographic regions can help reduce the impact of volatility on your overall portfolio. When some investments are performing poorly, others may be doing well, helping to smooth out returns.</p>
       
       <h3>3. Consider Dollar-Cost Averaging</h3>
       <p>Dollar-cost averaging involves investing a fixed amount at regular intervals, regardless of market conditions. This approach can help reduce the impact of volatility on your investments by ensuring you purchase more shares when prices are lower and fewer when prices are higher.</p>
@@ -109,7 +109,7 @@ export const blogPosts: BlogPost[] = [
       <p>Having cash reserves to cover 3-6 months of living expenses means you won't need to sell investments during market downturns to cover unexpected costs.</p>
       
       <h3>5. Avoid Checking Your Portfolio Too Frequently</h3>
-      <p>Constantly monitoring your investments during periods of volatility can lead to emotional decision-making. Consider checking your portfolio less frequently—perhaps monthly or quarterly rather than daily—to maintain perspective.</p>
+      <p>Constantly monitoring your investments during periods of volatility can lead to emotional decision-making. Consider checking your portfolio less frequently perhaps monthly or quarterly rather than daily to maintain perspective.</p>
       
       <h2>When Volatility Creates Opportunity</h2>
       <p>Market volatility isn't always negative. Price declines can create opportunities to purchase quality investments at discounted prices. If you have a well-defined investment strategy and the discipline to follow it, volatility can work to your advantage.</p>
@@ -123,7 +123,7 @@ export const blogPosts: BlogPost[] = [
         <li><strong>Herd mentality:</strong> Following what others are doing rather than sticking to your own strategy.</li>
       </ul>
       
-      <p>Recognizing these biases and developing strategies to counter them—such as writing down your investment plan during calm periods—can help you stay disciplined when markets become turbulent.</p>
+      <p>Recognizing these biases and developing strategies to counter them such as writing down your investment plan during calm periods can help you stay disciplined when markets become turbulent.</p>
       
       <h2>The Bottom Line</h2>
       <p>Market volatility is an inevitable part of investing. Rather than fearing it or trying to avoid it, successful investors learn to understand volatility, prepare for it, and sometimes even use it to their advantage.</p>
@@ -137,7 +137,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "The power of compound interest makes your 30s a crucial decade for retirement savings. Here's how to get started.",
     category: "Retirement",
-    date: "March 23, 2025",
+    date: "April 23, 2025",
     author: "Emily Rodriguez",
     image:
       "https://images.unsplash.com/photo-1517292987719-0369a794ec0f?q=80&w=2874&auto=format&fit=crop",
@@ -145,10 +145,10 @@ export const blogPosts: BlogPost[] = [
       <h2>The Power of Starting Early</h2>
       <p>Your 30s represent a pivotal time for retirement planning. While retirement may seem distant, the financial decisions you make during this decade can significantly impact your future financial security, thanks to the power of compound interest.</p>
       
-      <p>Consider this example: If you begin investing $500 monthly at age 30 with an average annual return of 7%, you could accumulate approximately $1,000,000 by age 65. Wait until age 40 to start the same investment strategy, and your nest egg would be closer to $500,000—half the amount, despite only a ten-year difference in starting time.</p>
+      <p>Consider this example: If you begin investing $500 monthly at age 30 with an average annual return of 7%, you could accumulate approximately $1,000,000 by age 65. Wait until age 40 to start the same investment strategy, and your nest egg would be closer to $500,000 half the amount, despite only a ten-year difference in starting time.</p>
       
       <h2>Balancing Competing Financial Priorities</h2>
-      <p>One of the biggest challenges of retirement planning in your 30s is balancing it with other financial goals and responsibilities. Many people in this age group are managing student loan debt, saving for a home, building emergency funds, and possibly starting families—all of which require financial resources.</p>
+      <p>One of the biggest challenges of retirement planning in your 30s is balancing it with other financial goals and responsibilities. Many people in this age group are managing student loan debt, saving for a home, building emergency funds, and possibly starting families all of which require financial resources.</p>
       
       <p>The key is finding the right balance rather than ignoring retirement savings altogether. Even small contributions to retirement accounts can grow significantly over time, so consider starting with what you can manage and increasing your savings rate as your income grows or other financial pressures ease.</p>
       
@@ -197,7 +197,7 @@ export const blogPosts: BlogPost[] = [
       <p>Automation removes the emotional and practical barriers to consistent saving and investing, making it more likely you'll stick to your plan even during busy or financially challenging periods.</p>
       
       <h2>The Path Forward</h2>
-      <p>Retirement planning in your 30s doesn't require sacrificing your current quality of life. Rather, it's about making thoughtful choices that balance present needs with future security. By starting early—even with modest contributions—and gradually building your retirement strategy as your career advances, you can create a solid foundation for financial independence in your later years.</p>
+      <p>Retirement planning in your 30s doesn't require sacrificing your current quality of life. Rather, it's about making thoughtful choices that balance present needs with future security. By starting early even with modest contributions and gradually building your retirement strategy as your career advances, you can create a solid foundation for financial independence in your later years.</p>
       
       <p>Remember, the decisions you make in your 30s can significantly reduce the financial pressure you'll face in your 40s and 50s, when other financial responsibilities may be at their peak. Your future self will thank you for the foresight and discipline you exercise today.</p>
     `,
@@ -208,7 +208,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Smart tax planning can significantly impact your investment returns. Learn key strategies to minimize your tax burden.",
     category: "Tax Planning",
-    date: "March 17, 2025",
+    date: "April 17, 2025",
     author: "David Wilson",
     image:
       "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2942&auto=format&fit=crop",
@@ -228,7 +228,7 @@ export const blogPosts: BlogPost[] = [
       </ul>
       
       <h3>Account Placement (Asset Location)</h3>
-      <p>Once you have different types of accounts, consider which investments belong in each—a strategy known as asset location:</p>
+      <p>Once you have different types of accounts, consider which investments belong in each a strategy known as asset location:</p>
       
       <ul>
         <li>Hold tax-inefficient investments (those generating ordinary income like taxable bonds or REITs) in tax-deferred or tax-exempt accounts when possible.</li>
@@ -285,7 +285,7 @@ export const blogPosts: BlogPost[] = [
       <p>Tax laws change frequently, and these changes can significantly impact optimal investment strategies. Work with tax and financial professionals to stay informed about legislative changes and adjust your approach accordingly.</p>
       
       <h2>The Bottom Line</h2>
-      <p>While investment performance is important, tax efficiency can be equally crucial in building long-term wealth. By implementing these tax strategies—account diversification, strategic asset location, tax-loss harvesting, and careful attention to investment selection—you can potentially enhance your after-tax returns without taking on additional investment risk.</p>
+      <p>While investment performance is important, tax efficiency can be equally crucial in building long-term wealth. By implementing these tax strategies account diversification, strategic asset location, tax-loss harvesting, and careful attention to investment selection you can potentially enhance your after-tax returns without taking on additional investment risk.</p>
       
       <p>Remember that while tax considerations are important, they should not override sound investment principles. The primary goal remains building a well-diversified portfolio aligned with your financial objectives and risk tolerance.</p>
     `,
@@ -296,18 +296,18 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Artificial intelligence is transforming how investment portfolios are constructed and managed. Here's what you need to know.",
     category: "Technology",
-    date: "March 10, 2025",
+    date: "April 15, 2025",
     author: "Lin Zhang",
     image:
       "https://images.unsplash.com/photo-1535378620166-273708d44e4c?q=80&w=2873&auto=format&fit=crop",
     content: `
       <h2>The AI Revolution in Finance</h2>
-      <p>Artificial intelligence (AI) is fundamentally changing the landscape of investment management. What was once the exclusive domain of human financial advisors and portfolio managers is increasingly being augmented—and in some cases replaced—by sophisticated algorithms and machine learning models. This technological revolution has implications for investors at every level, from individuals managing their retirement accounts to institutional investors overseeing billions in assets.</p>
+      <p>Artificial intelligence (AI) is fundamentally changing the landscape of investment management. What was once the exclusive domain of human financial advisors and portfolio managers is increasingly being augmented and in some cases replaced by sophisticated algorithms and machine learning models. This technological revolution has implications for investors at every level, from individuals managing their retirement accounts to institutional investors overseeing billions in assets.</p>
       
       <h2>How AI is Transforming Portfolio Management</h2>
       
       <h3>Enhanced Data Analysis</h3>
-      <p>Perhaps the most significant advantage AI brings to investment management is the ability to analyze vast amounts of data—far more than any human or team of humans could process. Modern AI systems can process:</p>
+      <p>Perhaps the most significant advantage AI brings to investment management is the ability to analyze vast amounts of data far more than any human or team of humans could process. Modern AI systems can process:</p>
       
       <ul>
         <li>Traditional financial data (earnings reports, economic indicators, price movements)</li>
@@ -445,10 +445,10 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Do environmentally and socially responsible investments perform as well as traditional options? We analyze the latest data.",
     category: "Sustainable Investing",
-    date: "March 4, 2025",
+    date: "April 10, 2025",
     author: "James Taylor",
     image:
-      "https://images.unsplash.com/photo-1453131989635-f5d07fcb4410?q=80&w=2940&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1607369165516-0e831913b397?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     content: `
       <h2>The Evolution of ESG Investing</h2>
       <p>Environmental, Social, and Governance (ESG) investing has evolved significantly from its roots in socially responsible investing (SRI). While traditional SRI approaches primarily focused on excluding certain industries or companies (such as tobacco or weapons manufacturers), modern ESG investing takes a more nuanced approach, integrating consideration of environmental, social, and governance factors into investment analysis and decision-making.</p>
@@ -548,13 +548,13 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Diversifying internationally can strengthen your portfolio. Explore opportunities in global markets for the coming year.",
     category: "Global Investing",
-    date: "February 25, 2025",
+    date: "March 30, 2025",
     author: "Sophia Martinez",
     image:
       "https://images.unsplash.com/photo-1423655156442-ccc11daa4e99?q=80&w=2154&auto=format&fit=crop",
     content: `
       <h2>The Evolving Case for International Diversification</h2>
-      <p>In an increasingly interconnected global economy, limiting investments to one's home country represents a significant restriction on opportunity. International markets offer exposure to different economic cycles, monetary policies, demographic trends, and industry compositions—all of which can provide valuable diversification benefits and access to growth opportunities not available domestically.</p>
+      <p>In an increasingly interconnected global economy, limiting investments to one's home country represents a significant restriction on opportunity. International markets offer exposure to different economic cycles, monetary policies, demographic trends, and industry compositions all of which can provide valuable diversification benefits and access to growth opportunities not available domestically.</p>
       
       <p>However, the traditional relationship between global markets has evolved. Increased economic integration and the global presence of multinational corporations have led to higher correlations between markets, particularly during periods of stress. This doesn't eliminate the value of international diversification but does change how investors should approach it.</p>
       
@@ -668,7 +668,7 @@ export const blogPosts: BlogPost[] = [
       <ul>
         <li>Less efficient markets (such as certain emerging markets or small-cap segments) may offer greater opportunity for skilled active managers to add value.</li>
         <li>Market segments heavily influenced by macro factors or dominated by a few large companies may be efficiently accessed through index approaches.</li>
-        <li>A core-satellite approach—combining broad market exposure through index funds with targeted active strategies—may be appropriate for many investors.</li>
+        <li>A core-satellite approach combining broad market exposure through index funds with targeted active strategies may be appropriate for many investors.</li>
       </ul>
       
       <h3>Direct Investment vs. Multinational Exposure</h3>
@@ -683,7 +683,7 @@ export const blogPosts: BlogPost[] = [
       <h2>The Bottom Line</h2>
       <p>International markets offer both diversification benefits and distinct opportunities not available in any single market. While correlations between global markets have increased over time, the different economic, political, and market dynamics across regions continue to create a compelling case for global diversification.</p>
       
-      <p>As 2025 unfolds, a selective approach to international investments—informed by valuation considerations, structural growth trends, and risk factors specific to each market—may serve investors well. Rather than making all-or-nothing decisions about international allocation, investors should consider how different regions and markets might complement their existing portfolios and align with their long-term financial objectives.</p>
+      <p>As 2025 unfolds, a selective approach to international investments informed by valuation considerations, structural growth trends, and risk factors specific to each market may serve investors well. Rather than making all-or-nothing decisions about international allocation, investors should consider how different regions and markets might complement their existing portfolios and align with their long-term financial objectives.</p>
     `,
   },
   {
@@ -692,13 +692,13 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "As inflation concerns persist, discover strategies to protect your investments and potentially benefit from inflationary environments.",
     category: "Investment Strategies",
-    date: "February 18, 2025",
+    date: "March 25, 2025",
     author: "Robert Chang",
     image:
       "https://images.unsplash.com/photo-1543286386-713bdd548da4?q=80&w=2940&auto=format&fit=crop",
     content: `
       <h2>Understanding Inflation's Impact on Investments</h2>
-      <p>Inflation—the general increase in prices and decline in purchasing power—can significantly impact investment returns. Even moderate inflation of 3% annually will cut the purchasing power of a dollar in half over about 24 years. For investors, the key concern is not just absolute returns, but real returns: investment growth after accounting for inflation.</p>
+      <p>Inflation the general increase in prices and decline in purchasing power can significantly impact investment returns. Even moderate inflation of 3% annually will cut the purchasing power of a dollar in half over about 24 years. For investors, the key concern is not just absolute returns, but real returns: investment growth after accounting for inflation.</p>
       
       <p>Different asset classes respond differently to inflationary environments:</p>
       
@@ -751,7 +751,7 @@ export const blogPosts: BlogPost[] = [
       <h2>Real Assets as Inflation Hedges</h2>
       
       <h3>Commodities</h3>
-      <p>Commodities—including energy, metals, and agricultural products—have historically been one of the most direct hedges against inflation, as their prices are often components of inflation indices. Investors can gain exposure through commodity futures, commodity-focused equities, or exchange-traded products.</p>
+      <p>Commodities including energy, metals, and agricultural products have historically been one of the most direct hedges against inflation, as their prices are often components of inflation indices. Investors can gain exposure through commodity futures, commodity-focused equities, or exchange-traded products.</p>
       
       <h3>Real Estate</h3>
       <p>Certain types of real estate investments can provide inflation protection:</p>
@@ -763,7 +763,7 @@ export const blogPosts: BlogPost[] = [
       </ul>
       
       <h3>Infrastructure</h3>
-      <p>Infrastructure investments—including utilities, transportation, and communication assets—often have several inflation-resistant features:</p>
+      <p>Infrastructure investments including utilities, transportation, and communication assets often have several inflation-resistant features:</p>
       
       <ul>
         <li>Regulation that allows for inflation-linked price increases</li>
@@ -822,9 +822,9 @@ export const blogPosts: BlogPost[] = [
       <h2>The Bottom Line</h2>
       <p>Inflation is a natural concern for investors, as it directly affects the purchasing power of both investment principal and income. While inflation has moderated from recent peaks, incorporating inflation resilience into portfolio construction remains prudent for long-term investors.</p>
       
-      <p>The most effective approach combines strategic allocations to assets with inflation-resistant properties, attention to income generation that can keep pace with rising prices, and sufficient growth potential to build wealth over time. Rather than attempting to perfectly time inflation cycles—a notoriously difficult task—investors should aim for balanced portfolios that can perform reasonably well across various inflation scenarios.</p>
+      <p>The most effective approach combines strategic allocations to assets with inflation-resistant properties, attention to income generation that can keep pace with rising prices, and sufficient growth potential to build wealth over time. Rather than attempting to perfectly time inflation cycles a notoriously difficult task investors should aim for balanced portfolios that can perform reasonably well across various inflation scenarios.</p>
       
-      <p>Remember that inflation protection isn't free—assets with strong inflation-hedging properties may underperform in disinflationary or deflationary environments. This reinforces the importance of diversification rather than extreme positioning based on any single economic forecast.</p>
+      <p>Remember that inflation protection isn't free assets with strong inflation-hedging properties may underperform in disinflationary or deflationary environments. This reinforces the importance of diversification rather than extreme positioning based on any single economic forecast.</p>
     `,
   },
   {
@@ -833,20 +833,20 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Understanding the psychological biases that affect investment decisions can help you build wealth more effectively. Learn to recognize and overcome these pitfalls.",
     category: "Investing Basics",
-    date: "February 10, 2025",
+    date: "March 10, 2025",
     author: "Alexandra Williams",
     image:
       "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2940&auto=format&fit=crop",
     content: `
       <h2>Why Psychology Matters in Investing</h2>
-      <p>Traditional finance theory assumes that investors are rational actors who make decisions to maximize their economic benefit. However, decades of research in behavioral finance—the study of how psychology influences financial decisions—has demonstrated that human beings regularly deviate from rational behavior in predictable ways.</p>
+      <p>Traditional finance theory assumes that investors are rational actors who make decisions to maximize their economic benefit. However, decades of research in behavioral finance the study of how psychology influences financial decisions has demonstrated that human beings regularly deviate from rational behavior in predictable ways.</p>
       
       <p>These deviations, often called cognitive biases, can lead to systematic investment errors that significantly impact returns. Understanding these biases is the first step toward mitigating their effects and making better investment decisions.</p>
       
       <h2>Common Cognitive Biases in Investing</h2>
       
       <h3>Loss Aversion</h3>
-      <p><strong>The bias:</strong> People typically feel the pain of losses more intensely than the pleasure of equivalent gains—research suggests roughly twice as strongly. This asymmetry leads investors to take too little risk in some situations and, paradoxically, too much risk in others.</p>
+      <p><strong>The bias:</strong> People typically feel the pain of losses more intensely than the pleasure of equivalent gains research suggests roughly twice as strongly. This asymmetry leads investors to take too little risk in some situations and, paradoxically, too much risk in others.</p>
       
       <p><strong>How it manifests:</strong></p>
       <ul>
@@ -953,13 +953,13 @@ export const blogPosts: BlogPost[] = [
       <p>A detailed investment policy statement that outlines your goals, time horizon, risk tolerance, asset allocation, and investment selection criteria can serve as a valuable reference during emotionally charged markets. Review and update this document periodically, but not during times of market stress.</p>
       
       <h3>Automate Where Possible</h3>
-      <p>Systematic investment approaches—such as regular contributions to investment accounts, automatic rebalancing, and rule-based investment selection—can help remove emotion from the investment process. These approaches are particularly valuable during volatile markets when emotional decision-making is most likely to occur.</p>
+      <p>Systematic investment approaches such as regular contributions to investment accounts, automatic rebalancing, and rule-based investment selection can help remove emotion from the investment process. These approaches are particularly valuable during volatile markets when emotional decision-making is most likely to occur.</p>
       
       <h3>Limit Consumption of Financial Media</h3>
       <p>While staying informed is important, constant exposure to financial news and market commentary can trigger emotional responses and short-term thinking. Consider scheduling specific times to review market information rather than consuming it continuously, and focus on sources that provide context and analysis rather than merely reporting daily fluctuations.</p>
       
       <h3>Work With a Trusted Advisor</h3>
-      <p>A good financial advisor provides not just technical expertise but also behavioral coaching—helping you recognize and counteract biases in your decision-making. Research indicates that this coaching aspect may be the most valuable service advisors provide, particularly during market downturns when emotional reactions are strongest.</p>
+      <p>A good financial advisor provides not just technical expertise but also behavioral coaching helping you recognize and counteract biases in your decision-making. Research indicates that this coaching aspect may be the most valuable service advisors provide, particularly during market downturns when emotional reactions are strongest.</p>
       
       <h3>Practice Mindful Investing</h3>
       <p>Developing awareness of your emotional responses to market events can help you pause before making reactive decisions. Before making significant investment changes, consider:</p>
@@ -974,7 +974,7 @@ export const blogPosts: BlogPost[] = [
       <h2>The Bottom Line</h2>
       <p>The greatest investment returns come not necessarily from picking the best investments but from avoiding major mistakes. Behavioral biases are a primary source of these mistakes, leading investors to buy high, sell low, trade excessively, and take either too much or too little risk.</p>
       
-      <p>By understanding these biases and implementing structural safeguards against them, you can potentially improve your investment returns significantly. Remember that these biases affect everyone—professional investors are not immune. The difference lies in recognizing these tendencies and developing systems to counteract them.</p>
+      <p>By understanding these biases and implementing structural safeguards against them, you can potentially improve your investment returns significantly. Remember that these biases affect everyone professional investors are not immune. The difference lies in recognizing these tendencies and developing systems to counteract them.</p>
       
       <p>While it's impossible to eliminate behavioral biases entirely, awareness is the first step toward improvement. With practice, reflection, and potentially the help of a trusted advisor, you can make these biases less influential in your investment decisions and stay focused on your long-term financial goals.</p>
     `,
@@ -985,10 +985,10 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "As digital assets mature, more investors are considering adding cryptocurrency to their portfolios. We examine how to determine an appropriate allocation.",
     category: "Cryptocurrency",
-    date: "February 2, 2025",
+    date: "March 2, 2025",
     author: "Marcus Johnson",
     image:
-      "https://images.unsplash.com/photo-1518544087731-68f36241b238?q=80&w=2874&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1691807714620-2c540def3257?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     content: `
       <h2>The Evolving Case for Cryptocurrency Allocation</h2>
       <p>Cryptocurrency has evolved from a niche technological experiment to an emerging asset class that's gained attention from individual and institutional investors alike. While still highly volatile and speculative, digital assets have matured in several important ways:</p>
@@ -1056,7 +1056,7 @@ export const blogPosts: BlogPost[] = [
       <p>Cryptocurrency allocation should be considered in the context of overall portfolio composition and other high-risk exposures. Investors already holding significant positions in high-volatility assets, early-stage companies, or other alternative investments might reduce cryptocurrency allocation accordingly.</p>
       
       <h3>Financial Goals and Stability</h3>
-      <p>Investors with substantial financial security—emergency reserves, stable income, limited debt, and well-funded primary financial goals—may be better positioned to accept the risks of cryptocurrency exposure.</p>
+      <p>Investors with substantial financial security emergency reserves, stable income, limited debt, and well-funded primary financial goals may be better positioned to accept the risks of cryptocurrency exposure.</p>
       
       <h2>Implementation Approaches</h2>
       <p>Once you've determined an appropriate allocation strategy, several implementation approaches are available:</p>
@@ -1103,12 +1103,12 @@ export const blogPosts: BlogPost[] = [
       <p>Some investors find it helpful to mentally (or actually) separate a small, explicitly speculative cryptocurrency allocation from their core long-term investment portfolio, with different expectations and risk management approaches for each.</p>
       
       <h2>Tax Considerations</h2>
-      <p>Cryptocurrency taxation varies by jurisdiction but typically involves capital gains considerations. In many countries, each cryptocurrency transaction—including trading one cryptocurrency for another—is a taxable event. This complex tax treatment makes strategic tax planning particularly important for active cryptocurrency investors.</p>
+      <p>Cryptocurrency taxation varies by jurisdiction but typically involves capital gains considerations. In many countries, each cryptocurrency transaction including trading one cryptocurrency for another is a taxable event. This complex tax treatment makes strategic tax planning particularly important for active cryptocurrency investors.</p>
       
       <h2>The Bottom Line</h2>
       <p>Cryptocurrency represents a high-risk, potentially high-reward component of a diversified investment strategy. While complete avoidance is a perfectly reasonable choice for many investors, those interested in exposure should approach allocation decisions thoughtfully, with clear-eyed recognition of both the significant risks and potential opportunities.</p>
       
-      <p>For most investors, limiting cryptocurrency to a modest portfolio allocation—typically in the low single digits—balances the potential for meaningful contribution to returns if the asset class continues to develop, while limiting potential negative impact if more pessimistic scenarios unfold.</p>
+      <p>For most investors, limiting cryptocurrency to a modest portfolio allocation typically in the low single digits balances the potential for meaningful contribution to returns if the asset class continues to develop, while limiting potential negative impact if more pessimistic scenarios unfold.</p>
       
       <p>Whatever allocation decision you make, approach cryptocurrency with a long-term perspective, a disciplined investment process, and a commitment to ongoing education about this rapidly evolving asset class. Remember that appropriate allocation may change over time as the cryptocurrency market matures and your own financial circumstances evolve.</p>
     `,
@@ -1130,48 +1130,6 @@ export const allCategories = [
   "Investment Strategies",
   "Cryptocurrency",
 ];
-
-// Custom hook for blog functionality
-export function useBlog() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All Topics");
-  const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 6;
-
-  // Filter posts based on search query and selected category
-  const filteredPosts = [...blogPosts, featuredPost].filter((post) => {
-    const matchesSearch =
-      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.category.toLowerCase().includes(searchQuery.toLowerCase());
-
-    const matchesCategory =
-      selectedCategory === "All Topics" || post.category === selectedCategory;
-
-    return matchesSearch && matchesCategory;
-  });
-
-  // Pagination logic
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
-  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
-
-  return {
-    allPosts: [...blogPosts, featuredPost],
-    filteredPosts,
-    currentPosts,
-    searchQuery,
-    setSearchQuery,
-    selectedCategory,
-    setSelectedCategory,
-    currentPage,
-    setCurrentPage,
-    totalPages,
-    postsPerPage,
-  };
-}
 
 // Function to find a post by ID
 export function findPostById(id: string): BlogPost | undefined {

@@ -10,6 +10,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Clock, PieChart, Shield } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function StocksAndETFs() {
   return (
@@ -27,7 +29,16 @@ export default function StocksAndETFs() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 mb-16">
-            <Card>
+            <Card className="overflow-hidden">
+              <div className="relative w-full h-48">
+                <Image
+                  src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2070&auto=format&fit=crop"
+                  alt="Stock trading chart"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              </div>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <TrendingUp className="h-5 w-5 text-invest" />
@@ -56,13 +67,24 @@ export default function StocksAndETFs() {
                     <span>Real-time market data</span>
                   </li>
                 </ul>
-                <Button className="w-full mt-6 bg-invest hover:bg-invest-secondary text-white">
-                  Explore Stocks
-                </Button>
+                <Link href="/stocks">
+                  <Button className="w-full mt-6 bg-invest hover:bg-invest-secondary text-white">
+                    Explore Stocks
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="overflow-hidden">
+              <div className="relative w-full h-48">
+                <Image
+                  src="https://images.unsplash.com/photo-1591696205602-2f950c417cb9?q=80&w=2070&auto=format&fit=crop"
+                  alt="ETF investment portfolio"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              </div>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <PieChart className="h-5 w-5 text-invest" />
@@ -91,9 +113,11 @@ export default function StocksAndETFs() {
                     <span>Automatic rebalancing</span>
                   </li>
                 </ul>
-                <Button className="w-full mt-6 bg-invest hover:bg-invest-secondary text-white">
-                  Explore ETFs
-                </Button>
+                <Link href="/etfs">
+                  <Button className="w-full mt-6 bg-invest hover:bg-invest-secondary text-white">
+                    Explore ETFs
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           </div>
@@ -102,7 +126,7 @@ export default function StocksAndETFs() {
 
           <div className="max-w-3xl mx-auto">
             <h2 className="heading-lg text-center mb-12">
-              Why invest in Stocks & ETFs with Investo?
+              Why invest in Stocks & ETFs with Millenia Trades?
             </h2>
 
             <div className="grid md:grid-cols-3 gap-8">

@@ -1,10 +1,12 @@
 import { Check, User, PiggyBank, ArrowRight, BarChart3 } from "lucide-react";
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 const HowItWorks = () => {
   return (
     <section className="container section-padding">
       <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-        <h2 className="heading-lg">How Investo Works</h2>
+        <h2 className="heading-lg">How Millennia Trades works</h2>
         <p className="text-foreground/70">
           Get started in minutes with our simple, straightforward investment
           process.
@@ -24,22 +26,27 @@ const HowItWorks = () => {
           <div className="hidden md:block absolute top-8 right-[-30px] z-10">
             <ArrowRight className="h-6 w-6 text-invest-secondary/40" />
           </div>
-          <div className="mt-6 grid grid-cols-2 gap-2 w-full">
-            <div className="flex items-center text-sm">
-              <Check className="h-4 w-4 text-invest-accent mr-2" />
-              <span>Risk assessment</span>
+          <div className="mt-6 grid grid-cols-2 gap-4 text-center items-center">
+            <div>
+              <div className="flex items-center text-sm">
+                <Check className="h-4 w-4 text-invest-accent mr-2" />
+                <span>Risk assessment</span>
+              </div>
+              <div className="flex items-center text-sm">
+                <Check className="h-4 w-4 text-invest-accent mr-2" />
+                <span>Goal setting</span>
+              </div>
             </div>
-            <div className="flex items-center text-sm">
-              <Check className="h-4 w-4 text-invest-accent mr-2" />
-              <span>Goal setting</span>
-            </div>
-            <div className="flex items-center text-sm">
-              <Check className="h-4 w-4 text-invest-accent mr-2" />
-              <span>Time horizon</span>
-            </div>
-            <div className="flex items-center text-sm">
-              <Check className="h-4 w-4 text-invest-accent mr-2" />
-              <span>Income details</span>
+
+            <div>
+              <div className="flex items-center text-sm">
+                <Check className="h-4 w-4 text-invest-accent mr-2" />
+                <span>Time horizon</span>
+              </div>
+              <div className="flex items-center text-sm">
+                <Check className="h-4 w-4 text-invest-accent mr-2" />
+                <span>Income details</span>
+              </div>
             </div>
           </div>
         </div>
@@ -56,22 +63,27 @@ const HowItWorks = () => {
           <div className="hidden md:block absolute top-8 right-[-30px] z-10">
             <ArrowRight className="h-6 w-6 text-invest-secondary/40" />
           </div>
-          <div className="mt-6 grid grid-cols-2 gap-2 w-full">
-            <div className="flex items-center text-sm">
-              <Check className="h-4 w-4 text-invest-accent mr-2" />
-              <span>Bank linking</span>
+          <div className="mt-6 grid grid-cols-2 gap-4 text-center items-centerr">
+            <div>
+              <div className="flex items-center text-sm">
+                <Check className="h-4 w-4 text-invest-accent mr-2" />
+                <span>Bank linking</span>
+              </div>
+              <div className="flex items-center text-sm">
+                <Check className="h-4 w-4 text-invest-accent mr-2" />
+                <span>Secure transfer</span>
+              </div>
             </div>
-            <div className="flex items-center text-sm">
-              <Check className="h-4 w-4 text-invest-accent mr-2" />
-              <span>Secure transfer</span>
-            </div>
-            <div className="flex items-center text-sm">
-              <Check className="h-4 w-4 text-invest-accent mr-2" />
-              <span>Low minimum</span>
-            </div>
-            <div className="flex items-center text-sm">
-              <Check className="h-4 w-4 text-invest-accent mr-2" />
-              <span>Auto-deposits</span>
+
+            <div>
+              <div className="flex items-center text-sm">
+                <Check className="h-4 w-4 text-invest-accent mr-2" />
+                <span>Low minimum</span>
+              </div>
+              <div className="flex items-center text-sm">
+                <Check className="h-4 w-4 text-invest-accent mr-2" />
+                <span>Auto-deposits</span>
+              </div>
             </div>
           </div>
         </div>
@@ -87,22 +99,27 @@ const HowItWorks = () => {
             Our algorithm creates and manages a personalized portfolio based on
             your goals.
           </p>
-          <div className="mt-6 grid grid-cols-2 gap-2 w-full">
-            <div className="flex items-center text-sm">
-              <Check className="h-4 w-4 text-invest-accent mr-2" />
-              <span>Auto-rebalancing</span>
+          <div className="mt-6 grid grid-cols-2 gap-4 text-center items-center">
+            <div>
+              <div className="flex items-center text-sm">
+                <Check className="h-4 w-4 text-invest-accent mr-2" />
+                <span>Auto-rebalancing</span>
+              </div>
+              <div className="flex items-center text-sm">
+                <Check className="h-4 w-4 text-invest-accent mr-2" />
+                <span>Performance tracking</span>
+              </div>
             </div>
-            <div className="flex items-center text-sm">
-              <Check className="h-4 w-4 text-invest-accent mr-2" />
-              <span>Performance tracking</span>
-            </div>
-            <div className="flex items-center text-sm">
-              <Check className="h-4 w-4 text-invest-accent mr-2" />
-              <span>Dividend reinvesting</span>
-            </div>
-            <div className="flex items-center text-sm">
-              <Check className="h-4 w-4 text-invest-accent mr-2" />
-              <span>Tax optimization</span>
+
+            <div>
+              <div className="flex items-center text-sm">
+                <Check className="h-4 w-4 text-invest-accent mr-2" />
+                <span>Dividend reinvesting</span>
+              </div>
+              <div className="flex items-center text-sm">
+                <Check className="h-4 w-4 text-invest-accent mr-2" />
+                <span>Tax optimization</span>
+              </div>
             </div>
           </div>
         </div>
@@ -113,9 +130,13 @@ const HowItWorks = () => {
           Ready to start your investment journey?
         </div>
         <h3 className="heading-md mb-6">
-          Join over 100,000 investors growing their wealth with Investo
+          Join over 100,000 investors growing their wealth with Millenia Trades
         </h3>
-        <button className="btn-primary">Get Started Now</button>
+        <Link href="/signin">
+          <Button className="bg-invest hover:bg-invest-secondary py-5 text-white text-base px-8">
+            Get Started Now
+          </Button>
+        </Link>
       </div>
     </section>
   );

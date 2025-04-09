@@ -1,10 +1,10 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Search as SearchIcon } from "lucide-react";
 
 interface BlogSearchProps {
   categories: string[];
@@ -12,7 +12,6 @@ interface BlogSearchProps {
   onCategorySelect: (category: string) => void;
   selectedCategory: string;
   searchQuery: string;
-  isLoading?: boolean; // Optional loading prop
 }
 
 export default function BlogSearch({
@@ -21,49 +20,113 @@ export default function BlogSearch({
   onCategorySelect,
   selectedCategory,
   searchQuery,
-  isLoading = false,
 }: BlogSearchProps) {
-  const [input, setInput] = useState(searchQuery);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [inputValue, setInputValue] = useState(searchQuery || "");
+  const [localSelectedCategory, setLocalSelectedCategory] =
+    useState(selectedCategory);
 
   useEffect(() => {
-    const delayDebounce = setTimeout(() => {
-      onSearch(input);
-    }, 400);
+    const categoryFromURL = searchParams.get("category") || "All Topics";
+    const queryFromURL = searchParams.get("q") || "";
 
-    return () => clearTimeout(delayDebounce);
-  }, [input]);
+    setInputValue(queryFromURL);
+    setLocalSelectedCategory(categoryFromURL);
+    onSearch(queryFromURL);
+    onCategorySelect(categoryFromURL);
+  }, [searchParams, onSearch, onCategorySelect]);
+
+  useEffect(() => {
+    setInputValue(searchQuery);
+    setLocalSelectedCategory(selectedCategory);
+
+    const params = new URLSearchParams();
+    if (selectedCategory && selectedCategory !== "All Topics") {
+      params.set("category", selectedCategory);
+    }
+    if (searchQuery) {
+      params.set("q", searchQuery);
+    }
+
+    const newUrl = `/blog${params.toString() ? `?${params.toString()}` : ""}`;
+    router.push(newUrl, { scroll: false });
+  }, [router, searchQuery, selectedCategory]);
+
+  const handleSearch = () => {
+    onSearch(inputValue);
+    onCategorySelect(localSelectedCategory);
+
+    const params = new URLSearchParams();
+    if (localSelectedCategory && localSelectedCategory !== "All Topics") {
+      params.set("category", localSelectedCategory);
+    }
+    if (inputValue) {
+      params.set("q", inputValue);
+    }
+
+    const newUrl = `/blog${params.toString() ? `?${params.toString()}` : ""}`;
+    router.push(newUrl, { scroll: false });
+  };
+
+  const handleCategoryClick = (category: string) => {
+    setLocalSelectedCategory(category);
+    handleSearch(); // Ensure search is triggered immediately
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   return (
-    <div className="max-w-4xl mx-auto mb-12">
-      <div className="relative mb-6">
-        <Search className="absolute left-3 top-2.5 text-muted-foreground w-5 h-5" />
-        <Input
-          type="text"
-          placeholder="Search blog articles..."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className="pl-10"
-          disabled={isLoading} // optional
-        />
+    <>
+      <div className="max-w-4xl mx-auto mb-10 flex items-center">
+        <div className="relative flex-grow">
+          <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <Input
+            placeholder="Search articles"
+            className="pl-10 border-2 border-gray-200 py-6"
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyPress={handleKeyPress}
+          />
+        </div>
+        <div className="ml-4">
+          <Button
+            className="bg-invest hover:bg-invest-secondary text-white"
+            onClick={handleSearch}
+          >
+            Search
+          </Button>
+        </div>
       </div>
 
-      <ScrollArea className="max-w-full overflow-x-auto whitespace-nowrap">
-        <div className="flex space-x-3">
-          {["All Topics", ...categories].map((category) => (
-            <Badge
-              key={category}
-              className={`cursor-pointer px-4 py-1 text-sm rounded-full transition-all ${
-                selectedCategory === category
-                  ? "bg-invest text-white"
-                  : "bg-muted text-muted-foreground hover:bg-invest/10 hover:text-invest"
-              }`}
-              onClick={() => onCategorySelect(category)}
+      <div className="max-w-4xl mx-auto mb-8 overflow-x-auto">
+        <div className="flex space-x-2 pb-2">
+          {categories.map((category, index) => (
+            <Button
+              key={index}
+              variant={
+                category === localSelectedCategory ? "default" : "outline"
+              }
+              className={
+                category === localSelectedCategory ? "bg-invest text-white" : ""
+              }
+              size="sm"
+              onClick={() => handleCategoryClick(category)}
             >
               {category}
-            </Badge>
+            </Button>
           ))}
         </div>
-      </ScrollArea>
-    </div>
+      </div>
+    </>
   );
 }

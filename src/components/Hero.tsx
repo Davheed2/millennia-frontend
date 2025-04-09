@@ -6,6 +6,8 @@ import {
   ShieldCheck,
   LineChart,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -25,12 +27,15 @@ const Hero = () => {
             <Button className="btn-primary flex items-center gap-2 text-base">
               Start Investing <ChevronRight size={18} />
             </Button>
-            <Button
-              variant="outline"
-              className="flex items-center gap-2 text-base"
-            >
-              Learn More <ArrowRight size={18} />
-            </Button>
+
+            <Link href="/about-us">
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 text-base"
+              >
+                Learn More <ArrowRight size={18} />
+              </Button>
+            </Link>
           </div>
           <div className="flex flex-wrap gap-6 pt-4">
             <div className="flex items-center gap-2">
@@ -54,11 +59,12 @@ const Hero = () => {
           <div className="relative w-full h-[400px] md:h-[450px]">
             {/* Main image with gradient overlay */}
             <div className="absolute inset-0 rounded-2xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-invest/10 to-invest-accent/20 z-10"></div>
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
                 alt="Investment analytics dashboard"
                 className="object-cover w-full h-full"
+                layout="fill"
+                objectFit="cover"
               />
             </div>
 

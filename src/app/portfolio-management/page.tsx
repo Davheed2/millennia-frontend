@@ -10,6 +10,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { BarChart, LineChart, PieChart, Settings, Zap } from "lucide-react";
+import Link from "next/link";
 
 export default function PortfolioManagement() {
   return (
@@ -58,9 +59,20 @@ export default function PortfolioManagement() {
                     <span>Regular or on-demand rebalancing options</span>
                   </li>
                 </ul>
-                <Button className="w-full mt-6 bg-invest hover:bg-invest-secondary text-white">
+                {/* <Button
+                  className="w-full mt-6 bg-invest hover:bg-invest-secondary text-white"
+                  onClick={() =>
+                    router.push("/learn/rebalancing-and-optimization")
+                  }
+                >
                   Learn About Rebalancing
-                </Button>
+                </Button> */}
+
+                <Link href="/portfolio-management/learn">
+                  <Button className="w-full mt-6 bg-invest hover:bg-invest-secondary text-white">
+                    Learn About Rebalancing
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
@@ -93,9 +105,12 @@ export default function PortfolioManagement() {
                     <span>Diversification across asset classes</span>
                   </li>
                 </ul>
-                <Button className="w-full mt-6 bg-invest hover:bg-invest-secondary text-white">
-                  Optimize Your Portfolio
-                </Button>
+
+                <Link href="/signin">
+                  <Button className="w-full mt-6 bg-invest hover:bg-invest-secondary text-white">
+                    Optimize Your Portfolio
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           </div>
@@ -117,9 +132,9 @@ export default function PortfolioManagement() {
                   In-depth performance reporting to track your progress toward
                   goals.
                 </p>
-                <Button variant="outline" className="mt-4">
+                {/* <Button variant="outline" className="mt-4">
                   View Demo
-                </Button>
+                </Button> */}
               </div>
 
               <div className="text-center">
@@ -133,9 +148,9 @@ export default function PortfolioManagement() {
                   See your asset allocation across sectors, regions, and
                   investment types.
                 </p>
-                <Button variant="outline" className="mt-4">
+                {/* <Button variant="outline" className="mt-4">
                   Interactive Demo
-                </Button>
+                </Button> */}
               </div>
 
               <div className="text-center">
@@ -147,9 +162,9 @@ export default function PortfolioManagement() {
                   Track long-term trends and progress toward your investment
                   goals.
                 </p>
-                <Button variant="outline" className="mt-4">
+                {/* <Button variant="outline" className="mt-4">
                   See Example
-                </Button>
+                </Button> */}
               </div>
             </div>
           </div>
@@ -159,13 +174,16 @@ export default function PortfolioManagement() {
               Start Managing Your Portfolio Today
             </h2>
             <p className="text-center mb-6">
-              Join thousands of investors who trust Investo to manage their
-              portfolios with advanced technology and personalized strategies.
+              Join thousands of investors who trust Millenia Trades to manage
+              their portfolios with advanced technology and personalized
+              strategies.
             </p>
             <div className="flex justify-center">
-              <Button className="bg-invest hover:bg-invest-secondary text-white">
-                Get Started
-              </Button>
+              <Link href="/signin">
+                <Button className="bg-invest hover:bg-invest-secondary text-white">
+                  Get Started
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

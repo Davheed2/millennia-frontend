@@ -17,6 +17,9 @@ const Navbar = () => {
               <div className="h-4 w-4 rounded-full bg-gradient-to-br from-invest to-invest-accent"></div>
             </div>
           </div>
+          <span className="font-bold text-foreground text-base md:text-xl text-[#1D4ED8]">
+            Millenia Trades
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -38,12 +41,12 @@ const Navbar = () => {
               >
                 Cryptocurrency
               </Link>
-              <Link
+              {/* <Link
                 href="/real-estate"
                 className="block px-3 py-2 rounded-md hover:bg-muted transition-colors"
               >
                 Real Estate
-              </Link>
+              </Link> */}
               <Link
                 href="/retirement"
                 className="block px-3 py-2 rounded-md hover:bg-muted transition-colors"
@@ -53,7 +56,7 @@ const Navbar = () => {
             </div>
           </div>
           <Link
-            href="/about"
+            href="/about-us"
             className="text-foreground/80 hover:text-foreground transition-colors"
           >
             About
@@ -75,13 +78,13 @@ const Navbar = () => {
         {/* CTA Buttons */}
         <div className="hidden md:flex items-center gap-4">
           <Link href="/signin">
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="py-4 px-5">
               Sign in
             </Button>
           </Link>
           <Link href="/signup">
             <Button
-              className="bg-invest hover:bg-invest-secondary text-white"
+              className="bg-invest hover:bg-invest-secondary text-white py-4 px-5"
               size="sm"
             >
               Sign up
@@ -115,15 +118,15 @@ const Navbar = () => {
                 <Link href="/cryptocurrency" className="py-1">
                   Cryptocurrency
                 </Link>
-                <Link href="/real-estate" className="py-1">
+                {/* <Link href="/real-estate" className="py-1">
                   Real Estate
-                </Link>
+                </Link> */}
                 <Link href="/retirement" className="py-1">
                   Retirement
                 </Link>
               </div>
             </div>
-            <Link href="/about" className="py-2 border-b border-gray-200">
+            <Link href="/about-us" className="py-2 border-b border-gray-200">
               About
             </Link>
             <Link href="/pricing" className="py-2 border-b border-gray-200">

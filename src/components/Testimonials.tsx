@@ -1,9 +1,11 @@
 import { Star } from "lucide-react";
+import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const testimonials = [
   {
     quote:
-      "Investo has completely changed how I think about investing. The platform is intuitive, and I've seen consistent returns that have outperformed my previous investments.",
+      "Millenia Trades has completely changed how I think about investing. The platform is intuitive, and I've seen consistent returns that have outperformed my previous investments.",
     author: "Sarah Johnson",
     role: "Marketing Director",
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",
@@ -11,7 +13,7 @@ const testimonials = [
   },
   {
     quote:
-      "As someone new to investing, I was intimidated by the stock market. Investo made it approachable, and their educational resources helped me understand where my money is going.",
+      "As someone new to investing, I was intimidated by the stock market. Millenia Trades made it approachable, and their educational resources helped me understand where my money is going.",
     author: "Michael Chen",
     role: "Software Engineer",
     avatar: "https://randomuser.me/api/portraits/men/32.jpg",
@@ -35,7 +37,7 @@ const Testimonials = () => {
           <h2 className="heading-lg">What Our Clients Say</h2>
           <p className="text-foreground/70">
             Join thousands of satisfied investors who are building their future
-            with Investo.
+            with Millenia Trades.
           </p>
         </div>
 
@@ -61,11 +63,14 @@ const Testimonials = () => {
                 &quot;{testimonial.quote}&quot;
               </p>
               <div className="flex items-center mt-auto">
-                <img
-                  src={testimonial.avatar}
-                  alt={testimonial.author}
-                  className="w-12 h-12 rounded-full mr-4"
-                />
+                <Avatar className="w-12 h-12 mr-4">
+                  <AvatarImage
+                    src={testimonial.avatar}
+                    alt={testimonial.author}
+                    className="object-cover"
+                  />
+                  <AvatarFallback className="text-2xl">T</AvatarFallback>
+                </Avatar>
                 <div>
                   <h4 className="font-semibold">{testimonial.author}</h4>
                   <p className="text-sm text-foreground/60">
@@ -80,25 +85,33 @@ const Testimonials = () => {
         <div className="mt-16 flex flex-col md:flex-row items-center justify-center gap-8 bg-white p-8 rounded-xl shadow-sm border border-gray-100 max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row gap-3 items-center">
             <div className="flex -space-x-4">
-              <img
+              <Image
                 className="w-10 h-10 border-2 border-white rounded-full"
                 src="https://randomuser.me/api/portraits/men/54.jpg"
                 alt=""
+                width={40}
+                height={40}
               />
-              <img
+              <Image
                 className="w-10 h-10 border-2 border-white rounded-full"
                 src="https://randomuser.me/api/portraits/women/63.jpg"
                 alt=""
+                width={40}
+                height={40}
               />
-              <img
+              <Image
                 className="w-10 h-10 border-2 border-white rounded-full"
                 src="https://randomuser.me/api/portraits/men/12.jpg"
                 alt=""
+                width={40}
+                height={40}
               />
-              <img
+              <Image
                 className="w-10 h-10 border-2 border-white rounded-full"
                 src="https://randomuser.me/api/portraits/women/37.jpg"
                 alt=""
+                width={40}
+                height={40}
               />
             </div>
             <div className="text-center md:text-left">

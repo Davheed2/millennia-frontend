@@ -19,10 +19,11 @@ export default function TermsOfService() {
                 1. Introduction
               </h2>
               <p>
-                Welcome to Investo. These Terms of Service govern your use of
-                our website and services. By accessing or using our platform,
-                you agree to be bound by these Terms. If you disagree with any
-                part of the Terms, then you may not access our services.
+                Welcome to Millenia Trades. These Terms of Service govern your
+                use of our website and services. By accessing or using our
+                platform, you agree to be bound by these Terms. If you disagree
+                with any part of the Terms, then you may not access our
+                services.
               </p>
             </section>
 
@@ -46,9 +47,9 @@ export default function TermsOfService() {
               <p>
                 All investments involve risk, including the possible loss of
                 principal. Past performance does not guarantee future results.
-                Investo does not provide personalized investment advice, and the
-                information provided on our platform should not be construed as
-                such.
+                Millenia Trades does not provide personalized investment advice,
+                and the information provided on our platform should not be
+                construed as such.
               </p>
               <p>
                 Before making any investment decisions, you should consult with
@@ -65,12 +66,12 @@ export default function TermsOfService() {
               <ul className="list-disc pl-6 space-y-2">
                 <li>In any way that violates applicable laws or regulations</li>
                 <li>
-                  To impersonate or attempt to impersonate Investo, an Investo
-                  employee, or any other person
+                  To impersonate or attempt to impersonate Millenia Trades, a
+                  Millenia Trades employee, or any other person
                 </li>
                 <li>
-                  To engage in any conduct that restricts or inhibits anyone&apos;s
-                  use of our services
+                  To engage in any conduct that restricts or inhibits
+                  anyone&apos;s use of our services
                 </li>
                 <li>
                   To attempt to gain unauthorized access to our systems or user
@@ -88,11 +89,11 @@ export default function TermsOfService() {
               </h2>
               <p>
                 The content, features, and functionality of our platform are
-                owned by Investo and are protected by copyright, trademark, and
-                other intellectual property laws. You may not reproduce,
-                distribute, modify, create derivative works of, publicly
-                display, or use our intellectual property without our explicit
-                permission.
+                owned by Millenia Trades and are protected by copyright,
+                trademark, and other intellectual property laws. You may not
+                reproduce, distribute, modify, create derivative works of,
+                publicly display, or use our intellectual property without our
+                explicit permission.
               </p>
             </section>
 
@@ -112,10 +113,10 @@ export default function TermsOfService() {
                 7. Disclaimer of Warranties
               </h2>
               <p>
-                Our platform is provided &quot;as is&quot; and &quot;as available&quot; without
-                warranties of any kind, either express or implied. We do not
-                guarantee that our services will be uninterrupted, secure, or
-                error-free.
+                Our platform is provided &quot;as is&quot; and &quot;as
+                available&quot; without warranties of any kind, either express
+                or implied. We do not guarantee that our services will be
+                uninterrupted, secure, or error-free.
               </p>
             </section>
 
@@ -124,7 +125,7 @@ export default function TermsOfService() {
                 8. Limitation of Liability
               </h2>
               <p>
-                In no event shall Investo be liable for any indirect,
+                In no event shall Millenia Trades be liable for any indirect,
                 incidental, special, consequential, or punitive damages,
                 including loss of profits, data, or goodwill, arising out of or
                 in connection with your use of our platform.
@@ -152,7 +153,7 @@ export default function TermsOfService() {
                 at:
               </p>
               <div className="py-2">
-                <p>Email: legal@investo.com</p>
+                <p>Email: support@milleniatrades.com</p>
                 <p>
                   Address: 123 Investment Avenue, Financial District, New York,
                   NY 10001

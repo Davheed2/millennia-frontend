@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
                 1. Introduction
               </h2>
               <p>
-                At Investo, we respect your privacy and are committed to
+                At Millenia Trades, we respect your privacy and are committed to
                 protecting your personal data. This Privacy Policy explains how
                 we collect, use, and safeguard your information when you use our
                 platform and services.
@@ -38,7 +38,7 @@ export default function PrivacyPolicy() {
                 <li>
                   Personal identifiers (name, email address, phone number)
                 </li>
-                <li>Account information (username, password)</li>
+                <li>Account information (password)</li>
                 <li>
                   Financial information (bank account details, investment
                   preferences)
@@ -170,7 +170,7 @@ export default function PrivacyPolicy() {
                 practices, please contact us at:
               </p>
               <div className="py-2">
-                <p>Email: privacy@investo.com</p>
+                <p>Email: support@milleniatrades.com</p>
                 <p>
                   Address: 123 Investment Avenue, Financial District, New York,
                   NY 10001

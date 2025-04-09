@@ -52,7 +52,7 @@ const Features = () => {
       <div className="container">
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
-            Smart Features for Smarter Investing
+            Cutting edge features for better experience
           </h2>
           <p className="text-foreground/70">
             Our platform combines cutting-edge technology with financial

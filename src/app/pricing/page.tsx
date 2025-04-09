@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import Link from "next/link";
 
 export default function Pricing() {
   return (
@@ -22,7 +23,7 @@ export default function Pricing() {
           <div className="border border-gray-200 rounded-xl p-8 flex flex-col transition-all hover:shadow-md">
             <h3 className="text-xl font-bold mb-2">Basic</h3>
             <div className="text-3xl font-bold mb-1">
-              $0
+              $2000
               <span className="text-lg font-normal text-foreground/70">
                 /month
               </span>
@@ -47,9 +48,11 @@ export default function Pricing() {
               ))}
             </ul>
 
-            <Button className="w-full bg-invest hover:bg-invest-secondary text-white">
-              Get Started
-            </Button>
+            <Link href="/signin">
+              <Button className="w-full bg-invest hover:bg-invest-secondary text-white">
+                Get Started
+              </Button>
+            </Link>
           </div>
 
           {/* Plus Plan */}
@@ -59,7 +62,7 @@ export default function Pricing() {
             </div>
             <h3 className="text-xl font-bold mb-2">Plus</h3>
             <div className="text-3xl font-bold mb-1">
-              $10
+              $5000
               <span className="text-lg font-normal text-foreground/70">
                 /month
               </span>
@@ -85,16 +88,18 @@ export default function Pricing() {
               ))}
             </ul>
 
-            <Button className="w-full bg-invest hover:bg-invest-secondary text-white">
-              Get Started
-            </Button>
+            <Link href="/signin">
+              <Button className="w-full bg-invest hover:bg-invest-secondary text-white">
+                Get Started
+              </Button>
+            </Link>
           </div>
 
           {/* Premium Plan */}
           <div className="border border-gray-200 rounded-xl p-8 flex flex-col transition-all hover:shadow-md">
             <h3 className="text-xl font-bold mb-2">Premium</h3>
             <div className="text-3xl font-bold mb-1">
-              $25
+              $10000
               <span className="text-lg font-normal text-foreground/70">
                 /month
               </span>
@@ -121,9 +126,11 @@ export default function Pricing() {
               ))}
             </ul>
 
-            <Button className="w-full bg-invest hover:bg-invest-secondary text-white">
-              Get Started
-            </Button>
+            <Link href="/signin">
+              <Button className="w-full bg-invest hover:bg-invest-secondary text-white">
+                Get Started
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -144,11 +151,11 @@ export default function Pricing() {
               },
               {
                 q: "Is there a free trial available?",
-                a: "We offer a 30-day free trial of our Plus and Premium plans so you can experience all the features before committing.",
+                a: "At the moment, we do not offer free trials. However, you can cancel your subscription at any time if you feel the service is not right for you.",
               },
               {
                 q: "What payment methods do you accept?",
-                a: "We accept all major credit cards, PayPal, and bank transfers for subscription payments.",
+                a: "Currently, we only accept cryptocurrency payments for subscriptions. In the future, we hope to resolve this and offer more payment options.",
               },
             ].map((faq, index) => (
               <div key={index} className="border-b border-gray-200 pb-6">
