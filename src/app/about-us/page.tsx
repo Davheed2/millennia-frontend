@@ -20,10 +20,10 @@ export default function AboutUs() {
           <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
           <div className="absolute inset-0 flex items-center justify-center text-center">
             <div className="max-w-3xl px-6">
-              <h1 className="heading-xl gradient-text mb-6">
-                About Millenia Trades
+              <h1 className="heading-xl mb-6">
+                About Millennia Trades
               </h1>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg">
                 We&apos;re on a mission to democratize investing and help
                 everyone build a better financial future, regardless of their
                 background or starting point.
@@ -36,7 +36,7 @@ export default function AboutUs() {
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="heading-lg mb-6">Our Story</h2>
             <p className="mb-4 text-muted-foreground">
-              Millenia Trades was founded in 2017 by a team of financial experts
+              Millennia Trades was founded in 2017 by a team of financial experts
               and technology innovators who believed that sophisticated
               investment strategies shouldn&apos;t be reserved for the
               ultra-wealthy.
@@ -126,12 +126,12 @@ export default function AboutUs() {
                   <AvatarImage
                     src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=2787&auto=format&fit=crop"
                     alt="Michael Chen, CEO"
-                    className="object-cover"
+                    className="h-[125%]"
                   />
                   <AvatarFallback className="text-2xl">MC</AvatarFallback>
                 </Avatar>
                 <h3 className="text-xl font-semibold mb-1">Michael Chen</h3>
-                <p className="text-invest mb-2">CEO & Co-Founder</p>
+                <p className="text-invest mb-2 text-sm">CEO & Co-Founder</p>
                 <p className="text-muted-foreground text-sm">
                   Former fintech executive with 15+ years of experience in
                   wealth management.
@@ -143,12 +143,12 @@ export default function AboutUs() {
                   <AvatarImage
                     src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2876&auto=format&fit=crop"
                     alt="Sarah Johnson, CTO"
-                    className="object-cover"
+                    className="object-cover h-[120%]"
                   />
                   <AvatarFallback className="text-2xl">SJ</AvatarFallback>
                 </Avatar>
                 <h3 className="text-xl font-semibold mb-1">Sarah Johnson</h3>
-                <p className="text-invest mb-2">CTO & Co-Founder</p>
+                <p className="text-invest mb-2 text-sm">CTO & Co-Founder</p>
                 <p className="text-muted-foreground text-sm">
                   AI researcher and software architect specializing in financial
                   algorithms.
@@ -160,12 +160,12 @@ export default function AboutUs() {
                   <AvatarImage
                     src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=2787&auto=format&fit=crop"
                     alt="David Rodriguez, CIO"
-                    className="object-cover"
+                    className="object-cover h-[120%]"
                   />
                   <AvatarFallback className="text-2xl">DR</AvatarFallback>
                 </Avatar>
                 <h3 className="text-xl font-semibold mb-1">David Rodriguez</h3>
-                <p className="text-invest mb-2">Chief Investment Officer</p>
+                <p className="text-invest mb-2 text-sm">Chief Investment Officer</p>
                 <p className="text-muted-foreground text-sm">
                   Former hedge fund manager with a focus on quantitative
                   investing strategies.

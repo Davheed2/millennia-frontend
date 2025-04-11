@@ -302,7 +302,7 @@ export default function AdvancedPortfolioConstructionGuide() {
                 Ready for advanced portfolio management?
               </h3>
               <p className="text-base leading-relaxed mb-4">
-                Millenia Trades wealth management services incorporate sophisticated
+                Millennia Trades wealth management services incorporate sophisticated
                 portfolio construction techniques.
               </p>
               <Link

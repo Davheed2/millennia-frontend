@@ -174,7 +174,7 @@ export default function PortfolioManagement() {
               Start Managing Your Portfolio Today
             </h2>
             <p className="text-center mb-6">
-              Join thousands of investors who trust Millenia Trades to manage
+              Join thousands of investors who trust Millennia Trades to manage
               their portfolios with advanced technology and personalized
               strategies.
             </p>

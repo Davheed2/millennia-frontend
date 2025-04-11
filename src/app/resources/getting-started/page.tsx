@@ -223,7 +223,7 @@ export default function GettingStartedGuide() {
                 Ready to start investing?
               </h3>
               <p className="text-base leading-relaxed mb-4">
-                Open an account with Millenia Trades to access low-fee funds and expert
+                Open an account with Millennia Trades to access low-fee funds and expert
                 guidance.
               </p>
               <Link

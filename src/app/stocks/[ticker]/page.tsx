@@ -83,8 +83,8 @@ export async function generateMetadata({
   const stock = stocksData[params.ticker.toUpperCase()];
   return {
     title: stock
-      ? `${stock.name} (${params.ticker.toUpperCase()}) | Millenia Trades`
-      : "Stock Not Found | Millenia Trades",
+      ? `${stock.name} (${params.ticker.toUpperCase()}) | Millennia Trades`
+      : "Stock Not Found | Millennia Trades",
   };
 }
 

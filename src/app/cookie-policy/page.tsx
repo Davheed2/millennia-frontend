@@ -26,10 +26,10 @@ export default function CookiePolicy() {
                 1. Introduction
               </h2>
               <p>
-                This Cookie Policy explains how Millenia Trades (&quot;we&quot;,
+                This Cookie Policy explains how Millennia Trades (&quot;we&quot;,
                 &quot;us&quot;, or &quot;our&quot;) uses cookies and similar
                 technologies to recognize you when you visit our website at
-                milleniatrades.com (&quot;Website&quot;). It explains what these
+                millenniatrades.com (&quot;Website&quot;). It explains what these
                 technologies are and why we use them, as well as your rights to
                 control our use of them.
               </p>
@@ -47,7 +47,7 @@ export default function CookiePolicy() {
                 information.
               </p>
               <p>
-                Cookies set by the website owner (in this case, Millenia Trades)
+                Cookies set by the website owner (in this case, Millennia Trades)
                 are called &quot;first-party cookies&quot;. Cookies set by
                 parties other than the website owner are called
                 &quot;third-party cookies&quot;. Third-party cookies enable
@@ -152,11 +152,11 @@ export default function CookiePolicy() {
               </h2>
               <p>
                 If you have any questions about our use of cookies or other
-                technologies, please email us at support@milleniatrades.com or
+                technologies, please email us at support@millenniatrades.com or
                 by post to:
               </p>
               <div className="py-2">
-                <p>Millenia Trades</p>
+                <p>Millennia Trades</p>
                 <p>123 Investment Avenue</p>
                 <p>Financial District</p>
                 <p>New York, NY 10001</p>

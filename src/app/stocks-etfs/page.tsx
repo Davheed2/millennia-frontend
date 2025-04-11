@@ -126,7 +126,7 @@ export default function StocksAndETFs() {
 
           <div className="max-w-3xl mx-auto">
             <h2 className="heading-lg text-center mb-12">
-              Why invest in Stocks & ETFs with Millenia Trades?
+              Why invest in Stocks & ETFs with Millennia Trades?
             </h2>
 
             <div className="grid md:grid-cols-3 gap-8">

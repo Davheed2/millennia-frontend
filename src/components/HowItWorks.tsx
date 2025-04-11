@@ -130,7 +130,7 @@ const HowItWorks = () => {
           Ready to start your investment journey?
         </div>
         <h3 className="heading-md mb-6">
-          Join over 100,000 investors growing their wealth with Millenia Trades
+          Join over 100,000 investors growing their wealth with Millennia Trades
         </h3>
         <Link href="/signin">
           <Button className="bg-invest hover:bg-invest-secondary py-5 text-white text-base px-8">

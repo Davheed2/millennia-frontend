@@ -289,7 +289,7 @@ export default function MarketCyclesGuide() {
                 Want a portfolio built for all market cycles?
               </h3>
               <p className="text-base leading-relaxed mb-4">
-                Millenia Trades professional portfolio management helps navigate
+                Millennia Trades professional portfolio management helps navigate
                 changing market conditions.
               </p>
               <Link

@@ -18,7 +18,7 @@ const Navbar = () => {
             </div>
           </div>
           <span className="font-bold text-foreground text-base md:text-xl text-[#1D4ED8]">
-            Millenia Trades
+          Millennia Trades
           </span>
         </Link>
 

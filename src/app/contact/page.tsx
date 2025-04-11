@@ -54,7 +54,7 @@ export default function ContactUs() {
               />
               {/* <div className="absolute inset-0 bg-black bg-opacity-20"></div> */}
               <div className="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white p-4">
-                <p className="font-medium">Millenia Trades</p>
+                <p className="font-medium">Millennia Trades</p>
               </div>
             </div>
 

@@ -16,7 +16,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Explore ETFs | Millenia Trades",
+  title: "Explore ETFs | Millennia Trades",
 };
 
 const etfsData = {

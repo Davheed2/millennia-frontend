@@ -115,7 +115,7 @@ export default function BlogList({
                     />
                   </div>
                   <div className="p-6 flex flex-col">
-                    <Badge className="w-fit mb-2 bg-invest text-white">
+                    <Badge className="w-fit mb-2 bg-invest/10 text-invest">
                       {featuredPost.category}
                     </Badge>
                     <CardTitle className="text-2xl mb-4">
@@ -129,7 +129,7 @@ export default function BlogList({
                     <CardFooter className="flex-col items-start p-0">
                       <div className="mb-4">
                         <p className="font-medium">{featuredPost.author}</p>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-xs text-muted-foreground">
                           {featuredPost.authorRole} • {featuredPost.date}
                         </p>
                       </div>
@@ -187,7 +187,7 @@ export default function BlogList({
                       </CardContent>
                       <CardFooter className="flex justify-between items-center">
                         <div>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-xs text-muted-foreground">
                             {post.date} • {post.author}
                           </p>
                         </div>

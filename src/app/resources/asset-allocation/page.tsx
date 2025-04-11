@@ -334,7 +334,7 @@ export default function AssetAllocationGuide() {
                 Want help with your asset allocation?
               </h3>
               <p className="text-base leading-relaxed mb-4">
-                Millenia Trades advisors can help you create and maintain an
+                Millennia Trades advisors can help you create and maintain an
                 optimal asset allocation strategy.
               </p>
               <Link

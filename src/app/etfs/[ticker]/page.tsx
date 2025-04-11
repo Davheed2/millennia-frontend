@@ -82,8 +82,8 @@ export async function generateMetadata({
   const etf = etfsData[params.ticker.toUpperCase() as ETFKey];
   return {
     title: etf
-      ? `${etf.name} (${params.ticker.toUpperCase()}) | Millenia Trades`
-      : "ETF Not Found | Millenia Trades",
+      ? `${etf.name} (${params.ticker.toUpperCase()}) | Millennia Trades`
+      : "ETF Not Found | Millennia Trades",
   };
 }
 

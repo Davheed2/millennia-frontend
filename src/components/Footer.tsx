@@ -20,7 +20,7 @@ const Footer = () => {
                   <div className="h-4 w-4 rounded-full bg-gradient-to-br from-invest to-invest-accent"></div>
                 </div>
               </div>
-              <span className="text-xl font-bold">Millenia Trades</span>
+              <span className="text-xl font-bold">Millennia Trades</span>
             </div>
             <p className="text-white/70">
               Invest smarter, not harder. Build your wealth with our data-driven
@@ -128,10 +128,10 @@ const Footer = () => {
               <li className="flex items-center gap-3 ml-0">
                 <Mail size={18} className="text-invest-accent" />
                 <a
-                  href="mailto:support@milleniatrades.com"
+                  href="mailto:support@millenniatrades.com"
                   className="text-white/70 hover:text-white transition-colors"
                 >
-                  support@milleniatrades.com
+                  support@millenniatrades.com
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -163,7 +163,7 @@ const Footer = () => {
 
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col mds:flex-row justify-between items-center">
           <p className="text-white/60 text-sm">
-            © {new Date().getFullYear()} Millenia Trades. All rights reserved.
+            © {new Date().getFullYear()} Millennia Trades. All rights reserved.
           </p>
           <div className="flex gap-6 mt-4 mds:mt-0">
             <Link

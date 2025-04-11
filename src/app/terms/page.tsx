@@ -19,7 +19,7 @@ export default function TermsOfService() {
                 1. Introduction
               </h2>
               <p>
-                Welcome to Millenia Trades. These Terms of Service govern your
+                Welcome to Millennia Trades. These Terms of Service govern your
                 use of our website and services. By accessing or using our
                 platform, you agree to be bound by these Terms. If you disagree
                 with any part of the Terms, then you may not access our
@@ -47,7 +47,7 @@ export default function TermsOfService() {
               <p>
                 All investments involve risk, including the possible loss of
                 principal. Past performance does not guarantee future results.
-                Millenia Trades does not provide personalized investment advice,
+                Millennia Trades does not provide personalized investment advice,
                 and the information provided on our platform should not be
                 construed as such.
               </p>
@@ -66,8 +66,8 @@ export default function TermsOfService() {
               <ul className="list-disc pl-6 space-y-2">
                 <li>In any way that violates applicable laws or regulations</li>
                 <li>
-                  To impersonate or attempt to impersonate Millenia Trades, a
-                  Millenia Trades employee, or any other person
+                  To impersonate or attempt to impersonate Millennia Trades, a
+                  Millennia Trades employee, or any other person
                 </li>
                 <li>
                   To engage in any conduct that restricts or inhibits
@@ -89,7 +89,7 @@ export default function TermsOfService() {
               </h2>
               <p>
                 The content, features, and functionality of our platform are
-                owned by Millenia Trades and are protected by copyright,
+                owned by Millennia Trades and are protected by copyright,
                 trademark, and other intellectual property laws. You may not
                 reproduce, distribute, modify, create derivative works of,
                 publicly display, or use our intellectual property without our
@@ -125,7 +125,7 @@ export default function TermsOfService() {
                 8. Limitation of Liability
               </h2>
               <p>
-                In no event shall Millenia Trades be liable for any indirect,
+                In no event shall Millennia Trades be liable for any indirect,
                 incidental, special, consequential, or punitive damages,
                 including loss of profits, data, or goodwill, arising out of or
                 in connection with your use of our platform.
@@ -153,7 +153,7 @@ export default function TermsOfService() {
                 at:
               </p>
               <div className="py-2">
-                <p>Email: support@milleniatrades.com</p>
+                <p>Email: support@millenniatrades.com</p>
                 <p>
                   Address: 123 Investment Avenue, Financial District, New York,
                   NY 10001

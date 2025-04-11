@@ -36,7 +36,7 @@ export default function InvestmentFeeAnalyzerPage() {
               <li className="mb-2">Front-end or back-end load fees</li>
             </ul>
             <p>
-              At Millenia Trades, we believe in transparent, low-cost investing.
+              At Millennia Trades, we believe in transparent, low-cost investing.
               Our platform offers access to low-fee investment options to help
               maximize your returns over time.
             </p>

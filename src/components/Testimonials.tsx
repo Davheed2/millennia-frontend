@@ -5,16 +5,16 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const testimonials = [
   {
     quote:
-      "Millenia Trades has completely changed how I think about investing. The platform is intuitive, and I've seen consistent returns that have outperformed my previous investments.",
-    author: "Sarah Johnson",
+      "Millennia Trades has completely changed how I think about investing. The platform is intuitive, and I've seen consistent returns that have outperformed my previous investments.",
+    author: "Olivia Parker",
     role: "Marketing Director",
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",
     stars: 5,
   },
   {
     quote:
-      "As someone new to investing, I was intimidated by the stock market. Millenia Trades made it approachable, and their educational resources helped me understand where my money is going.",
-    author: "Michael Chen",
+      "As someone new to investing, I was intimidated by the stock market. Millennia Trades made it approachable, and their educational resources helped me understand where my money is going.",
+    author: "James Anderson",
     role: "Software Engineer",
     avatar: "https://randomuser.me/api/portraits/men/32.jpg",
     stars: 5,
@@ -37,7 +37,7 @@ const Testimonials = () => {
           <h2 className="heading-lg">What Our Clients Say</h2>
           <p className="text-foreground/70">
             Join thousands of satisfied investors who are building their future
-            with Millenia Trades.
+            with Millennia Trades.
           </p>
         </div>
 

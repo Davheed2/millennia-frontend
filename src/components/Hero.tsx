@@ -24,10 +24,12 @@ const Hero = () => {
             tailored to your goals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 pt-2">
-            <Button className="btn-primary flex items-center gap-2 text-base">
-              Start Investing <ChevronRight size={18} />
-            </Button>
-
+            <Link href="/signin">
+              <Button className="btn-primary flex items-center gap-2 text-base">
+                Start Investing <ChevronRight size={18} />
+              </Button>
+            </Link>
+            
             <Link href="/about-us">
               <Button
                 variant="outline"
