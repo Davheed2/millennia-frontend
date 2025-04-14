@@ -133,3 +133,21 @@
     @apply bg-invest-accent hover:bg-invest-accent/90 text-white font-medium px-5 py-2.5 rounded-lg transition-colors;
   }
 }
+
+/* In your global.css */
+.country-select-container {
+  width: 100%;
+}
+
+.react-tel-input .form-control {
+  width: 100% !important;
+  height: 45px !important;
+}
+
+.react-tel-input .selected-flag {
+  padding: 0 8px 0 12px !important;
+}
+
+.react-tel-input .flag-dropdown.open {
+  z-index: 9999;
+}
