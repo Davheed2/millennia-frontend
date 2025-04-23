@@ -15,7 +15,7 @@ import {
   Building,
   AlertTriangle,
   Wallet,
-  CheckCircle2,
+  //CheckCircle2,
   Clock,
   Info,
 } from "lucide-react";
