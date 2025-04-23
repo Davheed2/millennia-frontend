@@ -1,0 +1,254 @@
+"use client";
+
+//import { useAuth } from "@/contexts/AuthContext";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  BarChart3,
+  TrendingUp,
+  TrendingDown,
+  Briefcase,
+  Heart,
+  AlertCircle,
+  ArrowRight,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+//import { Separator } from "@/components/ui/separator";
+import { Progress } from "@/components/ui/progress";
+import Link from "next/link";
+
+export default function Dashboard() {
+  //const { user } = useAuth();
+  const isKycVerified = true;
+
+  return (
+    <>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Welcome back, {"Investor"}</h1>
+        <div>
+          <span className="text-sm text-gray-500">Last updated: </span>
+          <span className="text-sm font-medium">April 15, 2025, 10:30 AM</span>
+        </div>
+      </div>
+
+      {/* KYC Alert if not verified */}
+      {/* {!user?.isKycVerified && ( */}
+      {isKycVerified && (
+        <Card className="mb-6 border-orange-100 bg-orange-50">
+          <CardContent className="p-4">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="h-5 w-5 text-orange-500 mt-0.5" />
+              <div>
+                <p className="font-medium text-orange-800">
+                  Complete your identity verification
+                </p>
+                <p className="text-sm text-orange-700 mt-1">
+                  To unlock all features and start investing, please complete
+                  your KYC verification.
+                </p>
+                <Button className="mt-3 bg-orange-500 hover:bg-orange-600 text-white">
+                  <Link href="/dashboard/kyc">Verify Identity Now</Link>
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Portfolio Summary */}
+      <div className="grid md:grid-cols-3 gap-6 mb-6">
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm text-gray-500">
+              Portfolio Value
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold">$23,456.78</div>
+            <div className="flex items-center mt-1 text-sm">
+              <TrendingUp className="text-green-500 h-4 w-4 mr-1" />
+              <span className="text-green-500 font-medium">
+                +$1,234.56 (5.2%)
+              </span>
+              <span className="text-gray-500 ml-1.5">Today</span>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm text-gray-500">
+              Total Profit
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold">$4,567.89</div>
+            <div className="flex items-center mt-1 text-sm">
+              <TrendingUp className="text-green-500 h-4 w-4 mr-1" />
+              <span className="text-green-500 font-medium">
+                +$345.67 (7.6%)
+              </span>
+              <span className="text-gray-500 ml-1.5">All time</span>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm text-gray-500">
+              Available Funds
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold">$5,678.90</div>
+            <div className="flex justify-between mt-2">
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-invest bg-invest/5 border-invest/20 hover:bg-invest/10"
+              >
+                <Link href="/dashboard/add-funds" className="flex items-center">
+                  Add Funds
+                </Link>
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-gray-600 hover:bg-gray-50"
+              >
+                <Link href="/dashboard/withdraw" className="flex items-center">
+                  Withdraw
+                </Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Investment Overview */}
+      <div className="grid md:grid-cols-3 gap-6 mb-6">
+        <Card className="md:col-span-2">
+          <CardHeader className="pb-0 flex flex-row items-center justify-between">
+            <div>
+              <CardTitle>Investment Overview</CardTitle>
+              <CardDescription>Your current asset allocation</CardDescription>
+            </div>
+            <Button variant="ghost" size="sm" className="text-invest">
+              <Link href="/dashboard/investments" className="flex items-center">
+                View All <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
+            </Button>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[200px] flex items-center justify-center">
+              <BarChart3 className="h-full w-full text-gray-300" />
+              {/* This would be replaced with an actual chart component */}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Asset Allocation</CardTitle>
+            <CardDescription>Portfolio breakdown</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <div className="flex items-center justify-between mb-1 text-sm">
+                <span>Stocks</span>
+                <span className="font-medium">60%</span>
+              </div>
+              <Progress value={60} className="h-2" />
+            </div>
+            <div>
+              <div className="flex items-center justify-between mb-1 text-sm">
+                <span>Bonds</span>
+                <span className="font-medium">25%</span>
+              </div>
+              <Progress value={25} className="h-2" />
+            </div>
+            <div>
+              <div className="flex items-center justify-between mb-1 text-sm">
+                <span>Real Estate</span>
+                <span className="font-medium">10%</span>
+              </div>
+              <Progress value={10} className="h-2" />
+            </div>
+            <div>
+              <div className="flex items-center justify-between mb-1 text-sm">
+                <span>Cash</span>
+                <span className="font-medium">5%</span>
+              </div>
+              <Progress value={5} className="h-2" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Quick Links */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Quick Actions</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <Link href="/dashboard/investments" className="group">
+              <div className="border rounded-lg p-4 hover:border-invest hover:shadow transition-all duration-200">
+                <div className="flex flex-col items-center text-center">
+                  <div className="p-2 rounded-full bg-invest/10 group-hover:bg-invest/20 mb-2 transition-all duration-200">
+                    <Briefcase className="h-6 w-6 text-invest" />
+                  </div>
+                  <h3 className="text-sm font-medium">My Investments</h3>
+                  <p className="text-xs text-gray-500 mt-1">View portfolio</p>
+                </div>
+              </div>
+            </Link>
+
+            <Link href="/dashboard/wishlist" className="group">
+              <div className="border rounded-lg p-4 hover:border-invest hover:shadow transition-all duration-200">
+                <div className="flex flex-col items-center text-center">
+                  <div className="p-2 rounded-full bg-invest/10 group-hover:bg-invest/20 mb-2 transition-all duration-200">
+                    <Heart className="h-6 w-6 text-invest" />
+                  </div>
+                  <h3 className="text-sm font-medium">Wishlist</h3>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Saved investments
+                  </p>
+                </div>
+              </div>
+            </Link>
+
+            <Link href="/dashboard/transactions" className="group">
+              <div className="border rounded-lg p-4 hover:border-invest hover:shadow transition-all duration-200">
+                <div className="flex flex-col items-center text-center">
+                  <div className="p-2 rounded-full bg-invest/10 group-hover:bg-invest/20 mb-2 transition-all duration-200">
+                    <TrendingUp className="h-6 w-6 text-invest" />
+                  </div>
+                  <h3 className="text-sm font-medium">Transactions</h3>
+                  <p className="text-xs text-gray-500 mt-1">Activity history</p>
+                </div>
+              </div>
+            </Link>
+
+            <Link href="/dashboard/referrals" className="group">
+              <div className="border rounded-lg p-4 hover:border-invest hover:shadow transition-all duration-200">
+                <div className="flex flex-col items-center text-center">
+                  <div className="p-2 rounded-full bg-invest/10 group-hover:bg-invest/20 mb-2 transition-all duration-200">
+                    <TrendingDown className="h-6 w-6 text-invest" />
+                  </div>
+                  <h3 className="text-sm font-medium">Referrals</h3>
+                  <p className="text-xs text-gray-500 mt-1">Invite friends</p>
+                </div>
+              </div>
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
+    </>
+  );
+}

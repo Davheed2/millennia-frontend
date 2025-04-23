@@ -132,6 +132,37 @@
   .btn-accent {
     @apply bg-invest-accent hover:bg-invest-accent/90 text-white font-medium px-5 py-2.5 rounded-lg transition-colors;
   }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .heading-lg {
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 2.25rem;
+  }
+  
+  .heading-md {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 2rem;
+  }
+  
+  .heading-sm {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.75rem;
+  }
+  
+  .heading-xs {
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+  }
 }
 
 /* In your global.css */
