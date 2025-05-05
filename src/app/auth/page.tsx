@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { toast } from "sonner";
@@ -116,3 +116,8 @@ export default function VerifyAccount() {
     </div>
   );
 }
+
+// Wrap the component with Suspense if needed
+VerifyAccount.getLayout = function getLayout(page: React.ReactNode) {
+  return <Suspense fallback={<div>Loading...</div>}>{page}</Suspense>;
+};

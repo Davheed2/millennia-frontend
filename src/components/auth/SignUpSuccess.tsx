@@ -1,10 +1,13 @@
 "use client";
 
 import React from "react";
-import Lottie from "lottie-react";
-import successAnimation from "../../../public/assets/lottie/success.json"; // You can use a JSON from LottieFiles
+import dynamic from "next/dynamic"; // Import dynamic for disabling SSR
+import successAnimation from "../../../public/assets/lottie/success.json"; // Your Lottie JSON
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+
+// Dynamically import Lottie with no SSR
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 const SignUpSuccess = () => {
   return (
