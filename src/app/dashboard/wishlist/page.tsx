@@ -86,7 +86,7 @@ export default function Wishlists() {
   return (
     <>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">My Wishlist</h1>
+        <h1 className="text-2xl font-bold">My Watchlist</h1>
         {/* <Button className="bg-invest hover:bg-invest-secondary text-white">
           <Plus className="h-4 w-4 mr-2" /> Add Investment
         </Button> */}
