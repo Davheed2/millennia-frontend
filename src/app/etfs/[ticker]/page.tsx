@@ -1,10 +1,19 @@
+"use client";
+
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ApiResponse, ETFS } from "@/interfaces";
+import { callApi } from "@/lib/helpers";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { wishlistType, zodValidator } from "@/lib/validators/validateWithZod";
+import { WishlistData } from "@/interfaces/ApiResponse";
+import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const etfsData = {
   SPY: {
@@ -74,117 +83,136 @@ const etfsData = {
 
 type ETFKey = keyof typeof etfsData;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { ticker: string };
-}): Promise<Metadata> {
-  const etf = etfsData[params.ticker.toUpperCase() as ETFKey];
-  return {
-    title: etf
-      ? `${etf.name} (${params.ticker.toUpperCase()}) | Millennia Trades`
-      : "ETF Not Found | Millennia Trades",
-  };
-}
-
 export default function ETFDetails({ params }: { params: { ticker: string } }) {
   const etf = etfsData[params.ticker.toUpperCase() as ETFKey];
+  const queryClient = useQueryClient();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    //watch,
+    //setValue,
+    formState: { isSubmitting },
+  } = useForm<wishlistType>({
+    resolver: zodResolver(zodValidator("wishlist")!),
+    mode: "onChange",
+    reValidateMode: "onChange",
+  });
+
+  const {
+    data: etfs,
+    //isLoading: loading,
+    //error: queryError,
+  } = useQuery<ETFS[], Error>({
+    queryKey: ["stocks"],
+    queryFn: async () => {
+      const { data: responseData, error } = await callApi<ApiResponse<ETFS[]>>(
+        "/assets/etfs"
+      );
+      if (error) {
+        throw new Error(
+          error.message || "Something went wrong while fetching etf data."
+        );
+      }
+      if (!responseData?.data) {
+        throw new Error("No etf details found");
+      }
+
+      //console.log(responseData.data);
+      return responseData.data;
+    },
+  });
+
+  const onSubmit: SubmitHandler<wishlistType> = async (data: wishlistType) => {
+    try {
+      //setIsLoading(true);
+      const { data: responseData, error } = await callApi<
+        ApiResponse<WishlistData>
+      >("/wishlist/create", {
+        name: data.name,
+        symbol: data.symbol,
+        brand: data.brand,
+      });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      if (responseData?.status === "success") {
+        toast.success("Watchlist Added", {
+          description: "Ticker added to your watchlist successfully",
+        });
+        queryClient.invalidateQueries({ queryKey: ["watchlist"] });
+      }
+    } catch (err) {
+      toast.error("Watch list Addition Failed", {
+        description:
+          err instanceof Error
+            ? err.message
+            : "An unexpected error occurred. Please try again.",
+      });
+    } finally {
+      reset();
+    }
+  };
 
   if (!etf) return notFound();
 
   // Market data and performance as of April 9, 2025 (based on search results and trends)
-  const fundData = {
-    netAssets: {
-      SPY: "462.9B", // From web results
-      VTI: "406.4B", // From web results
-      IWM: "14.7B", // From web results
-      ARKK: "7.5B", // Estimated, no exact recent data
-      BOTZ: "2.1B", // Estimated
-      ICLN: "3.0B", // Estimated
-      VIG: "78.9B", // Estimated, based on Vanguard funds
-      SCHD: "55.0B", // Estimated
-      DVY: "18.0B", // Estimated
+  const fundData = (etfs ?? []).reduce(
+    (acc, etf) => {
+      const ticker = etf.symbol.toUpperCase();
+      acc.netAssets[ticker] = etf.net_assets
+        ? `${(parseFloat(etf.net_assets) / 1e9).toFixed(1)}B`
+        : "N/A";
+      acc.expenseRatio[ticker] = etf.expense_ratio
+        ? `${(parseFloat(etf.expense_ratio) * 100).toFixed(2)}%`
+        : "N/A";
+      acc.yield[ticker] = etf.yield
+        ? `${(parseFloat(etf.yield) * 100).toFixed(1)}%`
+        : "N/A";
+      acc.inceptionDate[ticker] = etf.inception_date
+        ? new Date(etf.inception_date).toLocaleDateString()
+        : "N/A";
+      acc.performance.YTD[ticker] = etf.performance_ytd
+        ? `${(parseFloat(etf.performance_ytd) * 100).toFixed(2)}%`
+        : "N/A";
+      acc.performance["1-Year"][ticker] = etf.performance_1y
+        ? `${(parseFloat(etf.performance_1y) * 100).toFixed(2)}%`
+        : "N/A";
+      acc.performance["3-Year"][ticker] = etf.performance_3y
+        ? `${(parseFloat(etf.performance_3y) * 100).toFixed(2)}%`
+        : "N/A";
+      acc.performance["5-Year"][ticker] = etf.performance_5y
+        ? `${(parseFloat(etf.performance_5y) * 100).toFixed(2)}%`
+        : "N/A";
+      return acc;
     },
-    expenseRatio: {
-      SPY: "0.0945%", // From web results
-      VTI: "0.03%", // From web results
-      IWM: "0.19%", // From web results
-      ARKK: "0.75%", // Higher for active management
-      BOTZ: "0.68%", // Typical for niche ETFs
-      ICLN: "0.41%", // From iShares data
-      VIG: "0.06%", // Low for Vanguard
-      SCHD: "0.06%", // Low for Schwab
-      DVY: "0.38%", // Typical for dividend ETFs
-    },
-    yield: {
-      SPY: "1.3%", // From web results
-      VTI: "1.4%", // From web results
-      IWM: "1.2%", // Estimated
-      ARKK: "0%", // No dividends, growth-focused
-      BOTZ: "0.5%", // Low yield for tech
-      ICLN: "1.0%", // Estimated for clean energy
-      VIG: "1.8%", // Dividend-focused
-      SCHD: "3.5%", // High dividend yield
-      DVY: "3.8%", // High yield focus
-    },
-    inceptionDate: {
-      SPY: "Jan 22, 1993", // From web results
-      VTI: "May 24, 2001", // From web results
-      IWM: "May 22, 2000", // From web results
-      ARKK: "Oct 31, 2014", // From posts on X
-      BOTZ: "Sep 12, 2016", // Estimated
-      ICLN: "Jun 24, 2008", // From iShares
-      VIG: "Apr 21, 2006", // From Vanguard
-      SCHD: "Oct 20, 2011", // From Schwab
-      DVY: "Nov 3, 2003", // From iShares
-    },
-    performance: {
-      YTD: {
-        SPY: "4.32%", // From X posts
-        VTI: "4.35%", // From X posts
-        IWM: "2.18%", // From X posts
-        ARKK: "5.47%", // Estimated, growth-focused
-        BOTZ: "3.0%", // Estimated
-        ICLN: "2.5%", // Estimated, volatile sector
-        VIG: "3.5%", // Stable dividend growth
-        SCHD: "1.94%", // From X posts
-        DVY: "2.0%", // Estimated
+    {
+      netAssets: {},
+      expenseRatio: {},
+      yield: {},
+      inceptionDate: {},
+      performance: {
+        YTD: {},
+        "1-Year": {},
+        "3-Year": {},
+        "5-Year": {},
       },
-      "1-Year": {
-        SPY: "15.23%", // Estimated from web trends
-        VTI: "15.50%", // Estimated
-        IWM: "10.00%", // Lower for small caps
-        ARKK: "20.00%", // High growth potential
-        BOTZ: "12.0%", // Estimated
-        ICLN: "8.0%", // Estimated, sector challenges
-        VIG: "12.0%", // Stable growth
-        SCHD: "10.0%", // Estimated
-        DVY: "9.0%", // Estimated
-      },
-      "3-Year": {
-        SPY: "45.78%", // Estimated from web
-        VTI: "46.00%", // Estimated
-        IWM: "15.00%", // Smaller caps, less growth
-        ARKK: "30.00%", // Volatile but high growth
-        BOTZ: "25.0%", // Estimated
-        ICLN: "10.0%", // Sector volatility
-        VIG: "35.0%", // Strong dividend growth
-        SCHD: "25.0%", // Estimated
-        DVY: "20.0%", // Estimated
-      },
-      "5-Year": {
-        SPY: "73.41%", // Estimated from web
-        VTI: "74.00%", // Estimated
-        IWM: "30.00%", // Smaller caps
-        ARKK: "60.00%", // High growth
-        BOTZ: "50.0%", // Estimated
-        ICLN: "20.0%", // Sector challenges
-        VIG: "60.0%", // Strong performance
-        SCHD: "50.0%", // Estimated
-        DVY: "40.0%", // Estimated
-      },
-    },
-  };
+    } as {
+      netAssets: Record<string, string>;
+      expenseRatio: Record<string, string>;
+      yield: Record<string, string>;
+      inceptionDate: Record<string, string>;
+      performance: {
+        YTD: Record<string, string>;
+        "1-Year": Record<string, string>;
+        "3-Year": Record<string, string>;
+        "5-Year": Record<string, string>;
+      };
+    }
+  );
 
   const ticker = params.ticker.toUpperCase() as ETFKey;
   const currentData = fundData;
@@ -215,39 +243,50 @@ export default function ETFDetails({ params }: { params: { ticker: string } }) {
               <CardTitle>ETF Overview</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground mb-4">{etf.description}</p>
-              <p className="text-muted-foreground mb-4">
-                {etf.name} is designed to offer investors{" "}
-                {ticker === "SPY"
-                  ? "broad exposure to the largest U.S. companies"
-                  : ticker === "VTI"
-                  ? "comprehensive coverage of the U.S. equity market"
-                  : ticker === "IWM"
-                  ? "targeted exposure to small-cap U.S. stocks"
-                  : ticker === "ARKK"
-                  ? "high-growth potential through disruptive innovation"
-                  : ticker === "BOTZ"
-                  ? "investment in robotics and AI technologies"
-                  : ticker === "ICLN"
-                  ? "access to global clean energy trends"
-                  : ticker === "VIG"
-                  ? "stable income via dividend-growing companies"
-                  : ticker === "SCHD"
-                  ? "high dividends from financially strong U.S. firms"
-                  : "high-yield dividends from select U.S. stocks"}
-                , making it a key component for diversified portfolios. Recent
-                market trends show {ticker}{" "}
-                {ticker === "SPY" || ticker === "VTI"
-                  ? "continuing strong performance"
-                  : ticker === "IWM"
-                  ? "recovering from smaller-cap volatility"
-                  : "experiencing growth in its niche sector"}
-                .
-              </p>
-              <Button className="bg-invest hover:bg-invest-secondary text-white mr-3">
-                Buy
-              </Button>
-              <Button variant="outline">Add to Watchlist</Button>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <input type="hidden" {...register("symbol")} value={ticker} />
+                <input type="hidden" {...register("name")} value={etf.name} />
+                <input
+                  type="hidden"
+                  {...register("brand")}
+                  value="Broad Market"
+                />
+                <p className="text-muted-foreground mb-4">{etf.description}</p>
+                <p className="text-muted-foreground mb-4">
+                  {etf.name} is designed to offer investors{" "}
+                  {ticker === "SPY"
+                    ? "broad exposure to the largest U.S. companies"
+                    : ticker === "VTI"
+                    ? "comprehensive coverage of the U.S. equity market"
+                    : ticker === "IWM"
+                    ? "targeted exposure to small-cap U.S. stocks"
+                    : ticker === "ARKK"
+                    ? "high-growth potential through disruptive innovation"
+                    : ticker === "BOTZ"
+                    ? "investment in robotics and AI technologies"
+                    : ticker === "ICLN"
+                    ? "access to global clean energy trends"
+                    : ticker === "VIG"
+                    ? "stable income via dividend-growing companies"
+                    : ticker === "SCHD"
+                    ? "high dividends from financially strong U.S. firms"
+                    : "high-yield dividends from select U.S. stocks"}
+                  , making it a key component for diversified portfolios. Recent
+                  market trends show {ticker}{" "}
+                  {ticker === "SPY" || ticker === "VTI"
+                    ? "continuing strong performance"
+                    : ticker === "IWM"
+                    ? "recovering from smaller-cap volatility"
+                    : "experiencing growth in its niche sector"}
+                  .
+                </p>
+                <Button className="bg-invest hover:bg-invest-secondary text-white mr-3">
+                  Buy
+                </Button>
+                <Button type="submit" variant="outline" disabled={isSubmitting}>
+                  {isSubmitting ? "Adding..." : "Add to Watchlist"}
+                </Button>
+              </form>
             </CardContent>
           </Card>
 
@@ -298,7 +337,9 @@ export default function ETFDetails({ params }: { params: { ticker: string } }) {
                     <span className="text-muted-foreground">YTD</span>
                     <span
                       className={
-                        currentData.performance.YTD[ticker].includes("-")
+                        (currentData.performance.YTD[ticker] ?? "").includes(
+                          "-"
+                        )
                           ? "text-red-600"
                           : "text-green-600"
                       }
@@ -310,7 +351,9 @@ export default function ETFDetails({ params }: { params: { ticker: string } }) {
                     <span className="text-muted-foreground">1-Year</span>
                     <span
                       className={
-                        currentData.performance["1-Year"][ticker].includes("-")
+                        (
+                          currentData.performance["1-Year"][ticker] ?? ""
+                        ).includes("-")
                           ? "text-red-600"
                           : "text-green-600"
                       }
@@ -322,7 +365,9 @@ export default function ETFDetails({ params }: { params: { ticker: string } }) {
                     <span className="text-muted-foreground">3-Year</span>
                     <span
                       className={
-                        currentData.performance["3-Year"][ticker].includes("-")
+                        (
+                          currentData.performance["3-Year"][ticker] ?? ""
+                        ).includes("-")
                           ? "text-red-600"
                           : "text-green-600"
                       }
@@ -334,7 +379,9 @@ export default function ETFDetails({ params }: { params: { ticker: string } }) {
                     <span className="text-muted-foreground">5-Year</span>
                     <span
                       className={
-                        currentData.performance["5-Year"][ticker].includes("-")
+                        (
+                          currentData.performance["5-Year"][ticker] ?? ""
+                        ).includes("-")
                           ? "text-red-600"
                           : "text-green-600"
                       }

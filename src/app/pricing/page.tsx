@@ -35,7 +35,6 @@ export default function Pricing() {
                 "Commission-free stock trading",
                 "Basic market research",
                 "Educational resources",
-                "Mobile app access",
                 "Standard customer support",
               ].map((feature) => (
                 <li key={feature} className="flex items-start">

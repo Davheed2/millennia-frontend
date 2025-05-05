@@ -1,4 +1,14 @@
-export type { ApiResponse, User } from "./ApiResponse";
+export type {
+  ApiResponse,
+  User,
+  Referrals,
+  Kyc,
+  Stocks,
+  ETFS,
+  Wishlist,
+  Transaction,
+  Wallet,
+} from "./ApiResponse";
 export type {
   ForgotPasswordProps,
   LoginProps,
@@ -6,4 +16,9 @@ export type {
   SignUpProps,
   UpdatePasswordsProps,
   OtpVerificationProps,
+  UpdateProfileProps,
+  KycProps,
+  WishlistProps,
+  AddFundsProps,
+  WithdrawFundsProps,
 } from "./FormInput";

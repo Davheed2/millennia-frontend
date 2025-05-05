@@ -11,90 +11,85 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Heart, Search, TrendingUp, TrendingDown, Plus, X } from "lucide-react";
-//import { useToast } from "@/hooks/use-toast";
+import { Heart, Search, TrendingUp, TrendingDown, X } from "lucide-react";
+import { toast } from "sonner";
+import { ApiResponse, Wishlist } from "@/interfaces";
+import { useQuery } from "@tanstack/react-query";
+import { callApi } from "@/lib/helpers";
 
-// Mock data for wishlist
-const initialWishlist = [
-  {
-    id: 1,
-    name: "Amazon.com Inc.",
-    ticker: "AMZN",
-    price: 178.35,
-    change: 1.23,
-    changePercent: 0.69,
-    type: "stock",
-    sector: "Technology",
-  },
-  {
-    id: 2,
-    name: "Vanguard Total Stock Market ETF",
-    ticker: "VTI",
-    price: 257.89,
-    change: 0.56,
-    changePercent: 0.22,
-    type: "etf",
-    sector: "Broad Market",
-  },
-  {
-    id: 3,
-    name: "Alphabet Inc.",
-    ticker: "GOOGL",
-    price: 145.62,
-    change: -2.31,
-    changePercent: -1.56,
-    type: "stock",
-    sector: "Technology",
-  },
-  {
-    id: 4,
-    name: "iShares Core S&P 500 ETF",
-    ticker: "IVV",
-    price: 464.87,
-    change: 1.02,
-    changePercent: 0.22,
-    type: "etf",
-    sector: "Large Cap",
-  },
-  {
-    id: 5,
-    name: "Johnson & Johnson",
-    ticker: "JNJ",
-    price: 147.32,
-    change: -0.85,
-    changePercent: -0.57,
-    type: "stock",
-    sector: "Healthcare",
-  },
-];
-
-export default function Wishlist() {
-  const [wishlist, setWishlist] = useState(initialWishlist);
+export default function Wishlists() {
+  const [wishlist, setWishlist] = useState<Wishlist[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  //const { toast } = useToast();
 
-  // Filter wishlist based on search term
   const filteredWishlist = wishlist.filter(
     (item) =>
-      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.ticker.toLowerCase().includes(searchTerm.toLowerCase())
+      item?.wishlist?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item?.wishlist?.symbol?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const removeFromWishlist = (id: number) => {
-    setWishlist(wishlist.filter((item) => item.id !== id));
-    // toast({
-    //   title: "Removed from wishlist",
-    //   description: "The investment has been removed from your wishlist.",
-    // });
+  const {
+    //data: watchlist,
+    //isLoading: loading,
+    //error: queryError,
+  } = useQuery<Wishlist[], Error>({
+    queryKey: ["watchlist"],
+    queryFn: async () => {
+      const { data: responseData, error } = await callApi<
+        ApiResponse<Wishlist[]>
+      >("/wishlist/user");
+      if (error) {
+        throw new Error(
+          error.message ||
+            "Something went wrong while fetching your watch list."
+        );
+      }
+      if (!responseData?.data) {
+        throw new Error("No watch list found");
+      }
+      toast.success("Watch list Fetched", {
+        description: "Successfully fetched watch list.",
+      });
+
+      setWishlist(responseData.data);
+      return responseData.data;
+    },
+  });
+
+  const removeFromWishlist = async (id: string) => {
+    setWishlist(wishlist.filter((item) => item.wishlist.id !== id));
+
+    try {
+      const { data: responseData, error } = await callApi<ApiResponse<null>>(
+        `/wishlist/delete`,
+        {
+          wishlistId: id,
+        }
+      );
+
+      if (error) throw new Error(error.message);
+      if (responseData?.status === "success") {
+        toast.success("Removed from watchlist", {
+          description: "The investment has been removed from your watchlist.",
+        });
+        return true;
+      }
+      return false;
+    } catch (err) {
+      toast.error("Watch list removal Failed", {
+        description:
+          err instanceof Error ? err.message : "An unexpected error occurred.",
+      });
+      return false;
+    }
   };
 
   return (
     <>
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">My Wishlist</h1>
-        <Button className="bg-invest hover:bg-invest-secondary text-white">
+        {/* <Button className="bg-invest hover:bg-invest-secondary text-white">
           <Plus className="h-4 w-4 mr-2" /> Add Investment
-        </Button>
+        </Button> */}
       </div>
 
       <Card className="mb-6">
@@ -128,17 +123,13 @@ export default function Wishlist() {
                   ? "No matches found. Try a different search."
                   : "Add investments to keep track of them"}
               </p>
-              {searchTerm ? (
+              {searchTerm && (
                 <Button
                   variant="outline"
                   onClick={() => setSearchTerm("")}
                   className="mx-auto"
                 >
                   Clear Search
-                </Button>
-              ) : (
-                <Button className="bg-invest hover:bg-invest-secondary text-white mx-auto">
-                  <Plus className="h-4 w-4 mr-2" /> Add Investments
                 </Button>
               )}
             </div>
@@ -152,31 +143,31 @@ export default function Wishlist() {
               </div>
               <Separator />
               {filteredWishlist.map((item) => (
-                <div key={item.id}>
+                <div key={item.wishlist.id}>
                   <div className="grid grid-cols-5 gap-4 p-4 items-center">
                     <div className="col-span-2">
-                      <div className="font-medium">{item.name}</div>
+                      <div className="font-medium">{item.wishlist.name}</div>
                       <div className="flex items-center gap-2 text-sm text-gray-500">
-                        <span>{item.ticker}</span>
+                        <span>{item.wishlist.symbol}</span>
                         <span className="px-2 py-0.5 rounded-full bg-gray-100 text-xs">
-                          {item.sector}
+                          {item.wishlist.brand}
                         </span>
                       </div>
                     </div>
-                    <div>${item.price.toFixed(2)}</div>
+                    <div>${Number(item.metrics.price).toFixed(2)}</div>
                     <div className="flex items-center">
-                      {item.changePercent > 0 ? (
+                      {Number(item.metrics.change_percentage) > 0 ? (
                         <>
                           <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
                           <span className="text-green-500">
-                            {item.changePercent.toFixed(2)}%
+                            {Number(item.metrics.change_percentage).toFixed(2)}%
                           </span>
                         </>
                       ) : (
                         <>
                           <TrendingDown className="h-4 w-4 text-red-500 mr-1" />
                           <span className="text-red-500">
-                            {item.changePercent.toFixed(2)}%
+                            {Number(item.metrics.change_percentage).toFixed(2)}%
                           </span>
                         </>
                       )}
@@ -186,12 +177,12 @@ export default function Wishlist() {
                         Buy
                       </Button>
                       <Button
-                        variant="ghost"
+                        variant={null}
                         size="icon"
-                        onClick={() => removeFromWishlist(item.id)}
+                        onClick={() => removeFromWishlist(item.wishlist.id)}
                         className="text-gray-500 hover:text-red-500"
                       >
-                        <X className="h-4 w-4" />
+                        <X className="h-4 w-4 text-red-600" />
                       </Button>
                     </div>
                   </div>

@@ -13,10 +13,12 @@ type AuthProps = {
 };
 
 const Auth = ({ children, exclude = [] }: AuthProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { user, loading } = useSession((state) => state);
   const router = useRouter();
   const pathname = usePathname();
+
+  if (loading || !pathname)
+    return <Loader message="Validating auth status..." />;
 
   const isDashboardRoute = pathname.includes("/dashboard");
 
@@ -42,10 +44,10 @@ const Auth = ({ children, exclude = [] }: AuthProps) => {
   }
 
   // If user is signed in but on a non-dashboard route, allow access
-  //   if (!isDashboardRoute && user) {
-  //     redirect("/dashboard", "You are already signed in");
-  //     return <Loader message="Redirecting..." />;
-  //   }
+  // if (authRoute && user) {
+  //   redirect("/dashboard", "You are already signed in");
+  //   return <Loader message="Redirecting..." />;
+  // }
 
   return children;
 };

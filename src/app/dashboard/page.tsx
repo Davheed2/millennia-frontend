@@ -21,24 +21,57 @@ import { Button } from "@/components/ui/button";
 //import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import Link from "next/link";
+import { useSession } from "@/store/useSession";
+import { callApi } from "@/lib/helpers";
+import { ApiResponse, Wallet } from "@/interfaces";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Dashboard() {
-  //const { user } = useAuth();
-  const isKycVerified = true;
+  const { user } = useSession((state) => state);
+  const {
+    data: balance,
+    //isLoading: loading,
+    //error: queryError,
+  } = useQuery<Wallet[], Error>({
+    queryKey: ["balance"],
+    queryFn: async () => {
+      const { data: responseData, error } = await callApi<
+        ApiResponse<Wallet[]>
+      >("/wallet/user");
+      if (error) {
+        throw new Error(
+          error.message ||
+            "Something went wrong while fetching user wallet balance."
+        );
+      }
+      if (!responseData?.data) {
+        throw new Error("No wallet balance found");
+      }
+
+      return responseData.data;
+    },
+  });
 
   return (
     <>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Welcome back, {"Investor"}</h1>
+        <h1 className="text-2xl font-bold">
+          Welcome back, {user && user[0].firstName}
+        </h1>
         <div>
           <span className="text-sm text-gray-500">Last updated: </span>
-          <span className="text-sm font-medium">April 15, 2025, 10:30 AM</span>
+          <span className="text-sm font-medium">
+            {new Date().toLocaleString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </span>
         </div>
       </div>
 
       {/* KYC Alert if not verified */}
-      {/* {!user?.isKycVerified && ( */}
-      {isKycVerified && (
+      {user && !user[0]?.isKycVerified && (
         <Card className="mb-6 border-orange-100 bg-orange-50">
           <CardContent className="p-4">
             <div className="flex items-start gap-3">
@@ -69,7 +102,12 @@ export default function Dashboard() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">$23,456.78</div>
+            <div className="text-3xl font-bold">
+              $
+              {balance && balance[0]?.portfolioBalance
+                ? balance[0].portfolioBalance
+                : "0.00"}
+            </div>
             <div className="flex items-center mt-1 text-sm">
               <TrendingUp className="text-green-500 h-4 w-4 mr-1" />
               <span className="text-green-500 font-medium">
@@ -105,12 +143,17 @@ export default function Dashboard() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">$5,678.90</div>
+            <div className="text-3xl font-bold">
+              $
+              {balance && balance[0]?.balance
+                ? balance[0].balance.toLocaleString()
+                : "0.00"}
+            </div>
             <div className="flex justify-between mt-2">
               <Button
                 variant="outline"
                 size="sm"
-                className="text-invest bg-invest/5 border-invest/20 hover:bg-invest/10"
+                className="text-invest bg-invest/5 border-invest/20 hover:bg-invest/20 hover:text-invest-dark"
               >
                 <Link href="/dashboard/add-funds" className="flex items-center">
                   Add Funds
@@ -119,7 +162,7 @@ export default function Dashboard() {
               <Button
                 variant="outline"
                 size="sm"
-                className="text-gray-600 hover:bg-gray-50"
+                className="text-gray-600 hover:bg-gray-100 hover:text-gray-800"
               >
                 <Link href="/dashboard/withdraw" className="flex items-center">
                   Withdraw
@@ -160,31 +203,25 @@ export default function Dashboard() {
           <CardContent className="space-y-4">
             <div>
               <div className="flex items-center justify-between mb-1 text-sm">
-                <span>Stocks</span>
+                <span>crypto currency</span>
                 <span className="font-medium">60%</span>
               </div>
               <Progress value={60} className="h-2" />
             </div>
             <div>
               <div className="flex items-center justify-between mb-1 text-sm">
-                <span>Bonds</span>
-                <span className="font-medium">25%</span>
+                <span>Stocks</span>
+                <span className="font-medium">30%</span>
               </div>
-              <Progress value={25} className="h-2" />
+              <Progress value={30} className="h-2" />
             </div>
+
             <div>
               <div className="flex items-center justify-between mb-1 text-sm">
-                <span>Real Estate</span>
+                <span>ETF</span>
                 <span className="font-medium">10%</span>
               </div>
               <Progress value={10} className="h-2" />
-            </div>
-            <div>
-              <div className="flex items-center justify-between mb-1 text-sm">
-                <span>Cash</span>
-                <span className="font-medium">5%</span>
-              </div>
-              <Progress value={5} className="h-2" />
             </div>
           </CardContent>
         </Card>

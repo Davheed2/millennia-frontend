@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-//import { useAuth } from "@/contexts/AuthContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 // ADD this at the top
 import Auth from "@/components/Protect";
+import { useRouter } from "next/navigation";
 import {
   Activity,
   Briefcase,
@@ -27,25 +27,42 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { Toaster } from "sonner";
-import { useInitSession } from "@/store/useSession";
+import { useInitSession, useSession } from "@/store/useSession";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  //const { user, logout } = useAuth();
+  const router = useRouter();
+  const { user } = useSession((state) => state);
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-  const isKycVerified = true;
-
+  const [profileImage, setProfileImage] = useState(user && user[0].photo);
   const { getSession } = useInitSession((state) => state.actions);
 
   useEffect(() => {
     void getSession();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (user && user[0]) {
+      setProfileImage(user[0].photo || "");
+    }
+  }, [user]);
+
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        gcTime: 5 * 60 * 1000,
+        staleTime: 1 * 60 * 1000,
+      },
+    },
+  });
 
   const navItems = [
     {
@@ -67,7 +84,7 @@ export default function DashboardLayout({
       name: "KYC Verification",
       href: "/dashboard/kyc",
       icon: FileCheck,
-      alert: !isKycVerified,
+      alert: user && !user[0].isKycVerified,
     },
     {
       name: "Add Funds",
@@ -107,6 +124,10 @@ export default function DashboardLayout({
 
   const toggleMobileSidebar = () => {
     setMobileSidebarOpen(!mobileSidebarOpen);
+  };
+
+  const logout = () => {
+    router.push("/dashboard/logout");
   };
 
   const NavItem = ({ item }: { item: (typeof navItems)[0] }) => {
@@ -202,29 +223,43 @@ export default function DashboardLayout({
         {/* User section */}
         <div className={cn("p-4", !sidebarOpen && "hidden")}>
           <div className="flex items-center gap-3 mb-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100">
-              <span className="font-medium text-invest">{"U"}</span>
-            </div>
+            <Avatar>
+              <AvatarImage
+                src={profileImage || ""}
+                className="object-cover w-full h-full"
+              />
+              <AvatarFallback>
+                {user && user[0]
+                  ? `${user[0].firstName?.[0] || ""}${
+                      user[0].lastName?.[0] || ""
+                    }`.toUpperCase()
+                  : ""}
+              </AvatarFallback>
+            </Avatar>
             {(sidebarOpen || mobileSidebarOpen) && (
               <div className="overflow-hidden">
-                <p className="truncate font-medium">{"User"}</p>
+                <p className="truncate font-medium text-sm">
+                  {user && user[0].firstName} {user && user[0].lastName}
+                </p>
                 <p className="truncate text-xs text-gray-500">
-                  {"user@example.com"}
+                  {user && user[0].email}
                 </p>
               </div>
             )}
           </div>
 
           {/* KYC progress */}
-          {(sidebarOpen || mobileSidebarOpen) && !isKycVerified && (
-            <div className="mt-2 mb-1">
-              <div className="flex items-center justify-between text-xs mb-1">
-                <span>Complete KYC</span>
-                <span className="text-invest">Required</span>
+          {(sidebarOpen || mobileSidebarOpen) &&
+            user &&
+            !user[0].isKycVerified && (
+              <div className="mt-4 mb-1">
+                <div className="flex items-center justify-between text-xs mb-1">
+                  <span>Complete KYC</span>
+                  <span className="text-invest">Required</span>
+                </div>
+                <Progress className="h-2" value={0} />
               </div>
-              <Progress className="h-2" value={0} />
-            </div>
-          )}
+            )}
         </div>
 
         <Separator className={cn(!sidebarOpen && "hidden")} />
@@ -239,7 +274,7 @@ export default function DashboardLayout({
         {/* Logout button */}
         <div className="p-3 mt-auto">
           <button
-            //onClick={logout}
+            onClick={logout}
             className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-red-600 transition-colors hover:bg-red-50"
           >
             <LogOut className="h-5 w-5" />
@@ -257,8 +292,10 @@ export default function DashboardLayout({
         )}
       >
         <div className="p-4 sm:p-10">
-          <Auth>{children}</Auth>
-          <Toaster richColors position="top-right" />
+          <QueryClientProvider client={queryClient}>
+            <Auth>{children}</Auth>
+            <Toaster richColors position="top-right" />
+          </QueryClientProvider>
         </div>
       </main>
     </div>

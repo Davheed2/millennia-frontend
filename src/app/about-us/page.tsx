@@ -36,7 +36,7 @@ export default function AboutUs() {
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="heading-lg mb-6">Our Story</h2>
             <p className="mb-4 text-muted-foreground">
-              Millennia Trades was founded in 2017 by a team of financial experts
+              Millennia Trades was founded in 2012 by a team of financial experts
               and technology innovators who believed that sophisticated
               investment strategies shouldn&apos;t be reserved for the
               ultra-wealthy.

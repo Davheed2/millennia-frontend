@@ -15,7 +15,7 @@ import { Separator } from "@/components/ui/separator";
 import {
   Search,
   Calendar,
-  Download,
+  // Download,
   // Filter,
   ArrowDownCircle,
   ArrowUpCircle,
@@ -29,81 +29,87 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "sonner";
+import { ApiResponse, Transaction } from "@/interfaces";
+import { callApi } from "@/lib/helpers";
+import { useQuery } from "@tanstack/react-query";
 
 // Mock transaction data
-const allTransactions = [
-  {
-    id: 1,
-    type: "deposit",
-    amount: 5000,
-    status: "completed",
-    date: "2025-04-10T10:30:00",
-    method: "Bank Transfer",
-    reference: "DEP12345678",
-    description: "Deposit from Bank of America ****1234",
-  },
-  {
-    id: 2,
-    type: "withdrawal",
-    amount: 1000,
-    status: "completed",
-    date: "2025-04-05T14:15:00",
-    method: "Bank Transfer",
-    reference: "WTH87654321",
-    description: "Withdrawal to Bank of America ****1234",
-  },
-  {
-    id: 3,
-    type: "investment",
-    amount: 2500,
-    status: "completed",
-    date: "2025-04-03T09:45:00",
-    method: "Portfolio",
-    reference: "INV56781234",
-    description: "Purchase of Apple Inc. (AAPL) - 10 shares @ $250.00",
-  },
-  {
-    id: 4,
-    type: "deposit",
-    amount: 1500,
-    status: "pending",
-    date: "2025-04-01T16:20:00",
-    method: "Card Payment",
-    reference: "DEP43218765",
-    description: "Deposit from Visa ****5678",
-  },
-  {
-    id: 5,
-    type: "investment",
-    amount: 3000,
-    status: "completed",
-    date: "2025-03-28T11:10:00",
-    method: "Portfolio",
-    reference: "INV98761234",
-    description: "Purchase of Vanguard S&P 500 ETF (VOO) - 7 shares @ $428.57",
-  },
-  {
-    id: 6,
-    type: "withdrawal",
-    amount: 500,
-    status: "failed",
-    date: "2025-03-25T13:40:00",
-    method: "Bank Transfer",
-    reference: "WTH13579246",
-    description: "Withdrawal to Chase Bank ****5678 - Insufficient funds",
-  },
-];
+// const allTransactions = [
+//   {
+//     id: 1,
+//     type: "deposit",
+//     amount: 5000,
+//     status: "completed",
+//     date: "2025-04-10T10:30:00",
+//     method: "Bank Transfer",
+//     reference: "DEP12345678",
+//     description: "Deposit from Bank of America ****1234",
+//   },
+//   {
+//     id: 2,
+//     type: "withdrawal",
+//     amount: 1000,
+//     status: "completed",
+//     date: "2025-04-05T14:15:00",
+//     method: "Bank Transfer",
+//     reference: "WTH87654321",
+//     description: "Withdrawal to Bank of America ****1234",
+//   },
+//   {
+//     id: 3,
+//     type: "investment",
+//     amount: 2500,
+//     status: "completed",
+//     date: "2025-04-03T09:45:00",
+//     method: "Portfolio",
+//     reference: "INV56781234",
+//     description: "Purchase of Apple Inc. (AAPL) - 10 shares @ $250.00",
+//   },
+//   {
+//     id: 4,
+//     type: "deposit",
+//     amount: 1500,
+//     status: "pending",
+//     date: "2025-04-01T16:20:00",
+//     method: "Card Payment",
+//     reference: "DEP43218765",
+//     description: "Deposit from Visa ****5678",
+//   },
+//   {
+//     id: 5,
+//     type: "investment",
+//     amount: 3000,
+//     status: "completed",
+//     date: "2025-03-28T11:10:00",
+//     method: "Portfolio",
+//     reference: "INV98761234",
+//     description: "Purchase of Vanguard S&P 500 ETF (VOO) - 7 shares @ $428.57",
+//   },
+//   {
+//     id: 6,
+//     type: "withdrawal",
+//     amount: 500,
+//     status: "failed",
+//     date: "2025-03-25T13:40:00",
+//     method: "Bank Transfer",
+//     reference: "WTH13579246",
+//     description: "Withdrawal to Chase Bank ****5678 - Insufficient funds",
+//   },
+// ];
 
 export default function Transactions() {
   const [activeTab, setActiveTab] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [transaction, setTransaction] = useState<Transaction[]>([]);
 
   // Filter transactions based on active tab, search term, and status filter
-  const filteredTransactions = allTransactions
-    .filter(
-      (transaction) => activeTab === "all" || transaction.type === activeTab
-    )
+  const filteredTransactions = transaction
+    .filter((transaction) => {
+      if (activeTab === "all") return true; // No filter for "all"
+      return transaction.type === activeTab;
+    })
     .filter(
       (transaction) =>
         transaction.description
@@ -111,10 +117,38 @@ export default function Transactions() {
           .includes(searchTerm.toLowerCase()) ||
         transaction.reference.toLowerCase().includes(searchTerm.toLowerCase())
     )
-    .filter(
-      (transaction) =>
-        statusFilter === "" || transaction.status === statusFilter
-    );
+    .filter((transaction) => {
+      if (statusFilter === "all") return true; // No filter for "all"
+      return transaction.status === statusFilter;
+    });
+
+  const {
+    //data: watchlist,
+    //isLoading: loading,
+    //error: queryError,
+  } = useQuery<Transaction[], Error>({
+    queryKey: ["transaction"],
+    queryFn: async () => {
+      const { data: responseData, error } = await callApi<
+        ApiResponse<Transaction[]>
+      >("/transaction/user");
+      if (error) {
+        throw new Error(
+          error.message ||
+            "Something went wrong while fetching your transactions."
+        );
+      }
+      if (!responseData?.data) {
+        throw new Error("No transaction found");
+      }
+      toast.success("Transactions Fetched", {
+        description: "Successfully fetched transactions.",
+      });
+
+      setTransaction(responseData.data);
+      return responseData.data;
+    },
+  });
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -154,7 +188,7 @@ export default function Transactions() {
 
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case "deposit":
+      case "Deposit":
         return <ArrowDownCircle className="h-4 w-4 text-green-500" />;
       case "withdrawal":
         return <ArrowUpCircle className="h-4 w-4 text-red-500" />;
@@ -169,10 +203,6 @@ export default function Transactions() {
     <>
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Transactions</h1>
-        <Button variant="outline" className="gap-2">
-          <Download className="h-4 w-4" />
-          Export
-        </Button>
       </div>
 
       <Card>
@@ -191,7 +221,7 @@ export default function Transactions() {
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
               <TabsList>
                 <TabsTrigger value="all">All Transactions</TabsTrigger>
-                <TabsTrigger value="deposit">Deposits</TabsTrigger>
+                <TabsTrigger value="Deposit">Deposits</TabsTrigger>
                 <TabsTrigger value="withdrawal">Withdrawals</TabsTrigger>
                 <TabsTrigger value="investment">Investments</TabsTrigger>
               </TabsList>
@@ -266,7 +296,9 @@ export default function Transactions() {
                           </div>
                         </div>
                         <div className="hidden lg:block text-sm text-gray-500">
-                          {formatDate(transaction.date)}
+                          {transaction.created_at
+                            ? formatDate(transaction.created_at)
+                            : "N/A"}
                         </div>
                         <div className="flex items-center gap-2">
                           {getTypeIcon(transaction.type)}

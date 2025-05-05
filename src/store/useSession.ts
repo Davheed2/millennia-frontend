@@ -52,19 +52,21 @@ export const useInitSession = create<Session>()((set, get) => ({
         isFirstMount: state.isFirstMount,
       }));
 
-      const currentPageUrl = window.location.pathname;
+      if (typeof window !== "undefined") {
+        const currentPageUrl = window.location.pathname;
 
-      if (
-        !currentPageUrl.includes("/dashboard") &&
-        currentPageUrl !== "/signin" &&
-        currentPageUrl !== "/signup" &&
-        currentPageUrl !== "/forgot-password" &&
-        currentPageUrl !== "/forgot-password/sent" &&
-        currentPageUrl !== "/reset-password" &&
-        currentPageUrl !== "/reset-password/success" &&
-        !get().isFirstMount
-      ) {
-        window.location.replace("/");
+        if (
+          !currentPageUrl.includes("/dashboard") &&
+          currentPageUrl !== "/signin" &&
+          currentPageUrl !== "/signup" &&
+          currentPageUrl !== "/forgot-password" &&
+          currentPageUrl !== "/forgot-password/sent" &&
+          currentPageUrl !== "/reset-password" &&
+          currentPageUrl !== "/reset-password/success" &&
+          !get().isFirstMount
+        ) {
+          window.location.replace("/");
+        }
       }
     },
   } satisfies Session["actions"],

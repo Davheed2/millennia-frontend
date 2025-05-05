@@ -1,10 +1,18 @@
-import { notFound } from "next/navigation";
-import { Metadata } from "next";
+"use client";
+
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ApiResponse, Stocks } from "@/interfaces";
+import { callApi } from "@/lib/helpers";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { wishlistType, zodValidator } from "@/lib/validators/validateWithZod";
+import { WishlistData } from "@/interfaces/ApiResponse";
+import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const stocksData: Record<
   string,
@@ -75,119 +83,128 @@ const stocksData: Record<
   },
 };
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { ticker: string };
-}): Promise<Metadata> {
-  const stock = stocksData[params.ticker.toUpperCase()];
-  return {
-    title: stock
-      ? `${stock.name} (${params.ticker.toUpperCase()}) | Millennia Trades`
-      : "Stock Not Found | Millennia Trades",
-  };
-}
-
 export default function StockDetails({
   params,
 }: {
   params: { ticker: string };
 }) {
   const stock = stocksData[params.ticker.toUpperCase()];
+  const queryClient = useQueryClient();
 
-  if (!stock) return notFound();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    //watch,
+    //setValue,
+    formState: { isSubmitting },
+  } = useForm<wishlistType>({
+    resolver: zodResolver(zodValidator("wishlist")!),
+    mode: "onChange",
+    reValidateMode: "onChange",
+  });
+
+  const {
+    data: stocks,
+    //isLoading: loading,
+    //error: queryError,
+  } = useQuery<Stocks[], Error>({
+    queryKey: ["stocks"],
+    queryFn: async () => {
+      const { data: responseData, error } = await callApi<
+        ApiResponse<Stocks[]>
+      >("/assets/stocks");
+      if (error) {
+        throw new Error(
+          error.message || "Something went wrong while fetching stocks data."
+        );
+      }
+      if (!responseData?.data) {
+        throw new Error("No stock details found");
+      }
+
+      //console.log(responseData.data);
+      return responseData.data;
+    },
+  });
+
+  const onSubmit: SubmitHandler<wishlistType> = async (data: wishlistType) => {
+    try {
+      //setIsLoading(true);
+      const { data: responseData, error } = await callApi<
+        ApiResponse<WishlistData>
+      >("/wishlist/create", {
+        name: data.name,
+        symbol: data.symbol,
+        brand: data.brand,
+      });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      if (responseData?.status === "success") {
+        toast.success("Watchlist Added", {
+          description: "Ticker added to your watchlist successfully",
+        });
+        queryClient.invalidateQueries({ queryKey: ["watchlist"] });
+      }
+    } catch (err) {
+      toast.error("Watch list Addition Failed", {
+        description:
+          err instanceof Error
+            ? err.message
+            : "An unexpected error occurred. Please try again.",
+      });
+    } finally {
+      reset();
+    }
+  };
 
   // Sample market data and metrics as of April 9, 2025 (approximate based on trends)
-  const marketData = {
-    price: {
-      AAPL: 187.5, // Approx. based on recent trends
-      TSLA: 424.77, // Recent high from search results
-      AMZN: 185.0, // Approx. based on trends
-      NVDA: 93.0, // Recent price from posts on X
-      MSFT: 420.0, // Approx. based on trends
-      GOOGL: 188.4, // From search results
-      SNOW: 150.0, // Estimated, no exact recent data
-      ROKU: 60.0, // Estimated, no exact recent data
-      COIN: 250.0, // Estimated, no exact recent data
-    } as Record<string, number>,
-    change: {
-      AAPL: "+0.50 (0.27%)", // Positive trend
-      TSLA: "+5.00 (1.19%)", // Recent surge
-      AMZN: "+1.20 (0.65%)", // Positive trend
-      NVDA: "-1.00 (-1.06%)", // Slight decline
-      MSFT: "+0.80 (0.19%)", // Stable
-      GOOGL: "-3.59 (-1.87%)", // Recent decline
-      SNOW: "+2.00 (1.35%)", // Estimated growth
-      ROKU: "-0.50 (-0.83%)", // Slight decline
-      COIN: "+3.00 (1.21%)", // Crypto volatility
-    } as Record<string, string>,
-    volume: {
-      AAPL: "45.2M", // High trading volume
-      TSLA: "35.6M", // High due to recent rally
-      AMZN: "28.9M", // Strong volume
-      NVDA: "50.0M", // High due to AI demand
-      MSFT: "22.1M", // Stable volume
-      GOOGL: "29.9M", // From search results
-      SNOW: "5.0M", // Lower but growing
-      ROKU: "3.5M", // Moderate volume
-      COIN: "7.8M", // Crypto trading volume
-    } as Record<string, string>,
-    marketCap: {
-      AAPL: "2.9T", // Trillion-dollar club
-      TSLA: "1.35T", // Recently surpassed $1T
-      AMZN: "1.9T", // Trillion-dollar club
-      NVDA: "2.3T", // Growing rapidly
-      MSFT: "3.1T", // Top-valued company
-      GOOGL: "2.4T", // Trillion-dollar club
-      SNOW: "50B", // Smaller cap
-      ROKU: "8B", // Smaller cap
-      COIN: "60B", // Growing crypto sector
-    } as Record<string, string>,
-    peRatio: {
-      AAPL: 27.41, // From X posts
-      TSLA: 108.85, // High P/E from X posts
-      AMZN: 30.88, // From X posts
-      NVDA: 32.77, // From X posts
-      MSFT: 28.56, // From X posts
-      GOOGL: 18.98, // Low P/E from X posts
-      SNOW: 85.0, // High growth tech
-      ROKU: 45.0, // High growth
-      COIN: 70.0, // Volatile sector
-    } as Record<string, number>,
-    dividendYield: {
-      AAPL: "0.55%", // Recent data
-      TSLA: "0%", // No dividends
-      AMZN: "0%", // No dividends
-      NVDA: "0.03%", // Low yield
-      MSFT: "0.70%", // Stable dividend
-      GOOGL: "0%", // No dividends
-      SNOW: "0%", // No dividends
-      ROKU: "0%", // No dividends
-      COIN: "0%", // No dividends
-    } as Record<string, string>,
-    weekHigh: {
-      AAPL: 195.0, // Recent high
-      TSLA: 430.0, // Recent record
-      AMZN: 190.0, // Approx.
-      NVDA: 95.0, // Recent high
-      MSFT: 430.0, // Approx.
-      GOOGL: 201.42, // From search results
-      SNOW: 155.0, // Estimated
-      ROKU: 65.0, // Estimated
-      COIN: 260.0, // Estimated
-    } as Record<string, number>,
-    weekLow: {
-      AAPL: 165.0, // Recent low
-      TSLA: 150.0, // Recent low
-      AMZN: 145.0, // Approx.
-      NVDA: 70.0, // Recent low
-      MSFT: 390.0, // Approx.
-      GOOGL: 130.66, // From search results
-      SNOW: 120.0, // Estimated
-      ROKU: 50.0, // Estimated
-      COIN: 200.0, // Estimated
-    } as Record<string, number>,
-  };
+  const marketData = (stocks ?? []).reduce(
+    (acc, stock) => {
+      const ticker = stock.symbol.toUpperCase();
+      acc.price[ticker] = parseFloat(stock.price);
+      acc.change[
+        ticker
+      ] = `${stock.change_dollar} (${stock.change_percentage}%)`;
+      acc.volume[ticker] = stock.volume ? `${stock.volume}M` : "N/A";
+      acc.marketCap[ticker] = stock.market_cap
+        ? `${(parseFloat(stock.market_cap) / 1e3).toFixed(1)}B`
+        : "N/A";
+      acc.peRatio[ticker] = stock.pe_ratio ? parseFloat(stock.pe_ratio) : 0;
+      acc.dividendYield[ticker] = stock.dividend_yield
+        ? `${stock.dividend_yield}%`
+        : "N/A";
+      acc.weekHigh[ticker] = stock.fifty_two_week_high
+        ? parseFloat(stock.fifty_two_week_high)
+        : 0;
+      acc.weekLow[ticker] = stock.fifty_two_week_low
+        ? parseFloat(stock.fifty_two_week_low)
+        : 0;
+      return acc;
+    },
+    {
+      price: {},
+      change: {},
+      volume: {},
+      marketCap: {},
+      peRatio: {},
+      dividendYield: {},
+      weekHigh: {},
+      weekLow: {},
+    } as {
+      price: Record<string, number>;
+      change: Record<string, string>;
+      volume: Record<string, string>;
+      marketCap: Record<string, string>;
+      peRatio: Record<string, number>;
+      dividendYield: Record<string, string>;
+      weekHigh: Record<string, number>;
+      weekLow: Record<string, number>;
+    }
+  );
 
   const ticker = params.ticker.toUpperCase();
   const currentData = marketData;
@@ -223,35 +240,48 @@ export default function StockDetails({
               <CardTitle>Company Overview</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground mb-4">{stock.description}</p>
-              <p className="text-muted-foreground mb-4">
-                {stock.name} continues to innovate in its respective field,
-                maintaining a strong market position through strategic
-                investments and technological advancements. For example,{" "}
-                {stock.name} has recently focused on expanding its{" "}
-                {ticker === "AAPL"
-                  ? "services and AI integration"
-                  : ticker === "TSLA"
-                  ? "electric vehicle production and autonomous driving"
-                  : ticker === "AMZN"
-                  ? "cloud computing and logistics"
-                  : ticker === "NVDA"
-                  ? "AI and GPU technologies"
-                  : ticker === "MSFT"
-                  ? "cloud services and AI"
-                  : ticker === "GOOGL"
-                  ? "AI and quantum computing"
-                  : ticker === "SNOW"
-                  ? "data cloud solutions"
-                  : ticker === "ROKU"
-                  ? "streaming and ad tech"
-                  : "cryptocurrency services"}
-                , driving significant growth and investor interest.
-              </p>
-              <Button className="bg-invest hover:bg-invest-secondary text-white mr-3">
-                Buy
-              </Button>
-              <Button variant="outline">Add to Watchlist</Button>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <input type="hidden" {...register("symbol")} value={ticker} />
+                <input type="hidden" {...register("name")} value={stock.name} />
+                <input
+                  type="hidden"
+                  {...register("brand")}
+                  value="Technology"
+                />
+                <p className="text-muted-foreground mb-4">
+                  {stock.description}
+                </p>
+                <p className="text-muted-foreground mb-4">
+                  {stock.name} continues to innovate in its respective field,
+                  maintaining a strong market position through strategic
+                  investments and technological advancements. For example,{" "}
+                  {stock.name} has recently focused on expanding its{" "}
+                  {ticker === "AAPL"
+                    ? "services and AI integration"
+                    : ticker === "TSLA"
+                    ? "electric vehicle production and autonomous driving"
+                    : ticker === "AMZN"
+                    ? "cloud computing and logistics"
+                    : ticker === "NVDA"
+                    ? "AI and GPU technologies"
+                    : ticker === "MSFT"
+                    ? "cloud services and AI"
+                    : ticker === "GOOGL"
+                    ? "AI and quantum computing"
+                    : ticker === "SNOW"
+                    ? "data cloud solutions"
+                    : ticker === "ROKU"
+                    ? "streaming and ad tech"
+                    : "cryptocurrency services"}
+                  , driving significant growth and investor interest.
+                </p>
+                <Button className="bg-invest hover:bg-invest-secondary text-white mr-3">
+                  Buy
+                </Button>
+                <Button type="submit" variant="outline" disabled={isSubmitting}>
+                  {isSubmitting ? "Adding..." : "Add to Watchlist"}
+                </Button>
+              </form>
             </CardContent>
           </Card>
 
@@ -272,7 +302,7 @@ export default function StockDetails({
                     <span className="text-muted-foreground">Change</span>
                     <span
                       className={
-                        currentData.change[ticker].includes("-")
+                        (currentData.change[ticker] ?? "").includes("-")
                           ? "text-red-600"
                           : "text-green-600"
                       }
