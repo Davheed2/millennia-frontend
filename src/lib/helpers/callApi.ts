@@ -61,6 +61,7 @@ export const callApi = async <T>(
 
 			if (error.response.status === 401) {
 				useInitSession.getState().actions.clearSession();
+				redirect(`/signin`);
 			}
 			if (error.response.status === 429) {
 				toast.error('Too many requests!', {
@@ -72,7 +73,7 @@ export const callApi = async <T>(
 					description: error.message,
 				});
 				//push to login page
-				redirect(`/`);
+				redirect(`/signin`);
 			}
 			if (error.response.status === 500) {
 				toast.error('Internal server Error!', {
