@@ -14,7 +14,6 @@ import {
   TrendingDown,
   Briefcase,
   Heart,
-  AlertCircle,
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -23,11 +22,14 @@ import { Progress } from "@/components/ui/progress";
 import Link from "next/link";
 import { useSession } from "@/store/useSession";
 import { callApi } from "@/lib/helpers";
-import { ApiResponse, Wallet } from "@/interfaces";
+import { ApiResponse, Wallet, UserInvestmentData } from "@/interfaces";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 export default function Dashboard() {
   const { user } = useSession((state) => state);
+  const [allInvestments, setAllInvestments] = useState<UserInvestmentData>([]);
+
   const {
     data: balance,
     //isLoading: loading,
@@ -52,9 +54,91 @@ export default function Dashboard() {
     },
   });
 
+  const {
+    //isLoading,
+    //error
+  } = useQuery<UserInvestmentData, Error>({
+    queryKey: ["investments"],
+    queryFn: async () => {
+      const { data: responseData, error } = await callApi<
+        ApiResponse<UserInvestmentData>
+      >("/investment/user");
+
+      if (error) {
+        throw new Error(
+          error.message ||
+            "Something went wrong while fetching investment data."
+        );
+      }
+
+      if (!responseData?.data) {
+        throw new Error("No investment found");
+      }
+
+      setAllInvestments(responseData.data);
+      return responseData.data;
+    },
+  });
+
+  const allocation = allInvestments.reduce(
+    (
+      acc: {
+        crypto: number;
+        stocks: number;
+        etfs: number;
+        retirement: number;
+        totalCount: number;
+      },
+      investment: UserInvestmentData[number]
+    ) => {
+      switch (investment.type) {
+        case "crypto":
+          acc.crypto += 1;
+          break;
+        case "stocks":
+          acc.stocks += 1;
+          break;
+        case "etfs":
+          acc.etfs += 1;
+          break;
+        case "retirement":
+          acc.retirement += 1;
+          break;
+      }
+      return acc;
+    },
+    {
+      crypto: 0,
+      stocks: 0,
+      etfs: 0,
+      retirement: 0,
+      totalCount: allInvestments.length,
+    }
+  );
+
+  // Calculate percentages
+  const percentages = {
+    crypto:
+      allocation.totalCount > 0
+        ? (allocation.crypto / allocation.totalCount) * 100
+        : 0,
+    stocks:
+      allocation.totalCount > 0
+        ? (allocation.stocks / allocation.totalCount) * 100
+        : 0,
+    etfs:
+      allocation.totalCount > 0
+        ? (allocation.etfs / allocation.totalCount) * 100
+        : 0,
+    retirement:
+      allocation.totalCount > 0
+        ? (allocation.retirement / allocation.totalCount) * 100
+        : 0,
+  };
+
   return (
     <>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-6 mt-16 lg:mt-0">
         <h1 className="text-2xl font-bold">
           Welcome back, {user && user[0].firstName}
         </h1>
@@ -71,7 +155,7 @@ export default function Dashboard() {
       </div>
 
       {/* KYC Alert if not verified */}
-      {user && !user[0]?.isKycVerified && (
+      {/* {user && !user[0]?.isKycVerified && (
         <Card className="mb-6 border-orange-100 bg-orange-50">
           <CardContent className="p-4">
             <div className="flex items-start gap-3">
@@ -91,7 +175,7 @@ export default function Dashboard() {
             </div>
           </CardContent>
         </Card>
-      )}
+      )} */}
 
       {/* Portfolio Summary */}
       <div className="grid md:grid-cols-3 gap-6 mb-6">
@@ -105,7 +189,10 @@ export default function Dashboard() {
             <div className="text-3xl font-bold">
               $
               {balance && balance[0]?.portfolioBalance
-                ? balance[0].portfolioBalance
+                ? balance[0].portfolioBalance.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })
                 : "0.00"}
             </div>
             <div className="flex items-center mt-1 text-sm">
@@ -203,25 +290,39 @@ export default function Dashboard() {
           <CardContent className="space-y-4">
             <div>
               <div className="flex items-center justify-between mb-1 text-sm">
-                <span>crypto currency</span>
-                <span className="font-medium">60%</span>
+                <span>Cryptocurrency</span>
+                <span className="font-medium">
+                  {percentages.crypto.toFixed(0)}%
+                </span>
               </div>
-              <Progress value={60} className="h-2" />
+              <Progress value={percentages.crypto} className="h-2" />
             </div>
             <div>
               <div className="flex items-center justify-between mb-1 text-sm">
                 <span>Stocks</span>
-                <span className="font-medium">30%</span>
+                <span className="font-medium">
+                  {percentages.stocks.toFixed(0)}%
+                </span>
               </div>
-              <Progress value={30} className="h-2" />
+              <Progress value={percentages.stocks} className="h-2" />
             </div>
-
             <div>
               <div className="flex items-center justify-between mb-1 text-sm">
-                <span>ETF</span>
-                <span className="font-medium">10%</span>
+                <span>ETFs</span>
+                <span className="font-medium">
+                  {percentages.etfs.toFixed(0)}%
+                </span>
               </div>
-              <Progress value={10} className="h-2" />
+              <Progress value={percentages.etfs} className="h-2" />
+            </div>
+            <div>
+              <div className="flex items-center justify-between mb-1 text-sm">
+                <span>Retirement</span>
+                <span className="font-medium">
+                  {percentages.retirement.toFixed(0)}%
+                </span>
+              </div>
+              <Progress value={percentages.retirement} className="h-2" />
             </div>
           </CardContent>
         </Card>
@@ -246,13 +347,13 @@ export default function Dashboard() {
               </div>
             </Link>
 
-            <Link href="/dashboard/wishlist" className="group">
+            <Link href="/dashboard/watchlist" className="group">
               <div className="border rounded-lg p-4 hover:border-invest hover:shadow transition-all duration-200">
                 <div className="flex flex-col items-center text-center">
                   <div className="p-2 rounded-full bg-invest/10 group-hover:bg-invest/20 mb-2 transition-all duration-200">
                     <Heart className="h-6 w-6 text-invest" />
                   </div>
-                  <h3 className="text-sm font-medium">Wishlist</h3>
+                  <h3 className="text-sm font-medium">Watchlist</h3>
                   <p className="text-xs text-gray-500 mt-1">
                     Saved investments
                   </p>

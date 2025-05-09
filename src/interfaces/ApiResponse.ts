@@ -84,6 +84,7 @@ export type Wishlist = {
   metrics: {
     change_percentage: string;
     price: string;
+    performance_ytd: string;
   };
 };
 
@@ -111,6 +112,46 @@ export type Wallet = {
   created_at?: Date;
 };
 
+export type Investment = {
+  id: string;
+  userId: string;
+  name: string;
+  type: string;
+  amount: number;
+  initialAmount: number;
+  dailyProfit: number;
+  plan: string;
+  retirementAccountType: string;
+  symbol: string;
+  isRetirement: boolean;
+  isSwitchedOff: boolean;
+  isDeleted: false;
+  created_at?: Date;
+  updated_at?: Date;
+};
+
+export type UserInvestment = {
+  id: string;
+  userId: string;
+  name: string;
+  type: string;
+  shares: string;
+  amount: number;
+  initialAmount: number;
+  dailyProfit: number;
+  plan: string;
+  retirementAccountType: string;
+  symbol: string;
+  isRetirement: boolean;
+  isSwitchedOff: boolean;
+  isDeleted: false;
+  change_percentage: string;
+  price: string;
+  performance_ytd: string;
+  created_at?: string;
+  updated_at?: Date;
+};
+
 export type SessionData = User[];
 export type ReferralsData = Referrals[];
 export type KycData = Kyc[];
@@ -119,6 +160,8 @@ export type ETFData = ETFS[];
 export type WishlistData = Wishlist[];
 export type TransactionData = Transaction[];
 export type WalletData = Wallet[];
+export type InvestmentData = Investment[];
+export type UserInvestmentData = UserInvestment[];
 
 export type ApiResponse<T = Record<string, unknown>> = {
   status: string;

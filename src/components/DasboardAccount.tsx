@@ -236,7 +236,7 @@ export default function DashboardAccount() {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-6 mt-16 lg:mt-0">
         <h1 className="text-2xl font-bold">Account Settings</h1>
       </div>
 

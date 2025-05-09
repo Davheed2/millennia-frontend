@@ -19,8 +19,9 @@ import {
   Settings,
   LogOut,
   ChevronRight,
-  Menu,
+  AlignLeft,
   X,
+  MessageCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -76,8 +77,18 @@ export default function DashboardLayout({
       icon: Briefcase,
     },
     {
-      name: "Wishlist",
-      href: "/dashboard/wishlist",
+      name: "Retirement Plans",
+      href: "/dashboard/retirement-plans",
+      icon: CreditCard,
+    },
+    {
+      name: "New Investment",
+      href: "/dashboard/new-investment",
+      icon: PlusCircle,
+    },
+    {
+      name: "Watchlist",
+      href: "/dashboard/watchlist",
       icon: Heart,
     },
     {
@@ -112,6 +123,11 @@ export default function DashboardLayout({
       icon: Users,
     },
     {
+      name: "Support Chat",
+      href: "/dashboard/support-chat",
+      icon: MessageCircle,
+    },
+    {
       name: "Settings",
       href: "/dashboard/settings",
       icon: Settings,
@@ -133,9 +149,14 @@ export default function DashboardLayout({
   const NavItem = ({ item }: { item: (typeof navItems)[0] }) => {
     const isActive = pathname === item.href;
 
+    const handleClick = () => {
+      toggleMobileSidebar();
+    };
+
     return (
       <Link
         href={item.href}
+        onClick={handleClick}
         className={cn(
           "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
           isActive
@@ -154,22 +175,25 @@ export default function DashboardLayout({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Mobile sidebar toggle */}
-      <div className="lg:hidden fixed top-4 left-4 z-50">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={toggleMobileSidebar}
-          className="bg-white shadow-md"
-        >
-          {mobileSidebarOpen ? <X /> : <Menu />}
-        </Button>
+      <div className="lg:hidden top-0 left-0 z-50 w-full bg-white">
+        <div className="fixed top-8 left-3">
+          {!mobileSidebarOpen && (
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={toggleMobileSidebar}
+              className=""
+            >
+              <AlignLeft />
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Mobile sidebar overlay */}
       {mobileSidebarOpen && (
         <div
-          className="lg:hidden fixed inset-0 bg-black/50 z-30"
+          className="lg:hidden fixed inset-0 bg-black/50 z-40"
           onClick={() => setMobileSidebarOpen(false)}
         />
       )}
@@ -202,7 +226,7 @@ export default function DashboardLayout({
             </div>
           )}
 
-          {/* Desktop sidebar toggle */}
+          {/* Desktop sidebar toggle  */}
           <Button
             variant="ghost"
             size="icon"
@@ -211,11 +235,22 @@ export default function DashboardLayout({
           >
             <ChevronRight
               className={cn(
-                "h-4 w-4 transition-transform",
+                "h-4 w-4 transition-transform text-black",
                 !sidebarOpen && "rotate-180"
               )}
             />
           </Button>
+
+          {mobileSidebarOpen && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleMobileSidebar}
+              className="ml-auto lg:hidden"
+            >
+              <X className="h-5 w-5" />
+            </Button>
+          )}
         </div>
 
         <Separator />
@@ -265,7 +300,12 @@ export default function DashboardLayout({
         <Separator className={cn(!sidebarOpen && "hidden")} />
 
         {/* Navigation */}
-        <div className="flex-1 overflow-auto p-3 space-y-1">
+        <div
+          className={cn(
+            "flex-1 overflow-auto space-y-1",
+            sidebarOpen ? "p-3" : "p-0"
+          )}
+        >
           {navItems.map((item) => (
             <NavItem key={item.href} item={item} />
           ))}
@@ -282,7 +322,6 @@ export default function DashboardLayout({
           </button>
         </div>
       </aside>
-
       {/* Main content */}
       <main
         className={cn(

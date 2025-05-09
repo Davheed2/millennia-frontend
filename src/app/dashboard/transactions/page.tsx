@@ -34,70 +34,6 @@ import { ApiResponse, Transaction } from "@/interfaces";
 import { callApi } from "@/lib/helpers";
 import { useQuery } from "@tanstack/react-query";
 
-// Mock transaction data
-// const allTransactions = [
-//   {
-//     id: 1,
-//     type: "deposit",
-//     amount: 5000,
-//     status: "completed",
-//     date: "2025-04-10T10:30:00",
-//     method: "Bank Transfer",
-//     reference: "DEP12345678",
-//     description: "Deposit from Bank of America ****1234",
-//   },
-//   {
-//     id: 2,
-//     type: "withdrawal",
-//     amount: 1000,
-//     status: "completed",
-//     date: "2025-04-05T14:15:00",
-//     method: "Bank Transfer",
-//     reference: "WTH87654321",
-//     description: "Withdrawal to Bank of America ****1234",
-//   },
-//   {
-//     id: 3,
-//     type: "investment",
-//     amount: 2500,
-//     status: "completed",
-//     date: "2025-04-03T09:45:00",
-//     method: "Portfolio",
-//     reference: "INV56781234",
-//     description: "Purchase of Apple Inc. (AAPL) - 10 shares @ $250.00",
-//   },
-//   {
-//     id: 4,
-//     type: "deposit",
-//     amount: 1500,
-//     status: "pending",
-//     date: "2025-04-01T16:20:00",
-//     method: "Card Payment",
-//     reference: "DEP43218765",
-//     description: "Deposit from Visa ****5678",
-//   },
-//   {
-//     id: 5,
-//     type: "investment",
-//     amount: 3000,
-//     status: "completed",
-//     date: "2025-03-28T11:10:00",
-//     method: "Portfolio",
-//     reference: "INV98761234",
-//     description: "Purchase of Vanguard S&P 500 ETF (VOO) - 7 shares @ $428.57",
-//   },
-//   {
-//     id: 6,
-//     type: "withdrawal",
-//     amount: 500,
-//     status: "failed",
-//     date: "2025-03-25T13:40:00",
-//     method: "Bank Transfer",
-//     reference: "WTH13579246",
-//     description: "Withdrawal to Chase Bank ****5678 - Insufficient funds",
-//   },
-// ];
-
 export default function Transactions() {
   const [activeTab, setActiveTab] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
@@ -201,7 +137,7 @@ export default function Transactions() {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-6 mt-16 lg:mt-0">
         <h1 className="text-2xl font-bold">Transactions</h1>
       </div>
 
@@ -218,26 +154,29 @@ export default function Transactions() {
             onValueChange={setActiveTab}
             className="w-full"
           >
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
-              <TabsList>
-                <TabsTrigger value="all">All Transactions</TabsTrigger>
-                <TabsTrigger value="Deposit">Deposits</TabsTrigger>
-                <TabsTrigger value="withdrawal">Withdrawals</TabsTrigger>
-                <TabsTrigger value="investment">Investments</TabsTrigger>
-              </TabsList>
+            <div className="flex flex-col space-y-4 mb-6">
+              {/* Scrollable tabs for mobile */}
+              <div className="overflow-x-auto pb-2">
+                <TabsList className="w-max">
+                  <TabsTrigger value="all">All Transactions</TabsTrigger>
+                  <TabsTrigger value="Deposit">Deposits</TabsTrigger>
+                  <TabsTrigger value="withdrawal">Withdrawals</TabsTrigger>
+                  <TabsTrigger value="investment">Investments</TabsTrigger>
+                </TabsList>
+              </div>
 
-              <div className="flex w-full md:w-auto gap-2">
-                <div className="relative flex-grow">
+              <div className="flex flex-col sm:flex-row gap-2 w-full">
+                <div className="relative flex-grow mb-2 sm:mb-0">
                   <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
                   <Input
                     placeholder="Search transactions..."
-                    className="pl-9 w-full md:w-[240px]"
+                    className="pl-9 w-full"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger className="w-full sm:w-[180px]">
                     <SelectValue placeholder="Filter by status" />
                   </SelectTrigger>
                   <SelectContent>
@@ -276,53 +215,101 @@ export default function Transactions() {
                 </div>
               ) : (
                 <div className="rounded-md border">
-                  <div className="grid grid-cols-4 lg:grid-cols-6 gap-4 p-4 bg-gray-50 text-sm font-medium text-gray-500">
-                    <div className="lg:col-span-2">Description</div>
+                  {/* Table header - hidden on smallest screens */}
+                  <div className="hidden sm:grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 p-4 bg-gray-50 text-sm font-medium text-gray-500">
+                    <div className="md:col-span-2">Description</div>
                     <div className="hidden lg:block">Date</div>
                     <div>Type</div>
                     <div>Amount</div>
                     <div>Status</div>
                   </div>
-                  <Separator />
+                  <Separator className="hidden sm:block" />
+
                   {filteredTransactions.map((transaction) => (
                     <div key={transaction.id}>
-                      <div className="grid grid-cols-4 lg:grid-cols-6 gap-4 p-4 items-center">
-                        <div className="lg:col-span-2">
+                      {/* Responsive grid for transaction items */}
+                      <div className="p-4">
+                        {/* Mobile view - card-like layout */}
+                        <div className="sm:hidden space-y-2">
                           <div className="font-medium">
                             {transaction.description}
                           </div>
-                          <div className="text-xs text-gray-500 mt-1">
-                            Ref: {transaction.reference}
+                          <div className="flex justify-between items-center">
+                            <div className="flex items-center gap-2">
+                              {getTypeIcon(transaction.type)}
+                              <span className="capitalize text-sm">
+                                {transaction.type}
+                              </span>
+                            </div>
+                            <div>{getStatusBadge(transaction.status)}</div>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <div className="text-xs text-gray-500">
+                              Ref: {transaction.reference}
+                            </div>
+                            <div
+                              className={`font-medium ${
+                                transaction.type === "deposit"
+                                  ? "text-green-600"
+                                  : transaction.type === "withdrawal"
+                                  ? "text-red-600"
+                                  : "text-blue-600"
+                              }`}
+                            >
+                              {transaction.type === "deposit"
+                                ? "+"
+                                : transaction.type === "withdrawal"
+                                ? "-"
+                                : ""}
+                              ${transaction.amount.toLocaleString()}
+                            </div>
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            {transaction.created_at
+                              ? formatDate(transaction.created_at)
+                              : "N/A"}
                           </div>
                         </div>
-                        <div className="hidden lg:block text-sm text-gray-500">
-                          {transaction.created_at
-                            ? formatDate(transaction.created_at)
-                            : "N/A"}
-                        </div>
-                        <div className="flex items-center gap-2">
-                          {getTypeIcon(transaction.type)}
-                          <span className="capitalize text-sm">
-                            {transaction.type}
-                          </span>
-                        </div>
-                        <div
-                          className={`font-medium ${
-                            transaction.type === "deposit"
-                              ? "text-green-600"
+
+                        {/* Tablet/Desktop view - grid layout */}
+                        <div className="hidden sm:grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 items-center">
+                          <div className="md:col-span-2">
+                            <div className="font-medium">
+                              {transaction.description}
+                            </div>
+                            <div className="text-xs text-gray-500 mt-1">
+                              Ref: {transaction.reference}
+                            </div>
+                          </div>
+                          <div className="hidden lg:block text-sm text-gray-500">
+                            {transaction.created_at
+                              ? formatDate(transaction.created_at)
+                              : "N/A"}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {getTypeIcon(transaction.type)}
+                            <span className="capitalize text-sm">
+                              {transaction.type}
+                            </span>
+                          </div>
+                          <div
+                            className={`font-medium ${
+                              transaction.type === "deposit"
+                                ? "text-green-600"
+                                : transaction.type === "withdrawal"
+                                ? "text-red-600"
+                                : "text-blue-600"
+                            }`}
+                          >
+                            {transaction.type === "deposit"
+                              ? "+"
                               : transaction.type === "withdrawal"
-                              ? "text-red-600"
-                              : "text-blue-600"
-                          }`}
-                        >
-                          {transaction.type === "deposit"
-                            ? "+"
-                            : transaction.type === "withdrawal"
-                            ? "-"
-                            : ""}
-                          ${transaction.amount.toLocaleString()}
+                              ? "-"
+                              : ""}
+                            ${transaction.amount.toLocaleString()}
+                          </div>
+                          <div>{getStatusBadge(transaction.status)}</div>
                         </div>
-                        <div>{getStatusBadge(transaction.status)}</div>
                       </div>
                       <Separator />
                     </div>

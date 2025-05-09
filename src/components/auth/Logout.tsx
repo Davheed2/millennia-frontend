@@ -26,7 +26,7 @@ export default function LogoutPage() {
           toast.success("Logged Out", {
             description: "You have been successfully logged out.",
           });
-          router.push("/");
+          router.replace("/");
         }
       } catch (err) {
         toast.error("Logout Failed", {

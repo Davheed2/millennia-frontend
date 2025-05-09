@@ -8,6 +8,8 @@ export type {
   Wishlist,
   Transaction,
   Wallet,
+  Investment,
+  UserInvestmentData
 } from "./ApiResponse";
 export type {
   ForgotPasswordProps,

@@ -74,7 +74,7 @@ export default function DashboardSettings() {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-6 mt-16 lg:mt-0">
         <h1 className="text-2xl font-bold">Settings</h1>
       </div>
 

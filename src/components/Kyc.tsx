@@ -38,6 +38,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { KycData } from "@/interfaces/ApiResponse";
 import { FormErrorMessage } from "./common";
+import { useSession } from "@/store/useSession";
+import Link from "next/link";
 
 export default function DashboardKyc() {
   const [step, setStep] = useState(1);
@@ -48,6 +50,7 @@ export default function DashboardKyc() {
   const [day, setDay] = useState<string>("");
   const [month, setMonth] = useState<string>("");
   const [year, setYear] = useState<string>("");
+  const { user } = useSession((state) => state);
 
   const {
     register,
@@ -218,9 +221,37 @@ export default function DashboardKyc() {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-6 mt-16 lg:mt-0">
         <h1 className="text-2xl font-bold">KYC Verification</h1>
       </div>
+
+      {user && !user[0]?.isKycVerified && (
+        <Card className="mb-6 border-orange-100 bg-orange-50">
+          <CardContent className="p-4">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="h-5 w-5 text-orange-500 mt-0.5" />
+              <div>
+                <p className="font-medium text-orange-800">
+                  Complete your identity verification
+                </p>
+                <p className="text-sm text-orange-700 mt-1">
+                  Completing your KYC verification helps us ensure compliance
+                  with regulations and enhances your account security.
+                </p>
+                <Button className="mt-3 bg-orange-500 hover:bg-orange-600 text-white">
+                  <Link href="/dashboard/kyc">
+                    {kyc &&
+                    (kyc[0]?.status === "pending" ||
+                      kyc[0]?.status === "rejected")
+                      ? "Verification in progress"
+                      : "Verify Identity Now"}
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <Card className="mb-6">
         {kyc &&

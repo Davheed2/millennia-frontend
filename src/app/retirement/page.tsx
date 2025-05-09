@@ -9,8 +9,67 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { LineChart, Lock, Calculator, Target } from "lucide-react";
+import {
+  LineChart,
+  Lock,
+  TrendingUp,
+  Calculator,
+  Target,
+  Bitcoin,
+  Check,
+} from "lucide-react";
 import Link from "next/link";
+
+// Import the same investment plans used in pricing page
+const INVESTMENT_PLANS = [
+  {
+    id: "basic",
+    name: "Basic",
+    price: 3000,
+    roi: 147.5,
+    isPopular: false,
+    description: "Perfect for beginners",
+    features: [
+      "Commission-free stock trading",
+      "Basic market research",
+      "Educational resources",
+      "Standard customer support",
+    ],
+  },
+  {
+    id: "plus",
+    name: "Plus",
+    price: 7000,
+    roi: 189.5,
+    isPopular: true,
+    description: "For active investors",
+    features: [
+      "All Basic features",
+      "Advanced market research",
+      "Real-time market data",
+      "Automatic portfolio rebalancing",
+      "Retirement planning tools",
+      "Priority customer support",
+    ],
+  },
+  {
+    id: "premium",
+    name: "Premium",
+    price: 15000,
+    roi: 279.5,
+    isPopular: false,
+    description: "For serious investors",
+    features: [
+      "All Plus features",
+      "Professional-grade research",
+      "Tax-loss harvesting",
+      "Dedicated financial advisor",
+      "Custom investment strategies",
+      "Exclusive investment opportunities",
+      "24/7 premium support",
+    ],
+  },
+];
 
 export default function Retirement() {
   return (
@@ -69,9 +128,11 @@ export default function Retirement() {
                     </span>
                   </li>
                 </ul>
-                <Button className="w-full mt-6 bg-invest hover:bg-invest-secondary text-white">
-                  Open a Retirement Account
-                </Button>
+                <Link href="/dashboard/retirement-plans">
+                  <Button className="w-full mt-6 bg-invest hover:bg-invest-secondary text-white">
+                    Open a Retirement Account
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
@@ -97,30 +158,96 @@ export default function Retirement() {
                   <li className="flex items-start gap-2">
                     <span className="text-invest">•</span>
                     <span>
-                      <strong>Conservative Portfolio:</strong> Focused on
-                      capital preservation
+                      <strong>Stock-ETF Mix:</strong> Balanced exposure to
+                      equity markets
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-invest">•</span>
                     <span>
-                      <strong>Balanced Portfolio:</strong> Mix of growth and
-                      income
+                      <strong>Crypto-Enhanced:</strong> Digital assets
+                      allocation for long-term growth
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-invest">•</span>
                     <span>
-                      <strong>Growth Portfolio:</strong> Higher risk, higher
-                      potential return
+                      <strong>Custom Allocation:</strong> Personally tailored to
+                      your risk tolerance
                     </span>
                   </li>
                 </ul>
-                <Button className="w-full mt-6 bg-invest hover:bg-invest-secondary text-white">
-                  Explore Portfolio Options
-                </Button>
+                <Link href="/pricing">
+                  <Button className="w-full mt-6 bg-invest hover:bg-invest-secondary text-white">
+                    Explore Portfolio Options
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
+          </div>
+
+          {/* New section showcasing the investment plans */}
+          <div className="max-w-6xl mx-auto mb-16">
+            <h2 className="heading-lg text-center mb-8">
+              Retirement Investment Plans
+            </h2>
+            <p className="text-center max-w-3xl mx-auto mb-10 text-muted-foreground">
+              Choose an investment plan that aligns with your retirement goals.
+              Each plan offers different features and estimated returns.
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-8 relative">
+              {INVESTMENT_PLANS.map((plan) => (
+                <div
+                  key={plan.id}
+                  className={`border ${
+                    plan.isPopular
+                      ? "border-invest bg-invest/5"
+                      : "border-gray-200"
+                  } rounded-xl p-8 flex flex-col transition-all ${
+                    plan.isPopular ? "shadow-md" : "hover:shadow-md"
+                  }`}
+                >
+                  {plan.isPopular && (
+                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-invest text-white px-4 py-1 rounded-full text-sm font-medium">
+                      Most Popular
+                    </div>
+                  )}
+                  <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
+                  <div className="text-3xl font-bold mb-1">
+                    ${plan.price.toLocaleString()}
+                    <span className="text-lg font-normal text-foreground/70">
+                      /month
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <TrendingUp size={16} className="text-green-600" />
+                    <span className="text-green-600 font-medium">
+                      {plan.roi}% Est. Annual ROI
+                    </span>
+                  </div>
+                  <p className="text-foreground/70 mb-6">{plan.description}</p>
+
+                  <ul className="mb-8 flex-grow space-y-3">
+                    {plan.features.map((feature) => (
+                      <li key={feature} className="flex items-start">
+                        <Check
+                          size={18}
+                          className="text-invest-accent mr-2 mt-1 flex-shrink-0"
+                        />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link href={`/dashboard/new-investment?plan=${plan.id}`}>
+                    <Button className="w-full bg-invest hover:bg-invest-secondary text-white">
+                      Select Plan
+                    </Button>
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
 
           <Separator className="my-16" />
@@ -172,21 +299,20 @@ export default function Retirement() {
 
               <div className="text-center">
                 <div className="bg-invest/10 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <Lock className="h-8 w-8 text-invest" />
+                  <Bitcoin className="h-8 w-8 text-invest" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">
-                  Social Security
+                  Crypto Retirement Portfolio
                 </h3>
                 <p className="text-muted-foreground mb-4">
-                  Understand how Social Security will impact your retirement
-                  plan.
+                  Explore how crypto can enhance your retirement strategy.
                 </p>
-                <Link href="/retirement/security-estimator">
+                <Link href="/pricing">
                   <Button
                     variant="outline"
                     className="bg-invest text-white hover:bg-invest-secondary"
                   >
-                    Estimate Benefits
+                    Explore Options
                   </Button>
                 </Link>
               </div>
@@ -202,9 +328,9 @@ export default function Retirement() {
               retirement strategy.
             </p>
             <div className="flex justify-center">
-              <Link href="/contact">
+              <Link href="/dashboard/support-chat">
                 <Button className="bg-invest hover:bg-invest-secondary text-white">
-                  Contact Customer Support
+                  Contact Customer Care
                 </Button>
               </Link>
             </div>

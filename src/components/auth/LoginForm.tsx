@@ -23,13 +23,26 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-  const { user } = useSession((state) => state);
+  const { user, loading } = useSession((state) => state);
 
+  // useEffect(() => {
+  //   if (user) {
+  //     router.replace("/dashboard");
+  //   }
+  // }, [user, router]);
   useEffect(() => {
-    if (user) {
-      router.replace("/dashboard");
+    if (!loading && user) {
+      const redirectAfterLogin = localStorage.getItem("redirectAfterLogin");
+      const isValidRedirect = redirectAfterLogin?.startsWith("/dashboard");
+
+      if (redirectAfterLogin && isValidRedirect) {
+        router.replace(redirectAfterLogin);
+        localStorage.removeItem("redirectAfterLogin");
+      } else {
+        router.replace("/dashboard");
+      }
     }
-  }, [user, router]);
+  }, [user, loading, router]);
 
   const {
     actions: { updateUser },
@@ -71,7 +84,20 @@ const Login = () => {
         }
 
         updateUser({ user: firstUser });
-        router.push("/dashboard");
+
+        // const redirectAfterLogin = localStorage.getItem("redirectAfterLogin");
+        // console.log("redirectAfterLogin", redirectAfterLogin);
+        // if (redirectAfterLogin) {
+        //   const isValidRedirect = redirectAfterLogin?.startsWith("/dashboard");
+        //   console.log("isValidRedirect", isValidRedirect);
+        //   router.push(isValidRedirect ? redirectAfterLogin : "/dashboard");
+
+        //   setTimeout(() => {
+        //     localStorage.removeItem("redirectAfterLogin");
+        //   }, 3000);
+        // } else {
+        //   router.replace("/dashboard");
+        // }
       }
     } catch (err) {
       toast.error("Sign In Failed", {

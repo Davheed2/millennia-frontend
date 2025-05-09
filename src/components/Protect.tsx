@@ -39,6 +39,10 @@ const Auth = ({ children, exclude = [] }: AuthProps) => {
 
   // If user is NOT signed in and on a dashboard route, redirect to signin
   if (isDashboardRoute && !user) {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("redirectAfterLogin", pathname);
+    }
+
     redirect("/signin", "You are not signed in");
     return <Loader message="Redirecting to sign-in..." />;
   }

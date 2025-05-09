@@ -61,7 +61,6 @@ export const callApi = async <T>(
 
 			if (error.response.status === 401) {
 				useInitSession.getState().actions.clearSession();
-				redirect(`/signin`);
 			}
 			if (error.response.status === 429) {
 				toast.error('Too many requests!', {
