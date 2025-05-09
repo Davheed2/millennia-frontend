@@ -371,11 +371,11 @@ export default function Investments() {
                 : Number(investment.change_percentage);
               const shares = Number(investment.shares);
               const value = price * shares;
-              const profit = value - Number(investment?.amount);
-              const profitPercent =
-                Number(investment.amount) > 0
-                  ? (profit / Number(investment.amount)) * 100
-                  : 0;
+              //const profit = value - Number(investment?.amount);
+              // const profitPercent =
+              //   Number(investment.amount) > 0
+              //     ? (profit / Number(investment.amount)) * 100
+              //     : 0;
 
               return (
                 <div key={investment.id}>
@@ -679,11 +679,11 @@ export default function Investments() {
                   const change = priceData?.change ?? 0;
                   const shares = Number(investment.shares);
                   const value = price * shares;
-                  const profit = value - Number(investment.amount);
-                  const profitPercent =
-                    Number(investment.amount) > 0
-                      ? (profit / Number(investment.amount)) * 100
-                      : 0;
+                  //const profit = value - Number(investment.amount);
+                  // const profitPercent =
+                  //   Number(investment.amount) > 0
+                  //     ? (profit / Number(investment.amount)) * 100
+                  //     : 0;
 
                   return (
                     <div key={investment.id}>
