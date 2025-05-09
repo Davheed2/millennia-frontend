@@ -98,6 +98,7 @@ const Login = () => {
         // } else {
         //   router.replace("/dashboard");
         // }
+        router.replace("/dashboard");
       }
     } catch (err) {
       toast.error("Sign In Failed", {
