@@ -262,7 +262,7 @@ export default function RetirementPlans() {
         className="space-y-6"
       >
         <TabsList className="grid grid-cols-2 max-w-md">
-          <TabsTrigger value="plans">Investment Plans</TabsTrigger>
+          <TabsTrigger value="plans">Retirement Plans</TabsTrigger>
           <TabsTrigger value="accounts">Account Types</TabsTrigger>
         </TabsList>
 
