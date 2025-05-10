@@ -25,7 +25,15 @@ export function generatePageMetadata({
       title: `${title}`,
       description: content,
       url: url || "https://millenniatrades.com",
-      images: ["opengraph-image.jpg"],
+      //images: ["opengraph-image.jpg"],
+      images: [
+        {
+          url: "opengraph-image.jpg", // Use provided image or default
+          width: 1200, // Optional width
+          height: 630, // Optional height
+          alt: "Millennia Trades", // Optional alt text
+        },
+      ],
     },
     twitter: {
       card: image || defaultImage ? "summary_large_image" : "summary",
