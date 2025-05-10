@@ -196,9 +196,30 @@ export default function Dashboard() {
                 : "0.00"}
             </div>
             <div className="flex items-center mt-1 text-sm">
-              <TrendingUp className="text-green-500 h-4 w-4 mr-1" />
               <span className="text-green-500 font-medium">
-                +$1,234.56 (5.2%)
+                {/* +$589.77 (6.04%) */}
+                {allInvestments.length > 0 && user && (
+                  <div className="flex items-center mt-1 text-sm">
+                    {user[0].totalProfit >= 0 ? (
+                      <TrendingUp className="text-green-500 h-4 w-4 mr-1" />
+                    ) : (
+                      <TrendingDown className="text-red-500 h-4 w-4 mr-1" />
+                    )}
+                    <span
+                      className={`font-medium ${
+                        user[0].totalProfit >= 0
+                          ? "text-green-500"
+                          : "text-red-500"
+                      }`}
+                    >
+                      {user[0].totalProfit >= 0 ? "+" : ""}
+                      {user[0].totalProfit.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </span>
+                  </div>
+                )}
               </span>
               <span className="text-gray-500 ml-1.5">Today</span>
             </div>
@@ -212,11 +233,42 @@ export default function Dashboard() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">$4,567.89</div>
+            <div className="text-3xl font-bold">
+              <span>
+                $
+                {user &&
+                  user[0].totalProfit.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+              </span>
+            </div>
             <div className="flex items-center mt-1 text-sm">
-              <TrendingUp className="text-green-500 h-4 w-4 mr-1" />
               <span className="text-green-500 font-medium">
-                +$345.67 (7.6%)
+                {allInvestments.length > 0 && user && (
+                  <div className="flex items-center mt-1 text-xs">
+                    {user[0].totalProfit >= 0 ? (
+                      <TrendingUp className="text-green-500 h-4 w-4 mr-1" />
+                    ) : (
+                      <TrendingDown className="text-red-500 h-4 w-4 mr-1" />
+                    )}
+                    <span
+                      className={`font-medium ${
+                        user[0].totalProfit >= 0
+                          ? "text-green-500"
+                          : "text-red-500"
+                      }`}
+                    >
+                      {user[0].totalProfit >= 0 ? "+" : ""}
+                      {user[0].totalProfit.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </span>
+                    (7.6%)
+                  </div>
+                )}
+                
               </span>
               <span className="text-gray-500 ml-1.5">All time</span>
             </div>
