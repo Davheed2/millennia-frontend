@@ -268,7 +268,6 @@ export default function Dashboard() {
                     (7.6%)
                   </div>
                 )}
-                
               </span>
               <span className="text-gray-500 ml-1.5">All time</span>
             </div>
