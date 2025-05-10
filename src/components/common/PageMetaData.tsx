@@ -13,25 +13,25 @@ export function generatePageMetadata({
   image,
   url,
 }: MetaDataProps): Metadata {
-  const defaultImage = "/millenia.jpg";
+  const defaultImage = "/millennnia.png";
 
   return {
     title: `${title}`,
     description: content,
     openGraph: {
       type: "website",
-      siteName: "Millenni trades",
+      siteName: "Millennia trades",
       locale: "en_US",
       title: `${title}`,
       description: content,
       url: url || "https://millenniatrades.com",
-      images: ["opengraph-image.jpg"],
+      images: ["opengraph-image.png"],
     },
     twitter: {
       card: image || defaultImage ? "summary_large_image" : "summary",
       title: `${title}`,
       description: content,
-      images: ["millenia.jpg"],
+      images: ["millennnia.png"],
     },
     other: {
       "og:locale": "en_US",

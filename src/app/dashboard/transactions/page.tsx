@@ -128,7 +128,7 @@ export default function Transactions() {
         return <ArrowDownCircle className="h-4 w-4 text-green-500" />;
       case "withdrawal":
         return <ArrowUpCircle className="h-4 w-4 text-red-500" />;
-      case "investment":
+      case "Investment":
         return <RefreshCw className="h-4 w-4 text-blue-500" />;
       default:
         return null;
