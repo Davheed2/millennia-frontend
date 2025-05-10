@@ -96,7 +96,7 @@ export default function Pricing() {
               <div className="flex items-center gap-2 mb-2">
                 <TrendingUp size={16} className="text-green-600" />
                 <span className="text-green-600 font-medium">
-                  {plan.roi}% Est. Annual ROI
+                  {plan.roi}% Est. ROI
                 </span>
               </div>
               <p className="text-foreground/70 mb-6">{plan.description}</p>

@@ -11,12 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import {
-  // TrendingUp,
-  // TrendingDown,
-  ArrowUp,
-  ArrowDown,
-} from "lucide-react";
+import { ArrowUp, ArrowDown } from "lucide-react";
 import { format } from "date-fns";
 import { ApiResponse } from "@/interfaces";
 import { callApi } from "@/lib/helpers";
@@ -38,6 +33,7 @@ const SUPPORTED_CRYPTOS: Record<string, { name: string; coingeckoId: string }> =
     LTC: { name: "Litecoin", coingeckoId: "litecoin" },
     BNB: { name: "Binance Coin", coingeckoId: "binancecoin" },
     SOL: { name: "Solana", coingeckoId: "solana" },
+    USDT: { name: "USDT", coingeckoId: "tether" },
     USDT_TRC20: { name: "USDT (TRC20)", coingeckoId: "tether" },
     USDT_ERC20: { name: "USDT (ERC20)", coingeckoId: "tether" },
   };
@@ -187,7 +183,7 @@ export default function InvestmentDetail() {
         </div>
         <Button
           className="bg-invest hover:bg-invest-secondary text-white"
-          onClick={() => router.push(`/dashboard/new-investments`)}
+          onClick={() => router.push(`/dashboard/new-investment`)}
         >
           Buy More
         </Button>
@@ -248,9 +244,17 @@ export default function InvestmentDetail() {
                 <div>
                   <p className="text-sm text-gray-500">Profit/Loss</p>
                   <div className="text-gray-500">
-                    <h3 className="text-2xl font-bold">N/A</h3>
                     <div className="flex items-center">
-                      <span>Not available</span>
+                      <div
+                        className={
+                          investment[0].percentageprofit > 0
+                            ? "text-green-500"
+                            : "text-red-500"
+                        }
+                      >
+                        ${(investment[0].dailyprofit ?? 0).toFixed(2)} (
+                        {(investment[0].percentageprofit ?? 0).toFixed(2)}%)
+                      </div>
                     </div>
                   </div>
                 </div>

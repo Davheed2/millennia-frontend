@@ -91,7 +91,7 @@ export default function NewInvestment() {
   //const [investmentAmount, setInvestmentAmount] = useState(100);
   const [stocksData, setStocksData] = useState<Stocks[]>([]);
   const [etfData, setEtfData] = useState<ETFS[]>([]);
-  const [isForRetirement, setIsForRetirement] = useState(false);
+  //const [isForRetirement, setIsForRetirement] = useState(false);
   const [showPlanSelection, setShowPlanSelection] = useState(false);
   const [selectedInvestment, setSelectedInvestment] = useState<{
     type: string;
@@ -258,7 +258,7 @@ export default function NewInvestment() {
       const { data: responseData, error } = await callApi<
         ApiResponse<Investment>
       >("/investment/create", {
-        isRetirement: isForRetirement,
+        isRetirement: false,
         plan: selectedPlan.id,
         //retirementAccountType,
         type: selectedInvestment.type,
@@ -275,13 +275,8 @@ export default function NewInvestment() {
             <p className="text-sm">{`${selectedInvestment.name} (${selectedPlan.name} Plan)`}</p>
             <div className="flex items-center gap-2 text-sm">
               <TrendingUp className="h-4 w-4 text-green-600" />
-              <span>{`Est. annual return: $${estimatedAnnualReturn} (${selectedPlan.roi}%)`}</span>
+              <span>{`Est. return: $${estimatedAnnualReturn} (${selectedPlan.roi}%)`}</span>
             </div>
-            {isForRetirement && (
-              <p className="text-xs font-medium">
-                Added to retirement portfolio (tax-advantaged)
-              </p>
-            )}
           </div>
         );
         queryClient.invalidateQueries({ queryKey: ["investments"] });
@@ -369,14 +364,14 @@ export default function NewInvestment() {
                     </p>
                   </div>
                 </div>
-                {isForRetirement && (
+                {/* {isForRetirement && (
                   <UIBadge
                     variant="outline"
                     className="bg-invest/10 text-invest border-invest"
                   >
                     Retirement Portfolio
                   </UIBadge>
-                )}
+                )} */}
               </div>
             </Card>
           )}
@@ -405,7 +400,7 @@ export default function NewInvestment() {
                   <div className="flex items-center gap-2 mb-2">
                     <TrendingUp size={16} className="text-green-600" />
                     <span className="text-green-600 font-medium">
-                      {plan.roi}% Est. Annual ROI
+                      {plan.roi}% Est. ROI
                     </span>
                   </div>
                   <p className="text-foreground/70 mb-6">{plan.description}</p>
@@ -474,7 +469,7 @@ export default function NewInvestment() {
             />
           </div>
 
-          <div className="flex items-center gap-2 self-end sm:self-auto">
+          {/* <div className="flex items-center gap-2 self-end sm:self-auto">
             <span className="text-sm font-medium">Add to Retirement</span>
             <button
               type="button"
@@ -489,7 +484,7 @@ export default function NewInvestment() {
                 }`}
               />
             </button>
-          </div>
+          </div> */}
         </div>
 
         <Tabs

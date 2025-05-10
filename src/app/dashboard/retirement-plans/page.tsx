@@ -13,7 +13,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check, TrendingUp } from "lucide-react";
+import { Check } from "lucide-react";
 import { toast } from "sonner";
 import { ApiResponse, Investment } from "@/interfaces";
 import { callApi } from "@/lib/helpers";
@@ -22,49 +22,46 @@ import { useQueryClient } from "@tanstack/react-query";
 // Define plans with ROI information - same as in pricing page
 const INVESTMENT_PLANS = [
   {
-    id: "basic",
-    name: "Basic",
-    price: 3000,
+    id: "gold",
+    name: "Gold",
+    price: 10000,
     roi: 147.5,
     isPopular: false,
-    description: "Perfect for beginners",
+    description: "Conservative investors",
     features: [
-      "Commission-free stock trading",
       "Basic market research",
       "Educational resources",
       "Standard customer support",
     ],
   },
   {
-    id: "plus",
-    name: "Plus",
-    price: 7000,
+    id: "platinum",
+    name: "Platinum",
+    price: 25000,
     roi: 189.5,
     isPopular: true,
-    description: "For active investors",
+    description: "Income investors",
     features: [
-      "All Basic features",
+      "All Gold features plus RMD",
       "Advanced market research",
       "Real-time market data",
-      "Automatic portfolio rebalancing",
       "Retirement planning tools",
       "Priority customer support",
     ],
   },
   {
-    id: "premium",
-    name: "Premium",
-    price: 15000,
+    id: "diamond",
+    name: "Diamond",
+    price: 50000,
     roi: 279.5,
     isPopular: false,
-    description: "For serious investors",
+    description: "Growth investors",
     features: [
-      "All Plus features",
+      "All Platinum features",
       "Professional-grade research",
       "Tax-loss harvesting",
       "Dedicated financial advisor",
-      "Custom investment strategies",
-      "Exclusive investment opportunities",
+      "Exclusive retirement opportunities",
       "24/7 premium support",
     ],
   },
@@ -88,7 +85,7 @@ const RETIREMENT_ACCOUNT_TYPES = [
     taxBenefits: "Tax-free growth and Tax free withdrawals",
     withdrawal: "Tax-free after age 59½ and 5+ years from first contribution",
     earlyWithdrawal: "Contributions can be withdrawn penalty-free anytime",
-    contributionLimit: "$8,000 per year (2025), $9,500 if 50+",
+    contributionLimit: "$8,000 per year (2025)",
   },
   {
     id: "401k",
@@ -107,7 +104,7 @@ const RETIREMENT_ACCOUNT_TYPES = [
     withdrawal: "Taxed as income upon withdrawal",
     earlyWithdrawal: "10% penalty before age 59½ (with exceptions)",
     contributionLimit:
-      "25% of compensation or $72,000 (2025), whichever is less",
+      "25% of compensation or $72,000 (2025)",
   },
 ];
 
@@ -299,12 +296,12 @@ export default function RetirementPlans() {
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    {/* <div className="flex items-center gap-2">
                       <TrendingUp size={16} className="text-green-600" />
                       <span className="text-green-600 font-medium">
-                        {plan.roi}% Est. Annual ROI
+                        {plan.roi}% Est. ROI
                       </span>
-                    </div>
+                    </div> */}
 
                     <div className="mt-4">
                       <h4 className="font-medium mb-2">Features:</h4>

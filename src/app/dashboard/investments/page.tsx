@@ -25,6 +25,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { ApiResponse, UserInvestmentData } from "@/interfaces";
+import { useSession } from "@/store/useSession";
 import { callApi } from "@/lib/helpers";
 import { useQuery } from "@tanstack/react-query";
 import { UserInvestment, Wallet } from "@/interfaces/ApiResponse";
@@ -43,6 +44,7 @@ const SUPPORTED_CRYPTOS: Record<string, { name: string; coingeckoId: string }> =
     LTC: { name: "Litecoin", coingeckoId: "litecoin" },
     BNB: { name: "Binance Coin", coingeckoId: "binancecoin" },
     SOL: { name: "Solana", coingeckoId: "solana" },
+    USDT: { name: "USDT", coingeckoId: "tether" },
     USDT_TRC20: { name: "USDT (TRC20)", coingeckoId: "tether" },
     USDT_ERC20: { name: "USDT (ERC20)", coingeckoId: "tether" },
   };
@@ -50,6 +52,7 @@ const SUPPORTED_CRYPTOS: Record<string, { name: string; coingeckoId: string }> =
 export default function Investments() {
   const [allInvestments, setAllInvestments] = useState<UserInvestmentData>([]);
   const router = useRouter();
+  const { user } = useSession((state) => state);
 
   const {
     // data: investments,
@@ -218,10 +221,26 @@ export default function Investments() {
             <div className="text-xs text-gray-500">Value</div>
             <div>${value.toFixed(2)}</div>
           </div>
+          <div>
+            <div
+              className={
+                investment.percentageprofit > 0
+                  ? "text-green-500"
+                  : "text-red-500"
+              }
+            >
+              ${(investment.dailyprofit ?? 0).toFixed(2)} (
+              {(investment.percentageprofit ?? 0).toFixed(2)}%)
+            </div>
+          </div>
         </div>
       </div>
     );
   };
+
+  const totalChange = allInvestments.reduce((acc, investment) => {
+    return acc + investment.percentageprofit;
+  }, 0);
 
   return (
     <>
@@ -249,24 +268,68 @@ export default function Investments() {
               <h3 className="text-2xl md:text-3xl font-bold">
                 $
                 {balance && balance[0]?.portfolioBalance
-                  ? balance[0].portfolioBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                  ? balance[0].portfolioBalance.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })
                   : "0.00"}
               </h3>
               <div className="flex items-center mt-1 text-sm">
-                <TrendingUp className="text-green-500 h-4 w-4 mr-1" />
                 <span className="text-green-500 font-medium">
-                  +$589.77 (6.04%)
+                  {/* +$589.77 (6.04%) */}
+                  {allInvestments.length > 0 && user && (
+                    <div className="flex items-center mt-1 text-sm">
+                      {user[0].totalProfit >= 0 ? (
+                        <TrendingUp className="text-green-500 h-4 w-4 mr-1" />
+                      ) : (
+                        <TrendingDown className="text-red-500 h-4 w-4 mr-1" />
+                      )}
+                      <span
+                        className={`font-medium ${
+                          user[0].totalProfit >= 0
+                            ? "text-green-500"
+                            : "text-red-500"
+                        }`}
+                      >
+                        {user[0].totalProfit >= 0 ? "+" : ""}
+                        {user[0].totalProfit.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </span>
+                    </div>
+                  )}
                 </span>
               </div>
             </div>
 
             <div>
               <p className="text-sm text-gray-500">Today&apos;s Change</p>
-              <h3 className="text-2xl md:text-3xl font-bold">+$153.06</h3>
-              <div className="flex items-center mt-1 text-sm">
-                <TrendingUp className="text-green-500 h-4 w-4 mr-1" />
-                <span className="text-green-500 font-medium">+1.49%</span>
-              </div>
+              <h3 className="text-2xl md:text-3xl font-bold">
+                +$
+                {user &&
+                  user[0].dailyProfitChange.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+              </h3>
+              {allInvestments.length > 0 && (
+                <div className="flex items-center mt-1 text-sm">
+                  {totalChange >= 0 ? (
+                    <TrendingUp className="text-green-500 h-4 w-4 mr-1" />
+                  ) : (
+                    <TrendingDown className="text-red-500 h-4 w-4 mr-1" />
+                  )}
+                  <span
+                    className={`font-medium ${
+                      totalChange >= 0 ? "text-green-500" : "text-red-500"
+                    }`}
+                  >
+                    {totalChange >= 0 ? "+" : ""}
+                    {totalChange.toFixed(2)}%
+                  </span>
+                </div>
+              )}
             </div>
 
             <div className="sm:col-span-2 md:col-span-1">
@@ -372,10 +435,7 @@ export default function Investments() {
               const shares = Number(investment.shares);
               const value = price * shares;
               //const profit = value - Number(investment?.amount);
-              // const profitPercent =
-              //   Number(investment.amount) > 0
-              //     ? (profit / Number(investment.amount)) * 100
-              //     : 0;
+              const profitPercent = investment.percentageprofit;
 
               return (
                 <div key={investment.id}>
@@ -422,17 +482,14 @@ export default function Investments() {
                     </div>
                     <div>{shares}</div>
                     <div>${value.toFixed(2)}</div>
-                    {/* <div
-//                         className={
-//                           investment.profitPercent > 0
-//                             ? "text-green-500"
-//                             : "text-red-500"
-//                         }
-//                       >
-//                         ${investment.profit.toFixed(2)} (
-//                         {investment.profitPercent.toFixed(2)}%)
-//                       </div> */}
-                    <div></div>
+                    <div
+                      className={
+                        profitPercent > 0 ? "text-green-500" : "text-red-500"
+                      }
+                    >
+                      ${(investment.dailyprofit ?? 0).toFixed(2)} (
+                      {(profitPercent ?? 0).toFixed(2)}%)
+                    </div>
                     <div>
                       <Button
                         variant="ghost"
@@ -523,7 +580,16 @@ export default function Investments() {
                           Number(investment.price) * Number(investment.shares)
                         ).toFixed(2)}
                       </div>
-                      <div></div>
+                      <div
+                        className={
+                          investment.percentageprofit > 0
+                            ? "text-green-500"
+                            : "text-red-500"
+                        }
+                      >
+                        ${(investment.dailyprofit ?? 0).toFixed(2)} (
+                        {(investment.percentageprofit ?? 0).toFixed(2)}%)
+                      </div>
                       <div>
                         <Button
                           variant="ghost"
@@ -618,7 +684,16 @@ export default function Investments() {
                           Number(investment.price) * Number(investment.shares)
                         ).toFixed(2)}
                       </div>
-                      <div></div>
+                      <div
+                        className={
+                          investment.percentageprofit > 0
+                            ? "text-green-500"
+                            : "text-red-500"
+                        }
+                      >
+                        ${(investment.dailyprofit ?? 0).toFixed(2)} (
+                        {(investment.percentageprofit ?? 0).toFixed(2)}%)
+                      </div>
                       <div>
                         <Button
                           variant="ghost"
@@ -679,11 +754,6 @@ export default function Investments() {
                   const change = priceData?.change ?? 0;
                   const shares = Number(investment.shares);
                   const value = price * shares;
-                  //const profit = value - Number(investment.amount);
-                  // const profitPercent =
-                  //   Number(investment.amount) > 0
-                  //     ? (profit / Number(investment.amount)) * 100
-                  //     : 0;
 
                   return (
                     <div key={investment.id}>
@@ -728,7 +798,16 @@ export default function Investments() {
                         </div>
                         <div>{shares}</div>
                         <div>${value.toFixed(2)}</div>
-                        <div></div>
+                        <div
+                          className={
+                            investment.percentageprofit > 0
+                              ? "text-green-500"
+                              : "text-red-500"
+                          }
+                        >
+                          ${(investment.dailyprofit ?? 0).toFixed(2)} (
+                          {(investment.percentageprofit ?? 0).toFixed(2)}%)
+                        </div>
                         <div>
                           <Button
                             variant="ghost"
@@ -827,7 +906,16 @@ export default function Investments() {
                           Number(investment.price) * Number(investment.shares)
                         ).toFixed(2)}
                       </div>
-                      <div></div>
+                      <div
+                        className={
+                          investment.percentageprofit > 0
+                            ? "text-green-500"
+                            : "text-red-500"
+                        }
+                      >
+                        ${(investment.dailyprofit ?? 0).toFixed(2)} (
+                        {(investment.percentageprofit ?? 0).toFixed(2)}%)
+                      </div>
                       <div>
                         <Button
                           variant="ghost"

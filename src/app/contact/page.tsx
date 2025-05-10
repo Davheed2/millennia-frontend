@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
@@ -7,28 +7,64 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import { toast } from "sonner";
+import emailjs from "@emailjs/browser";
 
 export default function ContactUs() {
-  const form = useForm({
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      message: "",
-      privacyPolicy: false,
-    },
-  });
+  // State for form data
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+  const [privacyPolicy, setPrivacyPolicy] = useState(false);
 
-  const onSubmit = (data: unknown) => {
-    console.log(data);
-    // Here you would typically send the form data to your backend
-    alert("Message sent successfully!");
-    //form.reset();
+  // Handle form submission
+  const onSubmit = () => {
+    // Validate form fields
+    if (!firstName || !lastName || !email || !message || !privacyPolicy) {
+      toast.error(
+        "Please fill out all required fields and agree to the privacy policy."
+      );
+      return;
+    }
+
+    // EmailJS parameters
+    const templateParams = {
+      firstName,
+      lastName,
+      email,
+      phone,
+      message,
+    };
+
+    emailjs
+      .send(
+        "service_d0z9ovc", // Replace with your EmailJS Service ID
+        "template_w55187j", // Replace with your EmailJS Template ID
+        templateParams,
+        "P2z0a8wpFMsHunIT_" // Replace with your EmailJS User ID
+      )
+      .then(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        (response) => {
+          toast.success("Message sent successfully!");
+          // Reset form
+          setFirstName("");
+          setLastName("");
+          setEmail("");
+          setPhone("");
+          setMessage("");
+          setPrivacyPolicy(false);
+        },
+        (error) => {
+          toast.error("Failed to send message. Please try again.");
+          console.error("EmailJS error:", error);
+        }
+      );
   };
 
   return (
@@ -52,7 +88,6 @@ export default function ContactUs() {
                 fill
                 className="object-cover"
               />
-              {/* <div className="absolute inset-0 bg-black bg-opacity-20"></div> */}
               <div className="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white p-4">
                 <p className="font-medium">Millennia Trades</p>
               </div>
@@ -60,10 +95,7 @@ export default function ContactUs() {
 
             {/* Contact form */}
             <Card className="p-6 shadow-none">
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-4"
-              >
+              <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <label htmlFor="firstName" className="text-sm font-medium">
@@ -71,11 +103,12 @@ export default function ContactUs() {
                     </label>
                     <Input
                       type="text"
-                      autoFocus
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
                       id="firstName"
                       aria-label="First Name"
                       placeholder="First Name"
-                      className={`min-h-[45px] text-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 placeholder:text-sm`}
+                      className="min-h-[45px] text-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 placeholder:text-sm"
                     />
                   </div>
                   <div className="space-y-1">
@@ -84,10 +117,12 @@ export default function ContactUs() {
                     </label>
                     <Input
                       type="text"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
                       id="lastName"
                       aria-label="Last Name"
                       placeholder="Last Name"
-                      className={`min-h-[45px] text-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 placeholder:text-sm`}
+                      className="min-h-[45px] text-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 placeholder:text-sm"
                     />
                   </div>
                 </div>
@@ -98,10 +133,12 @@ export default function ContactUs() {
                   </label>
                   <Input
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     id="email"
                     aria-label="Email address"
                     placeholder="Email Address"
-                    className={`min-h-[45px] border-gray-300 focus:border-blue-500 focus:ring-blue-500 placeholder:text-sm`}
+                    className="min-h-[45px] border-gray-300 focus:border-blue-500 focus:ring-blue-500 placeholder:text-sm"
                   />
                 </div>
 
@@ -109,15 +146,15 @@ export default function ContactUs() {
                   <label htmlFor="phone" className="text-sm font-medium">
                     Phone number
                   </label>
-                  <div className="relative">
-                    <Input
-                      type="text"
-                      id="phone"
-                      aria-label="Phone Number"
-                      placeholder="Phone Number"
-                      className={`min-h-[45px] text-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 placeholder:text-sm`}
-                    />
-                  </div>
+                  <Input
+                    type="text"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    id="phone"
+                    aria-label="Phone Number"
+                    placeholder="Phone Number"
+                    className="min-h-[45px] text-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 placeholder:text-sm"
+                  />
                 </div>
 
                 <div className="space-y-1">
@@ -127,16 +164,20 @@ export default function ContactUs() {
                   <Textarea
                     id="message"
                     placeholder="Tell us your problem..."
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                     className="resize-none"
                     rows={5}
-                    {...form.register("message", { required: true })}
                   />
                 </div>
 
                 <div className="flex items-start space-x-2">
                   <Checkbox
                     id="privacyPolicy"
-                    {...form.register("privacyPolicy", { required: true })}
+                    checked={privacyPolicy}
+                    onCheckedChange={() => {
+                      setPrivacyPolicy(true);
+                    }}
                   />
                   <label htmlFor="privacyPolicy" className="text-sm">
                     You agree to our friendly{" "}
@@ -151,7 +192,8 @@ export default function ContactUs() {
                 </div>
 
                 <Button
-                  type="submit"
+                  type="button"
+                  onClick={onSubmit}
                   className="w-full bg-[#1a5fb4] hover:bg-[#1552a0] text-white"
                 >
                   Send message

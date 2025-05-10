@@ -9,6 +9,8 @@ export type User = {
   isSuspended: boolean;
   isKycVerified: boolean;
   referralCode: string;
+  dailyProfitChange: number;
+	totalProfit: number;
   isDeleted: boolean;
   created_at: string;
 };
@@ -119,7 +121,8 @@ export type Investment = {
   type: string;
   amount: number;
   initialAmount: number;
-  dailyProfit: number;
+  dailyprofit: number;
+  percentageprofit: number;
   plan: string;
   retirementAccountType: string;
   symbol: string;
@@ -138,7 +141,8 @@ export type UserInvestment = {
   shares: string;
   amount: number;
   initialAmount: number;
-  dailyProfit: number;
+  dailyprofit: number;
+  percentageprofit: number;
   plan: string;
   retirementAccountType: string;
   symbol: string;

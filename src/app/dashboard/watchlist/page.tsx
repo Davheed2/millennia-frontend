@@ -48,9 +48,9 @@ export default function Wishlists() {
       if (!responseData?.data) {
         throw new Error("No watch list found");
       }
-      toast.success("Watch list Fetched", {
-        description: "Successfully fetched watch list.",
-      });
+      // toast.success("Watch list Fetched", {
+      //   description: "Successfully fetched watch list.",
+      // });
 
       setWishlist(responseData.data);
       return responseData.data;

@@ -47,7 +47,7 @@ export default function Cryptocurrency() {
                       <span>Bitcoin (BTC)</span>
                     </div>
 
-                    <Link href="/signin">
+                    <Link href="/dashboard/new-investment">
                       <Button variant="outline" size="sm">
                         Buy
                       </Button>
@@ -60,7 +60,7 @@ export default function Cryptocurrency() {
                       </div>
                       <span>Ethereum (ETH)</span>
                     </div>
-                    <Link href="/signin">
+                    <Link href="/dashboard/new-investment">
                       <Button variant="outline" size="sm">
                         Buy
                       </Button>
@@ -73,7 +73,7 @@ export default function Cryptocurrency() {
                       </div>
                       <span>Solana (SOL)</span>
                     </div>
-                    <Link href="/signin">
+                    <Link href="/dashboard/new-investment">
                       <Button variant="outline" size="sm">
                         Buy
                       </Button>
@@ -86,7 +86,7 @@ export default function Cryptocurrency() {
                       </div>
                       <span>Polkadot (DOT)</span>
                     </div>
-                    <Link href="/signin">
+                    <Link href="/dashboard/new-investment">
                       <Button variant="outline" size="sm">
                         Buy
                       </Button>
