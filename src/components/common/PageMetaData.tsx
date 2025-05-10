@@ -25,13 +25,21 @@ export function generatePageMetadata({
       title: `${title}`,
       description: content,
       url: url || "https://millenniatrades.com",
-      images: ["opengraph-image.png"],
+      // images: ["opengraph-image.png"],
+      images: [
+        {
+          url: "https://millenniatrades.com/opengraph-image.png",
+          width: 1200,
+          height: 630,
+          alt: "Millennia Trades Open Graph Image",
+        },
+      ],
     },
     twitter: {
       card: image || defaultImage ? "summary_large_image" : "summary",
       title: `${title}`,
       description: content,
-      images: ["millennnia.png"],
+      images: ["https://millenniatrades.com/millennnia.png"],
     },
     other: {
       "og:locale": "en_US",

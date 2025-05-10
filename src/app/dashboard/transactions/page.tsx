@@ -161,7 +161,7 @@ export default function Transactions() {
                   <TabsTrigger value="all">All Transactions</TabsTrigger>
                   <TabsTrigger value="Deposit">Deposits</TabsTrigger>
                   <TabsTrigger value="withdrawal">Withdrawals</TabsTrigger>
-                  <TabsTrigger value="investment">Investments</TabsTrigger>
+                  <TabsTrigger value="Investment">Investments</TabsTrigger>
                 </TabsList>
               </div>
 
