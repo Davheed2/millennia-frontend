@@ -24,11 +24,11 @@ export function generatePageMetadata({
       locale: "en_US",
       title: `${title}`,
       description: content,
-      url: url || "https://millenniatrades.com",
+      url: url || "https://www.millenniatrades.com",
       // images: ["opengraph-image.png"],
       images: [
         {
-          url: "https://millenniatrades.com/opengraph-image.png",
+          url: "https://www.millenniatrades.com/opengraph-image.png",
           width: 1200,
           height: 630,
           alt: "Millennia Trades Open Graph Image",
@@ -39,11 +39,11 @@ export function generatePageMetadata({
       card: image || defaultImage ? "summary_large_image" : "summary",
       title: `${title}`,
       description: content,
-      images: ["https://millenniatrades.com/millennnia.png"],
+      images: ["https://www.millenniatrades.com/millennnia.png"],
     },
     other: {
       "og:locale": "en_US",
     },
-    metadataBase: new URL("https://millenniatrades.com"),
+    metadataBase: new URL("https://www.millenniatrades.com"),
   };
 }
