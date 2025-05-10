@@ -21,7 +21,7 @@ import {
   ChevronRight,
   AlignLeft,
   X,
-  MessageCircle,
+  // MessageCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -122,11 +122,11 @@ export default function DashboardLayout({
       href: "/dashboard/referrals",
       icon: Users,
     },
-    {
-      name: "Support Chat",
-      href: "/dashboard/support-chat",
-      icon: MessageCircle,
-    },
+    // {
+    //   name: "Support Chat",
+    //   href: "/dashboard/support-chat",
+    //   icon: MessageCircle,
+    // },
     {
       name: "Settings",
       href: "/dashboard/settings",
