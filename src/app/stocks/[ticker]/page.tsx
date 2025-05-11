@@ -13,6 +13,7 @@ import { wishlistType, zodValidator } from "@/lib/validators/validateWithZod";
 import { WishlistData } from "@/interfaces/ApiResponse";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 
 const stocksData: Record<
   string,
@@ -90,6 +91,7 @@ export default function StockDetails({
 }) {
   const stock = stocksData[params.ticker.toUpperCase()];
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const {
     register,
@@ -275,7 +277,10 @@ export default function StockDetails({
                     : "cryptocurrency services"}
                   , driving significant growth and investor interest.
                 </p>
-                <Button className="bg-invest hover:bg-invest-secondary text-white mr-3">
+                <Button
+                  className="bg-invest hover:bg-invest-secondary text-white mr-3"
+                  onClick={() => router.push("/signin")}
+                >
                   Buy
                 </Button>
                 <Button type="submit" variant="outline" disabled={isSubmitting}>
