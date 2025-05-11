@@ -41,10 +41,10 @@ export default function ContactUss() {
 
     emailjs
       .send(
-        "service_d0z9ovc", // Replace with your EmailJS Service ID
-        "template_w55187j", // Replace with your EmailJS Template ID
+        "service_vqsdid9", // Replace with your EmailJS Service ID
+        "template_2c0xrn8", // Replace with your EmailJS Template ID
         templateParams,
-        "P2z0a8wpFMsHunIT_" // Replace with your EmailJS User ID
+        "UDR_iPACbPmmOlVrO" // Replace with your EmailJS User ID
       )
       .then(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
