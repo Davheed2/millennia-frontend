@@ -98,7 +98,10 @@ const Login = () => {
         // } else {
         //   router.replace("/dashboard");
         // }
-        router.replace("/dashboard");
+
+        setTimeout(() => {
+          router.replace("/dashboard");
+        }, 2000);
       }
     } catch (err) {
       toast.error("Sign In Failed", {
