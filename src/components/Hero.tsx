@@ -103,7 +103,7 @@ const Hero = () => {
                   Stocks
                 </div>
                 <div className="bg-invest-light text-invest rounded-md p-1.5 text-xs font-medium text-center">
-                  Bonds
+                  Crypto
                 </div>
                 <div className="bg-invest-light text-invest rounded-md p-1.5 text-xs font-medium text-center">
                   ETFs
