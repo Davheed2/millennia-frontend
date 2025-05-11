@@ -4,6 +4,17 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowRight, Book, Calculator, BarChart } from "lucide-react";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Investing Resources | Millennia Trades",
+    content:
+      "Explore a library of resources to help you become a more confident, knowledgeable investor. Whether you're a beginner or experienced, we provide guides, calculators, and expert advice to support your investment journey.",
+    url: "https://millenniatrades.com/resources",
+  });
+};
 
 export default function Resources() {
   return (

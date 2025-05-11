@@ -14,9 +14,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TrendingUp } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
 
-export const metadata: Metadata = {
-  title: "Explore Stocks | Millennia Trades",
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Explore Stocks | Millennia Trades",
+    content:
+      "Discover top stocks, tech sector leaders, and high-growth opportunities at Millennia Trades. Stay informed on the latest stock trends and invest in your financial future. Explore stocks like Apple, Tesla, Amazon, and more.",
+    url: "https://millenniatrades.com/stocks",
+  });
 };
 
 const stocksData = {
@@ -48,7 +54,8 @@ const stocksData = {
       name: "NVIDIA Corporation",
       ticker: "NVDA",
       description: "Graphics processing and AI powerhouse.",
-      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop",
     },
     {
       name: "Microsoft Corp.",

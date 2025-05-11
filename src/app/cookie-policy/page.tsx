@@ -4,6 +4,17 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Cookie } from "lucide-react";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Cookie Policy | Millennia Trades",
+    content:
+      "Learn how Millennia Trades uses cookies and similar technologies to enhance your experience. Review your rights and cookie preferences.",
+    url: "https://millenniatrades.com/cookie-policy",
+  });
+};
 
 export default function CookiePolicy() {
   return (
@@ -26,12 +37,12 @@ export default function CookiePolicy() {
                 1. Introduction
               </h2>
               <p>
-                This Cookie Policy explains how Millennia Trades (&quot;we&quot;,
-                &quot;us&quot;, or &quot;our&quot;) uses cookies and similar
-                technologies to recognize you when you visit our website at
-                millenniatrades.com (&quot;Website&quot;). It explains what these
-                technologies are and why we use them, as well as your rights to
-                control our use of them.
+                This Cookie Policy explains how Millennia Trades
+                (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) uses
+                cookies and similar technologies to recognize you when you visit
+                our website at millenniatrades.com (&quot;Website&quot;). It
+                explains what these technologies are and why we use them, as
+                well as your rights to control our use of them.
               </p>
             </section>
 
@@ -47,9 +58,9 @@ export default function CookiePolicy() {
                 information.
               </p>
               <p>
-                Cookies set by the website owner (in this case, Millennia Trades)
-                are called &quot;first-party cookies&quot;. Cookies set by
-                parties other than the website owner are called
+                Cookies set by the website owner (in this case, Millennia
+                Trades) are called &quot;first-party cookies&quot;. Cookies set
+                by parties other than the website owner are called
                 &quot;third-party cookies&quot;. Third-party cookies enable
                 third-party features or functionality to be provided on or
                 through the website (e.g., advertising, interactive content, and

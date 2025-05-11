@@ -14,9 +14,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PieChart } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
 
-export const metadata: Metadata = {
-  title: "Explore ETFs | Millennia Trades",
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Explore ETFs | Millennia Trades",
+    content:
+      "Browse top-performing ETFs including index funds, thematic investments, and high-dividend ETFs. Start building your diversified portfolio with Millennia Trades.",
+    url: "https://millenniatrades.com/etfs",
+  });
 };
 
 const etfsData = {

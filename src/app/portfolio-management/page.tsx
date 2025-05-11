@@ -11,6 +11,17 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { BarChart, LineChart, PieChart, Settings, Zap } from "lucide-react";
 import Link from "next/link";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Portfolio Management | Millennia Trades",
+    content:
+      "Optimize your investments with Millennia Trades' advanced portfolio management tools. Benefit from automated rebalancing, smart optimization, and insightful analytics tailored to your goals.",
+    url: "https://millenniatrades.com/portfolio-management",
+  });
+};
 
 export default function PortfolioManagement() {
   return (

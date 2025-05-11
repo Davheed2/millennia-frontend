@@ -2,6 +2,17 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CompoundInterestCalculator from "@/components/CompoundCalculator";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Compound Interest Calculator | Millennia Trades",
+    content:
+      "Visualize the power of compounding on your investments with our Compound Interest Calculator. Plan your financial future with confidence using Millennia Trades' free, easy-to-use tool.",
+    url: "https://millenniatrades.com/compound-calculator",
+  });
+};
 
 export default function CompoundInterestCalculatorPage() {
   return (

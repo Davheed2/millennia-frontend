@@ -12,6 +12,17 @@ import { Button } from "@/components/ui/button";
 import { TrendingUp, Clock, PieChart, Shield } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Stocks & ETFs | Millennia Trades",
+    content:
+      "Build a diversified portfolio with Millennia Trades. Invest in individual stocks or curated exchange-traded funds (ETFs) to maximize growth potential. Start exploring stocks and ETFs to enhance your investment strategy today.",
+    url: "https://millenniatrades.com/stocks-etfs",
+  });
+};
 
 export default function StocksAndETFs() {
   return (

@@ -3,6 +3,17 @@ import Footer from "@/components/Footer";
 import BlogList from "@/components/BlogList";
 import { featuredPost, blogPosts, allCategories } from "@/lib/blog-utils";
 import { Suspense } from "react";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Millennia Trades Blog | Investment Tips, Insights & Strategies",
+    content:
+      "Explore the Millennia Trades Blog for expert insights, educational content, and market trends. Learn how to grow your wealth with smart, informed investment decisions.",
+    url: "https://millenniatrades.com/blog",
+  });
+};
 
 export default function Blog() {
   return (

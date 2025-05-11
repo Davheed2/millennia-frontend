@@ -19,8 +19,18 @@ import {
   Check,
 } from "lucide-react";
 import Link from "next/link";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
+import { Metadata } from "next";
 
-// Import the same investment plans used in pricing page
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Retirement Planning | Millennia Trades",
+    content:
+      "Explore personalized retirement planning tools, investment options, and tax-advantaged accounts. Start securing your financial future today with our retirement plans, including traditional IRAs, 401(k)s, and more.",
+    url: "https://millenniatrades.com/retirement",
+  });
+};
+
 const INVESTMENT_PLANS = [
   {
     id: "basic",

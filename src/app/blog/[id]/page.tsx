@@ -7,6 +7,46 @@ import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
+
+export const generateMetadata = ({
+  params,
+}: {
+  params: { id: string };
+}): Metadata => {
+  const post = findPostById(params.id);
+
+  if (!post) {
+    return {
+      title: "Post Not Found | Millennia Trades Blog",
+      description: "We couldn't find the article you're looking for.",
+    };
+  }
+
+  return {
+    title: `${post.title} | Millennia Trades Blog`,
+    description:
+      post.excerpt ||
+      "Explore insights from Millennia Trades on smart investing and financial strategies.",
+    openGraph: {
+      title: `${post.title} | Millennia Trades Blog`,
+      description: post.excerpt || "",
+      url: `https://millenniatrades.com/blog/${post.id}`,
+      images: [
+        {
+          url: post.image,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${post.title} | Millennia Trades Blog`,
+      description: post.excerpt || "",
+      images: [post.image],
+    },
+  };
+};
 
 export default function BlogArticle({ params }: { params: { id: string } }) {
   const post = findPostById(params.id);

@@ -11,6 +11,17 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Bitcoin, Shield, Zap, Lock } from "lucide-react";
 import Link from "next/link";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Cryptocurrency | Millennia Trades",
+    content:
+      "Discover top cryptocurrencies and learn how to invest securely with Millennia Trades. Explore features, buy digital assets, and see our security measures.",
+    url: "https://millenniatrades.com/cryptocurrency",
+  });
+};
 
 export default function Cryptocurrency() {
   return (

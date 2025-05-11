@@ -4,8 +4,18 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Check, TrendingUp } from "lucide-react";
 import Link from "next/link";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
+import { Metadata } from "next";
 
-// Define plans with ROI information
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Pricing Plans | Transparent Investment Options | Millennia Trades",
+    content:
+      "Compare our investment plans and choose what fits your style. Transparent pricing, high ROI, and no hidden fees — tailored for every investor level.",
+    url: "https://millenniatrades.com/pricing",
+  });
+};
+
 const INVESTMENT_PLANS = [
   {
     id: "basic",

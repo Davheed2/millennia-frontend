@@ -2,6 +2,17 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import InvestmentFeeAnalyzer from "@/components/InvestmentFeeAnalyzer";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Investment Fee Analyzer | Millennia Trades",
+    content:
+      "Use our Investment Fee Analyzer to understand how management fees and expense ratios can affect your long-term investment returns. Discover low-cost investing with Millennia Trades.",
+    url: "https://millenniatrades.com/tools/fee-analyzer",
+  });
+};
 
 export default function InvestmentFeeAnalyzerPage() {
   return (
@@ -36,9 +47,9 @@ export default function InvestmentFeeAnalyzerPage() {
               <li className="mb-2">Front-end or back-end load fees</li>
             </ul>
             <p>
-              At Millennia Trades, we believe in transparent, low-cost investing.
-              Our platform offers access to low-fee investment options to help
-              maximize your returns over time.
+              At Millennia Trades, we believe in transparent, low-cost
+              investing. Our platform offers access to low-fee investment
+              options to help maximize your returns over time.
             </p>
           </div>
         </div>

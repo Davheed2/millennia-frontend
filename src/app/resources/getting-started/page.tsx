@@ -3,6 +3,17 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Getting Started with Investing | Millennia Trades",
+    content:
+      "A beginner-friendly guide to help you start your investment journey. Learn key investment concepts, build your first portfolio, and avoid common mistakes as you begin your path to financial growth.",
+    url: "https://millenniatrades.com/resources/getting-started",
+  });
+};
 
 export default function GettingStartedGuide() {
   return (
@@ -223,8 +234,8 @@ export default function GettingStartedGuide() {
                 Ready to start investing?
               </h3>
               <p className="text-base leading-relaxed mb-4">
-                Open an account with Millennia Trades to access low-fee funds and expert
-                guidance.
+                Open an account with Millennia Trades to access low-fee funds
+                and expert guidance.
               </p>
               <Link
                 href="/signup"

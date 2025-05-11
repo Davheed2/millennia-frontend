@@ -2,6 +2,17 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import RetirementCalculator from "@/components/RetirementCalculator";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Retirement Calculator | Millennia Trades",
+    content:
+      "Estimate how much you need to save monthly for retirement with our easy-to-use Retirement Calculator. Input your age, desired retirement income, and current savings to start planning your financial future.",
+    url: "https://millenniatrades.com/retirement-calculator",
+  });
+};
 
 export default function RetirementCalculatorPage() {
   return (

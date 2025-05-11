@@ -3,6 +3,17 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Understanding Market Cycles | Millennia Trades",
+    content:
+      "Learn about market cycles and their phases: Accumulation, Mark-Up, Distribution, and Mark-Down. Understand how economic cycles relate to market cycles and strategies for each phase.",
+    url: "https://millenniatrades.com/resources/market-cycles",
+  });
+};
 
 export default function MarketCyclesGuide() {
   return (
@@ -289,8 +300,8 @@ export default function MarketCyclesGuide() {
                 Want a portfolio built for all market cycles?
               </h3>
               <p className="text-base leading-relaxed mb-4">
-                Millennia Trades professional portfolio management helps navigate
-                changing market conditions.
+                Millennia Trades professional portfolio management helps
+                navigate changing market conditions.
               </p>
               <Link
                 href="/portfolio-management"

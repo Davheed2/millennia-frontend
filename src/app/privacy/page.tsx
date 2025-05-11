@@ -3,6 +3,17 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Privacy Policy | Millennia Trades",
+    content:
+      "Review Millennia Trades' privacy policy to understand how we collect, use, and protect your personal information when you use our investment services.",
+    url: "https://millenniatrades.com/privacy",
+  });
+};
 
 export default function PrivacyPolicy() {
   return (
@@ -19,10 +30,10 @@ export default function PrivacyPolicy() {
                 1. Introduction
               </h2>
               <p>
-                At Millennia Trades, we respect your privacy and are committed to
-                protecting your personal data. This Privacy Policy explains how
-                we collect, use, and safeguard your information when you use our
-                platform and services.
+                At Millennia Trades, we respect your privacy and are committed
+                to protecting your personal data. This Privacy Policy explains
+                how we collect, use, and safeguard your information when you use
+                our platform and services.
               </p>
             </section>
 

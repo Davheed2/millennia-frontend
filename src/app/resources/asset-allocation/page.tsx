@@ -3,6 +3,17 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Asset Allocation Strategies | Millennia Trades",
+    content:
+      "Learn about asset allocation strategies to optimize your investment portfolio. Discover major asset classes, common strategies, and how to determine your optimal allocation.",
+    url: "https://millenniatrades.com/resources/asset-allocation",
+  });
+};
 
 export default function AssetAllocationGuide() {
   return (

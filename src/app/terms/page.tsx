@@ -3,6 +3,17 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "Terms of Service | Millennia Trades",
+    content:
+      "Review the Terms of Service for using Millennia Trades. Understand the rules, regulations, and responsibilities while using our platform for investment services. Your access and use of our services is governed by these terms.",
+    url: "https://millenniatrades.com/terms",
+  });
+};
 
 export default function TermsOfService() {
   return (
@@ -47,9 +58,9 @@ export default function TermsOfService() {
               <p>
                 All investments involve risk, including the possible loss of
                 principal. Past performance does not guarantee future results.
-                Millennia Trades does not provide personalized investment advice,
-                and the information provided on our platform should not be
-                construed as such.
+                Millennia Trades does not provide personalized investment
+                advice, and the information provided on our platform should not
+                be construed as such.
               </p>
               <p>
                 Before making any investment decisions, you should consult with

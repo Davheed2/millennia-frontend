@@ -1,6 +1,5 @@
 "use client";
 
-//import { useAuth } from "@/contexts/AuthContext";
 import {
   Card,
   CardContent,
@@ -17,7 +16,6 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-//import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import Link from "next/link";
 import { useSession } from "@/store/useSession";

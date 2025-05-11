@@ -4,6 +4,17 @@ import { Separator } from "@/components/ui/separator";
 import { Users, BarChart, Shield, Lightbulb } from "lucide-react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { generatePageMetadata } from "@/components/common/PageMetaData";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata({
+    title: "About Us | Millennia Trades – Trusted Since 2012",
+    content:
+      "Learn about Millennia Trades, a fintech pioneer democratizing investing since 2012. Meet our leadership team and explore the values that drive our client-first, secure, and innovative platform.",
+    url: "https://millenniatrades.com/about-us",
+  });
+};
 
 export default function AboutUs() {
   return (
@@ -20,9 +31,7 @@ export default function AboutUs() {
           <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
           <div className="absolute inset-0 flex items-center justify-center text-center">
             <div className="max-w-3xl px-6">
-              <h1 className="heading-xl mb-6">
-                About Millennia Trades
-              </h1>
+              <h1 className="heading-xl mb-6">About Millennia Trades</h1>
               <p className="text-lg">
                 We&apos;re on a mission to democratize investing and help
                 everyone build a better financial future, regardless of their
@@ -36,8 +45,8 @@ export default function AboutUs() {
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="heading-lg mb-6">Our Story</h2>
             <p className="mb-4 text-muted-foreground">
-              Millennia Trades was founded in 2012 by a team of financial experts
-              and technology innovators who believed that sophisticated
+              Millennia Trades was founded in 2012 by a team of financial
+              experts and technology innovators who believed that sophisticated
               investment strategies shouldn&apos;t be reserved for the
               ultra-wealthy.
             </p>
@@ -165,7 +174,9 @@ export default function AboutUs() {
                   <AvatarFallback className="text-2xl">DR</AvatarFallback>
                 </Avatar>
                 <h3 className="text-xl font-semibold mb-1">David Rodriguez</h3>
-                <p className="text-invest mb-2 text-sm">Chief Investment Officer</p>
+                <p className="text-invest mb-2 text-sm">
+                  Chief Investment Officer
+                </p>
                 <p className="text-muted-foreground text-sm">
                   Former hedge fund manager with a focus on quantitative
                   investing strategies.
@@ -173,19 +184,6 @@ export default function AboutUs() {
               </div>
             </div>
           </div>
-
-          {/* <div className="max-w-3xl mx-auto bg-invest/5 p-8 rounded-xl">
-            <h2 className="heading-md text-center mb-6">Join Our Mission</h2>
-            <p className="text-center mb-6">
-              We&apos;re always looking for talented individuals who are
-              passionate about transforming financial services.
-            </p>
-            <div className="flex justify-center">
-              <Button className="bg-invest hover:bg-invest-secondary text-white">
-                View Open Positions
-              </Button>
-            </div>
-          </div> */}
         </div>
       </main>
       <Footer />
