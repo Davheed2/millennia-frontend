@@ -279,7 +279,7 @@ export default function StockDetails({
                 </p>
                 <Button
                   className="bg-invest hover:bg-invest-secondary text-white mr-3"
-                  onClick={() => router.push("/signin")}
+                  onClick={() => router.push("/dashboard/new-investment")}
                 >
                   Buy
                 </Button>
