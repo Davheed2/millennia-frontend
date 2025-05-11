@@ -22,7 +22,7 @@ const Success = ({ children, description, classNames }: SuccessProps) => {
   return (
     <div
       className={cn(
-        "mx-auto w-w90 max-w-md rounded-md bg-white/50 p-6 backdrop-blur-lg",
+        "mx-auto w-w90 max-w-md rounded-md pt-0 p-6 backdrop-blur-lg",
         classNames?.wrapper
       )}
     >

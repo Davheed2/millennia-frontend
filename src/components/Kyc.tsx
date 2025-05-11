@@ -31,8 +31,7 @@ import { Progress } from "@/components/ui/progress";
 import { toast } from "sonner";
 import { ApiResponse, Kyc } from "@/interfaces";
 import { callApi } from "@/lib/helpers";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { KycType, zodValidator } from "@/lib/validators/validateWithZod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -40,6 +39,343 @@ import { KycData } from "@/interfaces/ApiResponse";
 import { FormErrorMessage } from "./common";
 import { useSession } from "@/store/useSession";
 import Link from "next/link";
+
+// Static fallback data for states/provinces (used if API fails or for city data)
+const fallbackCountryData: { [key: string]: string[] } = {
+  "United States": [
+    "Alabama",
+    "Alaska",
+    "Arizona",
+    "Arkansas",
+    "California",
+    "Colorado",
+    "Connecticut",
+    "Delaware",
+    "Florida",
+    "Georgia",
+    "Hawaii",
+    "Idaho",
+    "Illinois",
+    "Indiana",
+    "Iowa",
+    "Kansas",
+    "Kentucky",
+    "Louisiana",
+    "Maine",
+    "Maryland",
+    "Massachusetts",
+    "Michigan",
+    "Minnesota",
+    "Mississippi",
+    "Missouri",
+    "Montana",
+    "Nebraska",
+    "Nevada",
+    "New Hampshire",
+    "New Jersey",
+    "New Mexico",
+    "New York",
+    "North Carolina",
+    "North Dakota",
+    "Ohio",
+    "Oklahoma",
+    "Oregon",
+    "Pennsylvania",
+    "Rhode Island",
+    "South Carolina",
+    "South Dakota",
+    "Tennessee",
+    "Texas",
+    "Utah",
+    "Vermont",
+    "Virginia",
+    "Washington",
+    "West Virginia",
+    "Wisconsin",
+    "Wyoming",
+  ],
+  Canada: [
+    "Alberta",
+    "British Columbia",
+    "Manitoba",
+    "New Brunswick",
+    "Newfoundland and Labrador",
+    "Nova Scotia",
+    "Ontario",
+    "Prince Edward Island",
+    "Quebec",
+    "Saskatchewan",
+  ],
+  "United Kingdom": ["England", "Scotland", "Wales", "Northern Ireland"],
+  Nigeria: [
+    "Abia",
+    "Adamawa",
+    "Akwa Ibom",
+    "Anambra",
+    "Bauchi",
+    "Bayelsa",
+    "Benue",
+    "Borno",
+    "Cross River",
+    "Delta",
+    "Ebonyi",
+    "Edo",
+    "Ekiti",
+    "Enugu",
+    "Gombe",
+    "Imo",
+    "Jigawa",
+    "Kaduna",
+    "Kano",
+    "Katsina",
+    "Kebbi",
+    "Kogi",
+    "Kwara",
+    "Lagos",
+    "Nasarawa",
+    "Niger",
+    "Ogun",
+    "Ondo",
+    "Osun",
+    "Oyo",
+    "Plateau",
+    "Rivers",
+    "Sokoto",
+    "Taraba",
+    "Yobe",
+    "Zamfara",
+    "FCT",
+  ],
+  Australia: [
+    "New South Wales",
+    "Queensland",
+    "South Australia",
+    "Tasmania",
+    "Victoria",
+    "Western Australia",
+  ],
+  India: [
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal",
+  ],
+  // Add major cities for countries without states/provinces
+  Brazil: ["São Paulo", "Rio de Janeiro", "Brasília", "Salvador", "Fortaleza"],
+  Japan: ["Tokyo", "Osaka", "Nagoya", "Sapporo", "Fukuoka"],
+  Germany: ["Berlin", "Hamburg", "Munich", "Cologne", "Frankfurt"],
+  France: ["Paris", "Marseille", "Lyon", "Toulouse", "Nice"],
+  // Placeholder for other countries (empty arrays)
+  Afghanistan: [],
+  Albania: [],
+  Algeria: [],
+  Andorra: [],
+  Angola: [],
+  "Antigua and Barbuda": [],
+  Argentina: [],
+  Armenia: [],
+  Austria: [],
+  Azerbaijan: [],
+  Bahamas: [],
+  Bahrain: [],
+  Bangladesh: [],
+  Barbados: [],
+  Belarus: [],
+  Belgium: [],
+  Belize: [],
+  Benin: [],
+  Bhutan: [],
+  Bolivia: [],
+  "Bosnia and Herzegovina": [],
+  Botswana: [],
+  Brunei: [],
+  Bulgaria: [],
+  "Burkina Faso": [],
+  Burundi: [],
+  "Cabo Verde": [],
+  Cambodia: [],
+  Cameroon: [],
+  "Central African Republic": [],
+  Chad: [],
+  Chile: [],
+  China: [],
+  Colombia: [],
+  Comoros: [],
+  "Congo (Congo-Brazzaville)": [],
+  "Costa Rica": [],
+  Croatia: [],
+  Cuba: [],
+  Cyprus: [],
+  "Czech Republic": [],
+  "Democratic Republic of the Congo": [],
+  Denmark: [],
+  Djibouti: [],
+  Dominica: [],
+  "Dominican Republic": [],
+  Ecuador: [],
+  Egypt: [],
+  "El Salvador": [],
+  "Equatorial Guinea": [],
+  Eritrea: [],
+  Estonia: [],
+  Eswatini: [],
+  Ethiopia: [],
+  Fiji: [],
+  Finland: [],
+  Gabon: [],
+  Gambia: [],
+  Georgia: [],
+  Ghana: [],
+  Greece: [],
+  Grenada: [],
+  Guatemala: [],
+  Guinea: [],
+  "Guinea-Bissau": [],
+  Guyana: [],
+  Haiti: [],
+  Honduras: [],
+  Hungary: [],
+  Iceland: [],
+  Indonesia: [],
+  Iran: [],
+  Iraq: [],
+  Ireland: [],
+  Israel: [],
+  Italy: [],
+  "Ivory Coast": [],
+  Jamaica: [],
+  Jordan: [],
+  Kazakhstan: [],
+  Kenya: [],
+  Kiribati: [],
+  Kuwait: [],
+  Kyrgyzstan: [],
+  Laos: [],
+  Latvia: [],
+  Lebanon: [],
+  Lesotho: [],
+  Liberia: [],
+  Libya: [],
+  Liechtenstein: [],
+  Lithuania: [],
+  Luxembourg: [],
+  Madagascar: [],
+  Malawi: [],
+  Malaysia: [],
+  Maldives: [],
+  Mali: [],
+  Malta: [],
+  "Marshall Islands": [],
+  Mauritania: [],
+  Mauritius: [],
+  Mexico: [],
+  Micronesia: [],
+  Moldova: [],
+  Monaco: [],
+  Mongolia: [],
+  Montenegro: [],
+  Morocco: [],
+  Mozambique: [],
+  Myanmar: [],
+  Namibia: [],
+  Nauru: [],
+  Nepal: [],
+  Netherlands: [],
+  "New Zealand": [],
+  Nicaragua: [],
+  Niger: [],
+  "North Korea": [],
+  "North Macedonia": [],
+  Norway: [],
+  Oman: [],
+  Pakistan: [],
+  Palau: [],
+  Palestine: [],
+  Panama: [],
+  "Papua New Guinea": [],
+  Paraguay: [],
+  Peru: [],
+  Philippines: [],
+  Poland: [],
+  Portugal: [],
+  Qatar: [],
+  Romania: [],
+  Russia: [],
+  Rwanda: [],
+  "Saint Kitts and Nevis": [],
+  "Saint Lucia": [],
+  "Saint Vincent and the Grenadines": [],
+  Samoa: [],
+  "San Marino": [],
+  "Sao Tome and Principe": [],
+  "Saudi Arabia": [],
+  Senegal: [],
+  Serbia: [],
+  Seychelles: [],
+  "Sierra Leone": [],
+  Singapore: [],
+  Slovakia: [],
+  Slovenia: [],
+  "Solomon Islands": [],
+  Somalia: [],
+  "South Africa": [],
+  "South Korea": [],
+  "South Sudan": [],
+  Spain: [],
+  "Sri Lanka": [],
+  Sudan: [],
+  Suriname: [],
+  Sweden: [],
+  Switzerland: [],
+  Syria: [],
+  Tajikistan: [],
+  Tanzania: [],
+  Thailand: [],
+  "Timor-Leste": [],
+  Togo: [],
+  Tonga: [],
+  "Trinidad and Tobago": [],
+  Tunisia: [],
+  Turkey: [],
+  Turkmenistan: [],
+  Tuvalu: [],
+  Uganda: [],
+  Ukraine: [],
+  "United Arab Emirates": [],
+  Uruguay: [],
+  Uzbekistan: [],
+  Vanuatu: [],
+  Vatican: [],
+  Venezuela: [],
+  Vietnam: [],
+  Yemen: [],
+  Zambia: [],
+  Zimbabwe: [],
+};
 
 export default function DashboardKyc() {
   const [step, setStep] = useState(1);
@@ -51,6 +387,26 @@ export default function DashboardKyc() {
   const [month, setMonth] = useState<string>("");
   const [year, setYear] = useState<string>("");
   const { user } = useSession((state) => state);
+  const queryClient = useQueryClient();
+
+  // Fetch countries from REST Countries API
+  const {
+    data: countries,
+    //error: countriesError
+  } = useQuery<{ name: { common: string } }[], Error>({
+    queryKey: ["countries"],
+    queryFn: async () => {
+      const response = await fetch("https://restcountries.com/v3.1/all");
+      if (!response.ok) {
+        throw new Error("Failed to fetch countries");
+      }
+      const data: { name: { common: string } }[] = await response.json();
+      return data.sort(
+        (a: { name: { common: string } }, b: { name: { common: string } }) =>
+          a.name.common.localeCompare(b.name.common)
+      );
+    },
+  });
 
   const {
     register,
@@ -75,8 +431,7 @@ export default function DashboardKyc() {
 
   const {
     data: kyc,
-    //isLoading: loading,
-    error: queryError,
+    //error: queryError
   } = useQuery<Kyc[], Error>({
     queryKey: ["kyc"],
     queryFn: async () => {
@@ -88,27 +443,23 @@ export default function DashboardKyc() {
           error.message || "Something went wrong while fetching kyc details."
         );
       }
-      if (!responseData?.data) {
-        throw new Error("No kyc details found");
-      }
-      //   toast.success("Referrals Fetched", {
-      //     description: "Successfully fetched referrals.",
-      //   });
-      return responseData.data;
+
+      return responseData?.data ?? [];
     },
   });
 
-  useEffect(() => {
-    if (queryError) {
-      //   const errorMessage =
-      //     queryError.message ||
-      //     "An unexpected error occurred while fetching referrals.";
-      //setError(errorMessage);
-      //   toast.error("Failed to Kyc", {
-      //     description: errorMessage,
-      //   });
-    }
-  }, [queryError]);
+  // useEffect(() => {
+  //   if (queryError) {
+  //     toast.error("Failed to fetch KYC", {
+  //       description: queryError.message || "An error occurred.",
+  //     });
+  //   }
+  //   if (countriesError) {
+  //     toast.error("Failed to fetch countries", {
+  //       description: "Using fallback country data.",
+  //     });
+  //   }
+  // }, [queryError, countriesError]);
 
   const onSubmit: SubmitHandler<KycType> = async (data: KycType) => {
     try {
@@ -135,9 +486,11 @@ export default function DashboardKyc() {
 
       if (responseData?.status === "success") {
         toast.success("KYC Submitted", {
-          description: "Your kyc details has been submitted successfully.",
+          description: "Your KYC details have been submitted successfully.",
         });
       }
+
+      queryClient.invalidateQueries({ queryKey: ["kyc"] });
       setStep(4);
     } catch (err) {
       setStep(1);
@@ -171,31 +524,6 @@ export default function DashboardKyc() {
     setStep(step - 1);
   };
 
-  //   const handleSubmit = async (e: React.FormEvent) => {
-  //     e.preventDefault();
-  //     //setIsSubmitting(true);
-
-  //     // Simulate API call
-  //     setTimeout(() => {
-  //       //setIsSubmitting(false);
-  //       setStep(4);
-  //       //   toast({
-  //       //     title: "KYC documents submitted",
-  //       //     description: "Your documents have been submitted for review.",
-  //       //   });
-  //     }, 2000);
-  //   };
-
-  //   const handleFileUpload = (
-  //     event: React.ChangeEvent<HTMLInputElement>,
-  //     setFile: (file: File | null) => void
-  //   ) => {
-  //     const files = event.target.files;
-  //     if (files && files.length > 0) {
-  //       setFile(files[0]);
-  //     }
-  //   };
-
   const handleDocumentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -211,6 +539,7 @@ export default function DashboardKyc() {
       setSelfieFile(file);
     }
   };
+
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -358,7 +687,6 @@ export default function DashboardKyc() {
                           Date of Birth
                         </label>
                         <div className="grid grid-cols-3 gap-2">
-                          {/* Day */}
                           <Select
                             onValueChange={(value) => {
                               setDay(value);
@@ -379,7 +707,6 @@ export default function DashboardKyc() {
                             </SelectContent>
                           </Select>
 
-                          {/* Month */}
                           <Select
                             onValueChange={(value) => {
                               setMonth(value);
@@ -414,7 +741,6 @@ export default function DashboardKyc() {
                             </SelectContent>
                           </Select>
 
-                          {/* Year */}
                           <Select
                             onValueChange={(value) => {
                               setYear(value);
@@ -442,19 +768,45 @@ export default function DashboardKyc() {
                         <label className="text-sm font-medium">
                           Nationality
                         </label>
-
-                        <Input
-                          {...register("nationality")}
-                          type="text"
-                          //autoFocus
-                          id="nationality"
-                          aria-label="nationality"
-                          placeholder="Select your nationality"
-                          className={`text-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 placeholder:text-sm ${
-                            errors.nationality &&
-                            "border-red-500 ring-2 ring-red-500"
-                          }`}
-                        />
+                        <Select
+                          onValueChange={(value) => {
+                            setValue("nationality", value, {
+                              shouldValidate: true,
+                            });
+                            setValue("city", "", { shouldValidate: false });
+                          }}
+                          disabled={
+                            !countries &&
+                            !Object.keys(fallbackCountryData).length
+                          }
+                        >
+                          <SelectTrigger
+                            className={`text-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 ${
+                              errors.nationality &&
+                              "border-red-500 ring-2 ring-red-500"
+                            }`}
+                          >
+                            <SelectValue placeholder="Select your nationality" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {countries
+                              ? countries.map((country) => (
+                                  <SelectItem
+                                    key={country.name.common}
+                                    value={country.name.common}
+                                  >
+                                    {country.name.common}
+                                  </SelectItem>
+                                ))
+                              : Object.keys(fallbackCountryData).map(
+                                  (country) => (
+                                    <SelectItem key={country} value={country}>
+                                      {country}
+                                    </SelectItem>
+                                  )
+                                )}
+                          </SelectContent>
+                        </Select>
                         {errors.nationality && (
                           <FormErrorMessage
                             error={errors.nationality}
@@ -468,7 +820,6 @@ export default function DashboardKyc() {
                         <Input
                           {...register("address")}
                           type="text"
-                          //autoFocus
                           id="address"
                           aria-label="address"
                           placeholder="Street address"
@@ -487,19 +838,54 @@ export default function DashboardKyc() {
 
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <label className="text-sm font-medium">City</label>
-                          <Input
-                            {...register("city")}
-                            type="text"
-                            //autoFocus
-                            id="city"
-                            aria-label="city"
-                            placeholder="City"
-                            className={`text-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 placeholder:text-sm ${
-                              errors.city &&
-                              "border-red-500 ring-2 ring-red-500"
-                            }`}
-                          />
+                          <label className="text-sm font-medium">
+                            {nationality &&
+                            fallbackCountryData[nationality]?.length
+                              ? "State/Province"
+                              : "City"}
+                          </label>
+                          {nationality &&
+                          fallbackCountryData[nationality]?.length ? (
+                            <Select
+                              onValueChange={(value) =>
+                                setValue("city", value, {
+                                  shouldValidate: true,
+                                })
+                              }
+                              disabled={!nationality}
+                            >
+                              <SelectTrigger
+                                className={`text-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 ${
+                                  errors.city &&
+                                  "border-red-500 ring-2 ring-red-500"
+                                }`}
+                              >
+                                <SelectValue placeholder="Select your state/province" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {fallbackCountryData[nationality].map(
+                                  (state) => (
+                                    <SelectItem key={state} value={state}>
+                                      {state}
+                                    </SelectItem>
+                                  )
+                                )}
+                              </SelectContent>
+                            </Select>
+                          ) : (
+                            <Input
+                              {...register("city")}
+                              type="text"
+                              id="city"
+                              aria-label="city"
+                              placeholder="Enter your city"
+                              disabled={!nationality}
+                              className={`text-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 placeholder:text-sm ${
+                                errors.city &&
+                                "border-red-500 ring-2 ring-red-500"
+                              }`}
+                            />
+                          )}
                           {errors.city && (
                             <FormErrorMessage
                               error={errors.city}
@@ -514,7 +900,6 @@ export default function DashboardKyc() {
                           <Input
                             {...register("postalCode")}
                             type="text"
-                            //autoFocus
                             id="postalCode"
                             aria-label="postalCode"
                             placeholder="Postal/ZIP code"
