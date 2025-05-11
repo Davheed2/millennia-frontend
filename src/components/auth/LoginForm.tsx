@@ -36,8 +36,14 @@ const Login = () => {
       const isValidRedirect = redirectAfterLogin?.startsWith("/dashboard");
 
       if (redirectAfterLogin && isValidRedirect) {
-        router.replace(redirectAfterLogin);
+        if (redirectAfterLogin === "/dashboard/logout") {
+          localStorage.removeItem("redirectAfterLogin");
+          router.replace("/dashboard");
+          return; 
+        }
+
         localStorage.removeItem("redirectAfterLogin");
+        router.replace(redirectAfterLogin);
       } else {
         router.replace("/dashboard");
       }
@@ -85,23 +91,7 @@ const Login = () => {
 
         updateUser({ user: firstUser });
 
-        // const redirectAfterLogin = localStorage.getItem("redirectAfterLogin");
-        // console.log("redirectAfterLogin", redirectAfterLogin);
-        // if (redirectAfterLogin) {
-        //   const isValidRedirect = redirectAfterLogin?.startsWith("/dashboard");
-        //   console.log("isValidRedirect", isValidRedirect);
-        //   router.push(isValidRedirect ? redirectAfterLogin : "/dashboard");
-
-        //   setTimeout(() => {
-        //     localStorage.removeItem("redirectAfterLogin");
-        //   }, 3000);
-        // } else {
-        //   router.replace("/dashboard");
-        // }
-
-        setTimeout(() => {
-          router.replace("/dashboard");
-        }, 2000);
+        router.replace("/dashboard");
       }
     } catch (err) {
       toast.error("Sign In Failed", {
