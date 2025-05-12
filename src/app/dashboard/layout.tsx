@@ -31,6 +31,7 @@ import { Toaster } from "sonner";
 import { useInitSession, useSession } from "@/store/useSession";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Image from "next/image";
 
 export default function DashboardLayout({
   children,
@@ -211,19 +212,33 @@ export default function DashboardLayout({
         <div className="flex items-center p-4 h-16">
           {sidebarOpen || mobileSidebarOpen ? (
             <div className="flex items-center gap-2">
-              <div className="relative h-8 w-8 overflow-hidden rounded-full bg-gradient-to-br from-invest to-invest-accent">
+              {/* <div className="relative h-8 w-8 overflow-hidden rounded-full bg-gradient-to-br from-invest to-invest-accent">
                 <div className="absolute inset-1 rounded-full bg-white flex items-center justify-center">
                   <div className="h-4 w-4 rounded-full bg-gradient-to-br from-invest to-invest-accent"></div>
                 </div>
-              </div>
+              </div> */}
+              <Image
+                src="/millennnia.png"
+                alt="Millennia Trades Logo"
+                width={32}
+                height={32}
+                className="rounded-full object-cover"
+              />
               <span className="text-lg font-bold">Millennia Trades</span>
             </div>
           ) : (
-            <div className="relative h-8 w-8 overflow-hidden rounded-full bg-gradient-to-br from-invest to-invest-accent mx-auto">
-              <div className="absolute inset-1 rounded-full bg-white flex items-center justify-center">
-                <div className="h-4 w-4 rounded-full bg-gradient-to-br from-invest to-invest-accent"></div>
-              </div>
-            </div>
+            // <div className="relative h-8 w-8 overflow-hidden rounded-full bg-gradient-to-br from-invest to-invest-accent mx-auto">
+            //   <div className="absolute inset-1 rounded-full bg-white flex items-center justify-center">
+            //     <div className="h-4 w-4 rounded-full bg-gradient-to-br from-invest to-invest-accent"></div>
+            //   </div>
+            // </div>
+            <Image
+              src="/millennnia.png"
+              alt="Millennia Trades Logo"
+              width={32}
+              height={32}
+              className="rounded-full object-cover"
+            />
           )}
 
           {/* Desktop sidebar toggle  */}

@@ -7,6 +7,7 @@ import {
   Phone,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Footer = () => {
   return (
@@ -15,11 +16,18 @@ const Footer = () => {
         <div className="grid grid-cols-1 mds:grid-cols-4 gap-6 mds:gap-6">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="relative h-8 w-8 overflow-hidden rounded-full bg-gradient-to-br from-invest to-invest-accent">
+              {/* <div className="relative h-8 w-8 overflow-hidden rounded-full bg-gradient-to-br from-invest to-invest-accent">
                 <div className="absolute inset-1 rounded-full bg-invest-dark flex items-center justify-center">
                   <div className="h-4 w-4 rounded-full bg-gradient-to-br from-invest to-invest-accent"></div>
                 </div>
-              </div>
+              </div> */}
+              <Image
+                src="/millennnia.png"
+                alt="Millennia Trades Logo"
+                width={32}
+                height={32}
+                className="rounded-full object-cover"
+              />
               <span className="text-xl font-bold">Millennia Trades</span>
             </div>
             <p className="text-white/70">

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
+import Image from "next/image";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -11,14 +12,26 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
+        {/* <Link href="/" className="flex items-center gap-2">
           <div className="relative h-8 w-8 overflow-hidden rounded-full bg-gradient-to-br from-invest to-invest-accent">
             <div className="absolute inset-1 rounded-full bg-background flex items-center justify-center">
               <div className="h-4 w-4 rounded-full bg-gradient-to-br from-invest to-invest-accent"></div>
             </div>
           </div>
           <span className="font-bold text-foreground text-base md:text-xl text-[#1D4ED8]">
-          Millennia Trades
+            Millennia Trades
+          </span>
+        </Link> */}
+        <Link href="/" className="flex items-center gap-2">
+          <Image
+            src="/millennnia.png"
+            alt="Millennia Trades Logo"
+            width={32}
+            height={32}
+            className="rounded-full object-cover"
+          />
+          <span className="font-bold text-foreground text-base md:text-xl text-[#1D4ED8]">
+            Millennia Trades
           </span>
         </Link>
 
