@@ -1,3 +1,5 @@
+"use client"
+
 import {
   // Facebook,
   // Twitter,
@@ -8,8 +10,63 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { ApiResponse } from "@/interfaces";
+import { callApi } from "@/lib/helpers";
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+
+interface SysPhone {
+  id: number;
+  phone: string;
+  created_at: string;
+}
 
 const Footer = () => {
+  const {
+    data: phones,
+    //isLoading: loading,
+    //error: queryError,
+  } = useQuery<SysPhone[], Error>({
+    queryKey: ["sysphone"],
+    queryFn: async () => {
+      const { data: responseData, error } = await callApi<
+        ApiResponse<SysPhone[]>
+      >("/user/company");
+      if (error) {
+        throw new Error(
+          error.message || "Something went wrong while fetching phone number."
+        );
+      }
+      if (!responseData?.data) {
+        throw new Error("No phone data returned");
+      }
+
+      return responseData.data;
+    },
+  });
+
+  const [phone, setPhone] = useState<string>("");
+
+  useEffect(() => {
+    if (phones && phones.length >= 1) {
+      setPhone(phones[0].phone);
+    }
+  }, [phones]);
+
+  const formatPhone = (phone: string): string => {
+    if (!phone.startsWith("+")) return phone;
+
+    // Remove non-numeric characters except +
+    const digits = phone.replace(/[^\d]/g, "");
+
+    const countryCode = digits.slice(0, 1); // +1
+    const areaCode = digits.slice(1, 4); // 672
+    const part1 = digits.slice(4, 8); // 6482
+    const part2 = digits.slice(8); // 157
+
+    return `+${countryCode} (${areaCode}) ${part1}-${part2}`;
+  };
+
   return (
     <footer className="bg-invest-dark text-white">
       <div className="container py-12 mds:py-16">
@@ -148,7 +205,8 @@ const Footer = () => {
                   href="tel:+16726482157"
                   className="text-white/70 hover:text-white transition-colors"
                 >
-                  +1 (672) 6482-157
+                  {/* +1 (672) 6482-157 */}
+                  <span>{formatPhone(phone)}</span>
                 </a>
               </li>
             </ul>
