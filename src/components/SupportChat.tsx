@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Card,
   CardContent,
@@ -12,151 +12,168 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-//import { useAuth } from "@/contexts/AuthContext";
-import { Send, MessageCircle, Clock, CheckCircle } from "lucide-react";
-//import { useToast } from "@/hooks/use-toast";
+import { useSession } from "@/store";
+import {
+  Send,
+  MessageCircle,
+  Clock,
+  CheckCircle,
+  Paperclip,
+} from "lucide-react";
+import { toast } from "sonner";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { format } from "date-fns";
+import { socketService } from "@/lib/socket/socketService";
+import { cn } from "@/lib/utils";
+import { useGetChatMessages, markMessageAsRead } from "@/lib/chat.api";
+import { ChatMessage } from "@/interfaces";
 
-type Message = {
-  id: string;
-  sender: "user" | "admin";
-  content: string;
-  timestamp: Date;
-  read: boolean;
-};
-
-// Sample messages for demonstration
-const SAMPLE_MESSAGES: Message[] = [
-  {
-    id: "1",
-    sender: "admin",
-    content:
-      "Hello! Welcome to Millennia Trades support. How can we help you today?",
-    timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2), // 2 days ago
-    read: true,
-  },
-  {
-    id: "2",
-    sender: "user",
-    content:
-      "Hi, I have a question about my investment portfolio. I'm trying to diversify but not sure where to start.",
-    timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2 + 1000 * 60 * 10), // 10 minutes after previous message
-    read: true,
-  },
-  {
-    id: "3",
-    sender: "admin",
-    content:
-      "I'd be happy to help with your portfolio diversification! Based on your current investments, I would recommend looking into some ETFs that cover different market sectors you don't currently have exposure to. Is there a particular goal you're trying to achieve with your diversification?",
-    timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2 + 1000 * 60 * 20), // 20 minutes after first message
-    read: true,
-  },
-  {
-    id: "4",
-    sender: "user",
-    content:
-      "I'm mostly looking to reduce risk while maintaining similar returns. I currently have a lot of tech stocks.",
-    timestamp: new Date(Date.now() - 1000 * 60 * 60), // 1 hour ago
-    read: true,
-  },
-  {
-    id: "5",
-    sender: "admin",
-    content:
-      "That makes sense. Since you already have significant tech exposure, I would suggest adding some ETFs that focus on other sectors like healthcare, utilities, or consumer staples. These tend to be less correlated with tech and can help reduce overall portfolio volatility. Would you like me to recommend some specific ETFs to consider?",
-    timestamp: new Date(Date.now() - 1000 * 60 * 30), // 30 minutes ago
-    read: true,
-  },
-];
-
-export default function SupportChatt() {
-  //const { user } = useAuth();
-  //const { toast } = useToast();
-  const [messages, setMessages] = useState<Message[]>(SAMPLE_MESSAGES);
+export default function SupportChat() {
+  const { user } = useSession((state) => state);
   const [newMessage, setNewMessage] = useState("");
-  const messagesEndRef = React.useRef<HTMLDivElement>(null);
+  const [isTyping, setIsTyping] = useState(false);
+  const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(
+    null
+  );
+  const [showAutoReply, setShowAutoReply] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const userId = user && user[0]?.id;
+
+  const {
+    data: messages = [],
+    isLoading,
+    refetch: refetchMessages,
+  } = useGetChatMessages(userId || "");
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
-  const formatDate = (date: Date) => {
-    const now = new Date();
-    const diff = now.getTime() - date.getTime();
-    const diffDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+  useEffect(() => {
+    // Connect to socket service when component mounts
+    socketService.connect();
 
-    if (diffDays === 0) {
-      // Today, show time
-      return date.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-    } else if (diffDays === 1) {
-      // Yesterday
-      return `Yesterday, ${date.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      })}`;
-    } else if (diffDays < 7) {
-      // Within the last week
-      return `${diffDays} days ago, ${date.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      })}`;
+    socketService.onMessageReceived(() => {
+      refetchMessages();
+    });
+
+    socketService.onUserTyping(() => {
+      setIsTyping(true);
+      if (typingTimeout) clearTimeout(typingTimeout);
+      const timeout = setTimeout(() => setIsTyping(false), 3000);
+      setTypingTimeout(timeout);
+    });
+
+    socketService.onUserStopTyping(() => {
+      setIsTyping(false);
+      if (typingTimeout) clearTimeout(typingTimeout);
+    });
+
+    return () => {
+      socketService.disconnect();
+      if (typingTimeout) clearTimeout(typingTimeout);
+    };
+  }, [refetchMessages, typingTimeout]);
+
+  const formatDate = (date: string | Date | null) => {
+    if (!date) return "";
+    const messageDate = typeof date === "string" ? new Date(date) : date;
+    const now = new Date();
+    const diffHours =
+      (now.getTime() - messageDate.getTime()) / (1000 * 60 * 60);
+
+    if (diffHours < 24) {
+      return format(messageDate, "h:mm a");
+    } else if (diffHours < 48) {
+      return `Yesterday, ${format(messageDate, "h:mm a")}`;
     } else {
-      // Older than a week
-      return date.toLocaleDateString([], {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
+      return format(messageDate, "MMM d, h:mm a");
+    }
+  };
+
+  const handleSendMessage = () => {
+    if (!newMessage.trim() || !userId) return;
+
+    try {
+      socketService.sendMessage({
+        senderId: userId,
+        content: newMessage,
+      });
+
+      setNewMessage("");
+
+      if (!showAutoReply) {
+        const firstConversation = messages.filter(
+          (msg) => msg.senderId === userId
+        );
+
+        if (firstConversation.length < 1) {
+          setTimeout(() => {
+            setShowAutoReply(true);
+            scrollToBottom();
+          }, 1000);
+        }
+      }
+    } catch (error) {
+      toast.error("Error", {
+        description:
+          String(error) || "Failed to send message. Please try again.",
       });
     }
   };
 
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (!messages?.length) return;
 
-    if (!newMessage.trim()) return;
+    const selectedConversation = messages.filter(
+      (msg) => msg.senderId !== userId
+    );
 
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      sender: "user",
-      content: newMessage,
-      timestamp: new Date(),
-      read: false,
-    };
+    if (selectedConversation.length) {
+      (async () => {
+        for (const message of selectedConversation) {
+          try {
+            await markMessageAsRead(message.id);
+          } catch (error) {
+            console.error("Failed to mark message as read", error);
+          }
+        }
+      })();
+    }
 
-    setMessages([...messages, userMessage]);
-    setNewMessage("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messages]);
 
-    // Simulate admin response after 1 second
-    setTimeout(() => {
-      const adminResponse: Message = {
-        id: (Date.now() + 1).toString(),
-        sender: "admin",
-        content:
-          "Thank you for your message. Our support team will get back to you shortly.",
-        timestamp: new Date(),
-        read: false,
-      };
-
-      setMessages((prev) => [...prev, adminResponse]);
-
-      //   toast({
-      //     title: "Message Sent",
-      //     description: "Our team will respond shortly.",
-      //   });
-    }, 1000);
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
   };
+
+  // Create the auto-reply message object
+  const autoReplyMessage: ChatMessage = {
+    id: 9999999999999999, 
+    senderId: "0", 
+    recipientId: userId,
+    content:
+      "Thank you for your message. Our support team will get back to you shortly.",
+    created_at: new Date(),
+    updated_at: new Date(),
+  };
+
+  // Combine regular messages with the auto-reply if needed
+  const displayMessages = showAutoReply
+    ? [...messages, autoReplyMessage]
+    : messages;
 
   return (
     <>
-      <div className="space-y-6 mt-16 md:mt-0">
+      <div className="space-y-6 mt-16 lg:mt-0">
         <div>
           <h1 className="text-2xl font-bold">Support Chat</h1>
           <p className="text-muted-foreground mt-2">
@@ -177,52 +194,94 @@ export default function SupportChatt() {
             </CardHeader>
             <Separator />
             <CardContent className="flex-grow overflow-auto pt-4">
-              <div className="space-y-4">
-                {messages.map((message) => (
-                  <div
-                    key={message.id}
-                    className={`flex ${
-                      message.sender === "user"
-                        ? "justify-end"
-                        : "justify-start"
-                    }`}
-                  >
-                    <div
-                      className={`max-w-[80%] rounded-lg p-3 ${
-                        message.sender === "user"
-                          ? "bg-invest text-white rounded-tr-none"
-                          : "bg-gray-100 rounded-tl-none"
-                      }`}
-                    >
-                      <p className="text-sm">{message.content}</p>
-                      <div className="flex items-center justify-end gap-1 mt-1">
-                        <span className="text-xs opacity-70">
-                          {formatDate(message.timestamp)}
-                        </span>
-                        {message.sender === "user" &&
-                          (message.read ? (
-                            <CheckCircle className="h-3 w-3 opacity-70" />
-                          ) : (
-                            <Clock className="h-3 w-3 opacity-70" />
-                          ))}
+              {isLoading ? (
+                <div className="flex justify-center py-10">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-invest"></div>
+                </div>
+              ) : (
+                <ScrollArea className="h-full scrollbar-hide">
+                  <div className="space-y-4">
+                    {displayMessages.map((message) => (
+                      <div
+                        key={message.id}
+                        className={cn(
+                          "flex",
+                          message.senderId === userId
+                            ? "justify-end"
+                            : "justify-start"
+                        )}
+                      >
+                        <div
+                          className={cn(
+                            "max-w-[80%] rounded-lg p-3",
+                            message.senderId === userId
+                              ? "bg-invest text-white rounded-tr-none"
+                              : "bg-gray-100 rounded-tl-none"
+                          )}
+                        >
+                          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1">
+                            <p className="text-sm">{message.content}</p>
+                            <div className="flex items-center gap-1 mt-1 md:mt-0 md:ml-4">
+                              <span className="text-xs opacity-70 whitespace-nowrap">
+                                {formatDate(message.created_at)}
+                              </span>
+                              {message.senderId === userId &&
+                                (message.recipientId !== userId ? (
+                                  <CheckCircle className="h-3 w-3 opacity-70 flex-shrink-0" />
+                                ) : (
+                                  <Clock className="h-3 w-3 opacity-70 flex-shrink-0" />
+                                ))}
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    ))}
+                    {isTyping && (
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <div className="flex gap-1">
+                          <div
+                            className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
+                            style={{ animationDelay: "0ms" }}
+                          />
+                          <div
+                            className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
+                            style={{ animationDelay: "150ms" }}
+                          />
+                          <div
+                            className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
+                            style={{ animationDelay: "300ms" }}
+                          />
+                        </div>
+                        <span>Support is typing...</span>
+                      </div>
+                    )}
+                    <div ref={messagesEndRef} />
                   </div>
-                ))}
-                <div ref={messagesEndRef} />
-              </div>
+                </ScrollArea>
+              )}
             </CardContent>
             <CardFooter className="pt-4 pb-3">
-              <form onSubmit={handleSendMessage} className="flex w-full gap-2">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSendMessage();
+                }}
+                className="flex w-full gap-2"
+              >
+                <Button type="button" variant="ghost" size="icon">
+                  <Paperclip className="h-4 w-4" />
+                </Button>
                 <Input
                   placeholder="Type your message..."
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
+                  onKeyDown={handleKeyPress}
                   className="flex-grow"
                 />
                 <Button
                   type="submit"
                   className="bg-invest hover:bg-invest-secondary text-white"
+                  disabled={!newMessage.trim()}
                 >
                   <Send className="h-4 w-4" />
                   <span className="sr-only">Send message</span>

@@ -9,7 +9,7 @@ export type {
   Transaction,
   Wallet,
   Investment,
-  UserInvestmentData
+  UserInvestmentData,
 } from "./ApiResponse";
 export type {
   ForgotPasswordProps,
@@ -24,3 +24,4 @@ export type {
   AddFundsProps,
   WithdrawFundsProps,
 } from "./FormInput";
+export * from "./socket";
