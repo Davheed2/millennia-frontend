@@ -22,7 +22,7 @@ class SocketService {
     //console.log(process.env.NEXT_PUBLIC_SOCKET_URL, 'NEXT_PUBLIC_SOCKET_URL');
     this.socket = io(
       process.env.NEXT_PUBLIC_SOCKET_URL ||
-        "https://millenia-backend.onrender.com",
+        "https://api.millenniatrades.com",
       {
         withCredentials: true,
       }
