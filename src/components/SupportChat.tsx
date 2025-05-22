@@ -105,6 +105,7 @@ export default function SupportChat() {
       });
 
       setNewMessage("");
+      refetchMessages();
 
       if (!showAutoReply) {
         const firstConversation = messages.filter(
