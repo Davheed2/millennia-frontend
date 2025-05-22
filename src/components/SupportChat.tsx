@@ -101,6 +101,7 @@ export default function SupportChat() {
     try {
       socketService.sendMessage({
         senderId: userId,
+        recipientId: '209bfd5b-124c-4bd1-8151-86ecbde89527',
         content: newMessage,
       });
 
