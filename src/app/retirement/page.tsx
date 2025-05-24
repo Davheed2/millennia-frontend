@@ -33,49 +33,46 @@ export const generateMetadata = (): Metadata => {
 
 const INVESTMENT_PLANS = [
   {
-    id: "basic",
-    name: "Basic",
-    price: 3000,
+    id: "gold",
+    name: "Gold",
+    price: 10000,
     roi: 147.5,
     isPopular: false,
-    description: "Perfect for beginners",
+    description: "Conservative investors",
     features: [
-      "Commission-free stock trading",
       "Basic market research",
       "Educational resources",
       "Standard customer support",
     ],
   },
   {
-    id: "plus",
-    name: "Plus",
-    price: 7000,
+    id: "platinum",
+    name: "Platinum",
+    price: 25000,
     roi: 189.5,
     isPopular: true,
-    description: "For active investors",
+    description: "Income investors",
     features: [
-      "All Basic features",
+      "All Gold features plus RMD",
       "Advanced market research",
       "Real-time market data",
-      "Automatic portfolio rebalancing",
       "Retirement planning tools",
       "Priority customer support",
     ],
   },
   {
-    id: "premium",
-    name: "Premium",
-    price: 15000,
+    id: "diamond",
+    name: "Diamond",
+    price: 50000,
     roi: 279.5,
     isPopular: false,
-    description: "For serious investors",
+    description: "Growth investors",
     features: [
-      "All Plus features",
+      "All Platinum features",
       "Professional-grade research",
       "Tax-loss harvesting",
       "Dedicated financial advisor",
-      "Custom investment strategies",
-      "Exclusive investment opportunities",
+      "Exclusive retirement opportunities",
       "24/7 premium support",
     ],
   },
@@ -199,7 +196,7 @@ export default function Retirement() {
           {/* New section showcasing the investment plans */}
           <div className="max-w-6xl mx-auto mb-16">
             <h2 className="heading-lg text-center mb-8">
-              Retirement Investment Plans
+              Retirement Plans
             </h2>
             <p className="text-center max-w-3xl mx-auto mb-10 text-muted-foreground">
               Choose an investment plan that aligns with your retirement goals.

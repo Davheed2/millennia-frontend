@@ -1,6 +1,7 @@
 import RetirementPlanss from "@/components/DashboardRetirement";
 import { generatePageMetadata } from "@/components/common/PageMetaData";
 import { Metadata } from "next";
+
 export const generateMetadata = (): Metadata => {
   return generatePageMetadata({
     title: "Retirement Plans | Millennia Trades",
