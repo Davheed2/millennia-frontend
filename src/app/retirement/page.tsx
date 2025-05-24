@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import {
   LineChart,
   Lock,
-  TrendingUp,
+  //TrendingUp,
   Calculator,
   Target,
   Bitcoin,
@@ -227,12 +227,12 @@ export default function Retirement() {
                       /month
                     </span>
                   </div>
-                  <div className="flex items-center gap-2 mb-2">
+                  {/* <div className="flex items-center gap-2 mb-2">
                     <TrendingUp size={16} className="text-green-600" />
                     <span className="text-green-600 font-medium">
                       {plan.roi}% Est. ROI
                     </span>
-                  </div>
+                  </div> */}
                   <p className="text-foreground/70 mb-6">{plan.description}</p>
 
                   <ul className="mb-8 flex-grow space-y-3">
@@ -247,7 +247,7 @@ export default function Retirement() {
                     ))}
                   </ul>
 
-                  <Link href={`/dashboard/new-investment?plan=${plan.id}`}>
+                  <Link href={`/dashboard/retirement-plans`}>
                     <Button className="w-full bg-invest hover:bg-invest-secondary text-white">
                       Select Plan
                     </Button>
