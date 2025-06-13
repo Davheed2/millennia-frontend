@@ -29,8 +29,8 @@ export function generatePageMetadata({
       images: [
         {
           url: "https://www.millenniatrades.com/opengraph-image.png",
-          width: 1200,
-          height: 630,
+          width: 530,
+          height: 430,
           alt: "Millennia Trades Open Graph Image",
         },
       ],
