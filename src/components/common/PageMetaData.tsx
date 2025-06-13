@@ -29,14 +29,14 @@ export function generatePageMetadata({
       images: [
         {
           url: "https://www.millenniatrades.com/opengraph-image.png",
-          width: 530,
-          height: 430,
+          width: 300,
+          height: 200,
           alt: "Millennia Trades Open Graph Image",
         },
       ],
     },
     twitter: {
-      card: image || defaultImage ? "summary_large_image" : "summary",
+      card: image || defaultImage ? "summary" : "summary",
       title: `${title}`,
       description: content,
       images: ["https://www.millenniatrades.com/millennnia.png"],
