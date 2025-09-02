@@ -27,22 +27,22 @@ export function generatePageMetadata({
       description: content,
       url: url || "https://www.millenniatrades.com",
       // images: ["opengraph-image.png"],
-      images: [
-        {
-          // url: "https://www.millenniatrades.com/opengraph-image.png?v=2",
-          url: "https://www.millenniatrades.com/opengraph-imagee.png?v=3",
-          width: 300,
-          height: 200,
-          alt: "Millennia Trades Open Graph Image",
-        },
-      ],
+      // images: [
+      //   {
+      //     // url: "https://www.millenniatrades.com/opengraph-image.png?v=2",
+      //     url: "https://www.millenniatrades.com/opengraph-imagee.png?v=3",
+      //     width: 300,
+      //     height: 200,
+      //     alt: "Millennia Trades Open Graph Image",
+      //   },
+      // ],
     },
     twitter: {
       card: image || defaultImage ? "summary" : "summary",
       title: `${title}`,
       description: content,
       // images: ["https://www.millenniatrades.com/millennnia.png"],
-      images: ["https://www.millenniatrades.com/millennniaa.png"],
+      // images: ["https://www.millenniatrades.com/millennniaa.png"],
     },
     other: {
       "og:locale": "en_US",
