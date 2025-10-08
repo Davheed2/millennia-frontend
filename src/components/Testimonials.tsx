@@ -1,5 +1,4 @@
 import { Star } from "lucide-react";
-import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const testimonials = [
@@ -85,34 +84,38 @@ const Testimonials = () => {
         <div className="mt-16 flex flex-col md:flex-row items-center justify-center gap-8 bg-white p-8 rounded-xl shadow-sm border border-gray-100 max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row gap-3 items-center">
             <div className="flex -space-x-4">
-              <Image
-                className="w-10 h-10 border-2 border-white rounded-full"
-                src="https://randomuser.me/api/portraits/men/54.jpg"
-                alt=""
-                width={40}
-                height={40}
-              />
-              <Image
-                className="w-10 h-10 border-2 border-white rounded-full"
-                src="https://randomuser.me/api/portraits/women/63.jpg"
-                alt=""
-                width={40}
-                height={40}
-              />
-              <Image
-                className="w-10 h-10 border-2 border-white rounded-full"
-                src="https://randomuser.me/api/portraits/men/12.jpg"
-                alt=""
-                width={40}
-                height={40}
-              />
-              <Image
-                className="w-10 h-10 border-2 border-white rounded-full"
-                src="https://randomuser.me/api/portraits/women/37.jpg"
-                alt=""
-                width={40}
-                height={40}
-              />
+              <Avatar className="w-10 h-10 border-2 border-white">
+                <AvatarImage
+                  src="https://randomuser.me/api/portraits/men/54.jpg"
+                  alt=""
+                  className="object-cover"
+                />
+                <AvatarFallback>U</AvatarFallback>
+              </Avatar>
+              <Avatar className="w-10 h-10 border-2 border-white">
+                <AvatarImage
+                  src="https://randomuser.me/api/portraits/women/63.jpg"
+                  alt=""
+                  className="object-cover"
+                />
+                <AvatarFallback>U</AvatarFallback>
+              </Avatar>
+              <Avatar className="w-10 h-10 border-2 border-white">
+                <AvatarImage
+                  src="https://randomuser.me/api/portraits/men/12.jpg"
+                  alt=""
+                  className="object-cover"
+                />
+                <AvatarFallback>U</AvatarFallback>
+              </Avatar>
+              <Avatar className="w-10 h-10 border-2 border-white">
+                <AvatarImage
+                  src="https://randomuser.me/api/portraits/women/37.jpg"
+                  alt=""
+                  className="object-cover"
+                />
+                <AvatarFallback>U</AvatarFallback>
+              </Avatar>
             </div>
             <div className="text-center md:text-left">
               <p className="font-medium">Trusted by over 100,000 investors</p>
