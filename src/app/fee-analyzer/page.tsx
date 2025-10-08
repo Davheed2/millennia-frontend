@@ -10,7 +10,7 @@ export const generateMetadata = (): Metadata => {
     title: "Investment Fee Analyzer | Millennia Trades",
     content:
       "Use our Investment Fee Analyzer to understand how management fees and expense ratios can affect your long-term investment returns. Discover low-cost investing with Millennia Trades.",
-    url: "https://millenniatrades.com/tools/fee-analyzer",
+    url: "https://milleniatrades.com/tools/fee-analyzer",
   });
 };
 

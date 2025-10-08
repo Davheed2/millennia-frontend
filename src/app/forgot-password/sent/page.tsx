@@ -6,7 +6,7 @@ export const generateMetadata = (): Metadata => {
 	return generatePageMetadata({
 	  title: 'Password Reset - Millennia Trades',
 	  content: 'We’ve sent a password reset link to your email. Please check your inbox or spam folder.',
-	  url: 'https://millenniatrades.com/forgot-password/sent',
+	  url: 'https://milleniatrades.com/forgot-password/sent',
 	});
   };
 

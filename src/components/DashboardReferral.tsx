@@ -52,7 +52,7 @@
 //   const referralCode = user && user[0].referralCode;
 //   //const [error, setError] = useState<string | null>(null);
 
-//   const referralLink = `https://www.millenniatrades.com/signup?ref=${
+//   const referralLink = `https://www.milleniatrades.com/signup?ref=${
 //     user && user[0].referralCode
 //   }`;
 
@@ -361,7 +361,7 @@ export default function DashboardReferrals() {
   const { user } = useSession((state) => state);
   const referralCode = user && user[0].referralCode;
 
-  const referralLink = `https://www.millenniatrades.com/signup?ref=${
+  const referralLink = `https://www.milleniatrades.com/signup?ref=${
     user && user[0].referralCode
   }`;
 

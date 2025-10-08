@@ -193,10 +193,10 @@ const Footer = () => {
               <li className="flex items-center gap-3 ml-0">
                 <Mail size={18} className="text-invest-accent" />
                 <a
-                  href="mailto:support@millenniatrades.com"
+                  href="mailto:support@milleniatrades.com"
                   className="text-white/70 hover:text-white transition-colors"
                 >
-                  support@millenniatrades.com
+                  support@milleniatrades.com
                 </a>
               </li>
               <li className="flex items-center gap-3">

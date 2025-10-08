@@ -21,7 +21,7 @@ export const generateMetadata = (): Metadata => {
     title: "Explore Stocks | Millennia Trades",
     content:
       "Discover top stocks, tech sector leaders, and high-growth opportunities at Millennia Trades. Stay informed on the latest stock trends and invest in your financial future. Explore stocks like Apple, Tesla, Amazon, and more.",
-    url: "https://millenniatrades.com/stocks",
+    url: "https://milleniatrades.com/stocks",
   });
 };
 

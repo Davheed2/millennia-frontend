@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "Learn Portfolio Rebalancing & Optimization | Millennia Trades",
     content:
       "Understand how portfolio rebalancing and smart optimization can boost your returns while managing risk. Explore modern techniques and take control of your investments.",
-    url: "https://millenniatrades.com/portfolio-management/learn",
+    url: "https://milleniatrades.com/portfolio-management/learn",
   });
 };
 

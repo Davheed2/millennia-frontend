@@ -12,7 +12,7 @@ export const generateMetadata = (): Metadata => {
     title: "Investing Resources | Millennia Trades",
     content:
       "Explore a library of resources to help you become a more confident, knowledgeable investor. Whether you're a beginner or experienced, we provide guides, calculators, and expert advice to support your investment journey.",
-    url: "https://millenniatrades.com/resources",
+    url: "https://milleniatrades.com/resources",
   });
 };
 

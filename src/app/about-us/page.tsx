@@ -12,7 +12,7 @@ export const generateMetadata = (): Metadata => {
     title: "About Us | Millennia Trades – Trusted Since 2012",
     content:
       "Learn about Millennia Trades, a fintech pioneer democratizing investing since 2012. Meet our leadership team and explore the values that drive our client-first, secure, and innovative platform.",
-    url: "https://millenniatrades.com/about-us",
+    url: "https://milleniatrades.com/about-us",
   });
 };
 

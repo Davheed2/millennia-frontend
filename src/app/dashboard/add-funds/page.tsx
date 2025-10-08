@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "Deposit Funds | Millennia Trades",
     content:
       "Deposit funds into your Millennia Trades account using your preferred cryptocurrency. Start investing today with seamless and secure deposits.",
-    url: "https://millenniatrades.com/dashboard/add-funds",
+    url: "https://milleniatrades.com/dashboard/add-funds",
   });
 };
 

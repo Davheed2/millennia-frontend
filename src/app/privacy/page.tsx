@@ -11,7 +11,7 @@ export const generateMetadata = (): Metadata => {
     title: "Privacy Policy | Millennia Trades",
     content:
       "Review Millennia Trades' privacy policy to understand how we collect, use, and protect your personal information when you use our investment services.",
-    url: "https://millenniatrades.com/privacy",
+    url: "https://milleniatrades.com/privacy",
   });
 };
 
@@ -181,7 +181,7 @@ export default function PrivacyPolicy() {
                 practices, please contact us at:
               </p>
               <div className="py-2">
-                <p>Email: support@millenniatrades.com</p>
+                <p>Email: support@milleniatrades.com</p>
                 <p>
                   Address: 123 Investment Avenue, Financial District, New York,
                   NY 10001

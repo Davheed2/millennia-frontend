@@ -11,7 +11,7 @@ export const generateMetadata = (): Metadata => {
     title: "Terms of Service | Millennia Trades",
     content:
       "Review the Terms of Service for using Millennia Trades. Understand the rules, regulations, and responsibilities while using our platform for investment services. Your access and use of our services is governed by these terms.",
-    url: "https://millenniatrades.com/terms",
+    url: "https://milleniatrades.com/terms",
   });
 };
 
@@ -164,7 +164,7 @@ export default function TermsOfService() {
                 at:
               </p>
               <div className="py-2">
-                <p>Email: support@millenniatrades.com</p>
+                <p>Email: support@milleniatrades.com</p>
                 <p>
                   Address: 123 Investment Avenue, Financial District, New York,
                   NY 10001

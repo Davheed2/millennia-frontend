@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "Logout | Millennia Trades",
     content:
       "Log out of your Millennia Trades account. Ensure your session is safely ended before leaving the platform.",
-    url: "https://millenniatrades.com/dashboard/logout",
+    url: "https://milleniatrades.com/dashboard/logout",
   });
 };
 

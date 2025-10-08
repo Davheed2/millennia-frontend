@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "Account Settings | Your App",
     content:
       "Manage your account settings, including account status, sign out options, and account deletion. Ensure your preferences are up to date and secure.",
-    url: "https://millenniatrades.com/dashboard/settings",
+    url: "https://milleniatrades.com/dashboard/settings",
   });
 };
 

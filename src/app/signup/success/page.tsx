@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "Sign Up Success | Millennia Trades",
     content:
       "Congratulations on successfully creating your account with Millennia Trades! You're now one step closer to achieving your investment goals. Start exploring our tools and resources to begin your wealth-building journey.",
-    url: "https://millenniatrades.com/signup/success",
+    url: "https://milleniatrades.com/signup/success",
   });
 };
 

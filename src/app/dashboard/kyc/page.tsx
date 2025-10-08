@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "KYC Verification | Millennia Trades",
     content:
       "Complete your KYC (Know Your Customer) verification to access full account features and ensure secure transactions on Millennia Trades.",
-    url: "https://millenniatrades.com/dashboard/kyc",
+    url: "https://milleniatrades.com/dashboard/kyc",
   });
 };
 

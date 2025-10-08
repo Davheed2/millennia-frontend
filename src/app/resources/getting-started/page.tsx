@@ -11,7 +11,7 @@ export const generateMetadata = (): Metadata => {
     title: "Getting Started with Investing | Millennia Trades",
     content:
       "A beginner-friendly guide to help you start your investment journey. Learn key investment concepts, build your first portfolio, and avoid common mistakes as you begin your path to financial growth.",
-    url: "https://millenniatrades.com/resources/getting-started",
+    url: "https://milleniatrades.com/resources/getting-started",
   });
 };
 

@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "Support Chat | Millennia Trades",
     content:
       "Engage with our support team for assistance with your investments, portfolio management, and more. Our team is here to help with any questions or issues you may have.",
-    url: "https://millenniatrades.com/dashboard/support-chat",
+    url: "https://milleniatrades.com/dashboard/support-chat",
   });
 };
 

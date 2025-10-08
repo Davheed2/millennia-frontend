@@ -19,7 +19,7 @@ export const generateMetadata = (): Metadata => {
     title: "Portfolio Management | Millennia Trades",
     content:
       "Optimize your investments with Millennia Trades' advanced portfolio management tools. Benefit from automated rebalancing, smart optimization, and insightful analytics tailored to your goals.",
-    url: "https://millenniatrades.com/portfolio-management",
+    url: "https://milleniatrades.com/portfolio-management",
   });
 };
 

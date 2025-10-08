@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "Active Investments | Millennia Trades",
     content:
       "View your active investments, track their performance, and manage your investment portfolio. Stay updated on your investment growth and progress.",
-    url: "https://millenniatrades.com/dashboard/investments",
+    url: "https://milleniatrades.com/dashboard/investments",
   });
 };
 

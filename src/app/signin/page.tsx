@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "Signin | Millennia Trades",
     content:
       "Log in to your Millennia Trades account to access investment opportunities, manage your portfolio, and track your financial growth. Secure, easy access to your wealth management dashboard.",
-    url: "https://millenniatrades.com/signin",
+    url: "https://milleniatrades.com/signin",
   });
 };
 

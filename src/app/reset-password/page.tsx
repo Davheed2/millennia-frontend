@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "Reset Password - Millennia Trades",
     content:
       "Reset your password! Follow the instructions on this page to set a new password.",
-    url: "https://millenniatrades.com/reset-password",
+    url: "https://milleniatrades.com/reset-password",
   });
 };
 

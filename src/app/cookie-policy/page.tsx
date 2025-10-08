@@ -12,7 +12,7 @@ export const generateMetadata = (): Metadata => {
     title: "Cookie Policy | Millennia Trades",
     content:
       "Learn how Millennia Trades uses cookies and similar technologies to enhance your experience. Review your rights and cookie preferences.",
-    url: "https://millenniatrades.com/cookie-policy",
+    url: "https://milleniatrades.com/cookie-policy",
   });
 };
 
@@ -40,7 +40,7 @@ export default function CookiePolicy() {
                 This Cookie Policy explains how Millennia Trades
                 (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) uses
                 cookies and similar technologies to recognize you when you visit
-                our website at millenniatrades.com (&quot;Website&quot;). It
+                our website at milleniatrades.com (&quot;Website&quot;). It
                 explains what these technologies are and why we use them, as
                 well as your rights to control our use of them.
               </p>
@@ -163,7 +163,7 @@ export default function CookiePolicy() {
               </h2>
               <p>
                 If you have any questions about our use of cookies or other
-                technologies, please email us at support@millenniatrades.com or
+                technologies, please email us at support@milleniatrades.com or
                 by post to:
               </p>
               <div className="py-2">

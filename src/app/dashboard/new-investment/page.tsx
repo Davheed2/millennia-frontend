@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "New Investment | Millennia Trades",
     content:
       "Create a new investment with Millennia Trades. Choose from various plans and start growing your portfolio with expert-led investment strategies.",
-    url: "https://millenniatrades.com/dashboard/new-investment",
+    url: "https://milleniatrades.com/dashboard/new-investment",
   });
 };
 

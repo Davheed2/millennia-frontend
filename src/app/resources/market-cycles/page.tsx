@@ -11,7 +11,7 @@ export const generateMetadata = (): Metadata => {
     title: "Understanding Market Cycles | Millennia Trades",
     content:
       "Learn about market cycles and their phases: Accumulation, Mark-Up, Distribution, and Mark-Down. Understand how economic cycles relate to market cycles and strategies for each phase.",
-    url: "https://millenniatrades.com/resources/market-cycles",
+    url: "https://milleniatrades.com/resources/market-cycles",
   });
 };
 

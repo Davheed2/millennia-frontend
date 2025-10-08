@@ -19,7 +19,7 @@ export const generateMetadata = (): Metadata => {
     title: "Cryptocurrency | Millennia Trades",
     content:
       "Discover top cryptocurrencies and learn how to invest securely with Millennia Trades. Explore features, buy digital assets, and see our security measures.",
-    url: "https://millenniatrades.com/cryptocurrency",
+    url: "https://milleniatrades.com/cryptocurrency",
   });
 };
 

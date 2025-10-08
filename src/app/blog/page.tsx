@@ -11,7 +11,7 @@ export const generateMetadata = (): Metadata => {
     title: "Millennia Trades Blog | Investment Tips, Insights & Strategies",
     content:
       "Explore the Millennia Trades Blog for expert insights, educational content, and market trends. Learn how to grow your wealth with smart, informed investment decisions.",
-    url: "https://millenniatrades.com/blog",
+    url: "https://milleniatrades.com/blog",
   });
 };
 

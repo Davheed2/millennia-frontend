@@ -20,7 +20,7 @@ export const generateMetadata = (): Metadata => {
     title: "Stocks & ETFs | Millennia Trades",
     content:
       "Build a diversified portfolio with Millennia Trades. Invest in individual stocks or curated exchange-traded funds (ETFs) to maximize growth potential. Start exploring stocks and ETFs to enhance your investment strategy today.",
-    url: "https://millenniatrades.com/stocks-etfs",
+    url: "https://milleniatrades.com/stocks-etfs",
   });
 };
 

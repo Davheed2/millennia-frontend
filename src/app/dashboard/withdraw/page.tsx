@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "Withdraw Funds | Millennia Trades",
     content:
       "Withdraw your funds easily from your portfolio. This page allows you to initiate a withdrawal of your available balance to your preferred payment method or wallet address.",
-    url: "https://millenniatrades.com/dashboard/withdraw",
+    url: "https://milleniatrades.com/dashboard/withdraw",
   });
 };
 

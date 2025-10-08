@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "All Cryptocurrencies | Millennia Trades",
     content:
       "Explore a complete list of supported cryptocurrencies on Millennia Trades. View details, prices, and trading availability.",
-    url: "https://millenniatrades.com/crypto",
+    url: "https://milleniatrades.com/crypto",
   });
 };
 

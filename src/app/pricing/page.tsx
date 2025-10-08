@@ -12,7 +12,7 @@ export const generateMetadata = (): Metadata => {
     title: "Pricing Plans | Transparent Investment Options | Millennia Trades",
     content:
       "Compare our investment plans and choose what fits your style. Transparent pricing, high ROI, and no hidden fees — tailored for every investor level.",
-    url: "https://millenniatrades.com/pricing",
+    url: "https://milleniatrades.com/pricing",
   });
 };
 

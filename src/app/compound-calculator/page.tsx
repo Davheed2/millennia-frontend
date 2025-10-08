@@ -10,7 +10,7 @@ export const generateMetadata = (): Metadata => {
     title: "Compound Interest Calculator | Millennia Trades",
     content:
       "Visualize the power of compounding on your investments with our Compound Interest Calculator. Plan your financial future with confidence using Millennia Trades' free, easy-to-use tool.",
-    url: "https://millenniatrades.com/compound-calculator",
+    url: "https://milleniatrades.com/compound-calculator",
   });
 };
 

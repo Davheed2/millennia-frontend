@@ -11,7 +11,7 @@ export const generateMetadata = (): Metadata => {
     title: "Advanced Portfolio Construction | Millennia Trades",
     content:
       "Explore advanced portfolio construction strategies used by institutional investors, including Modern Portfolio Theory, risk parity, tail risk hedging, and more. Enhance your portfolio's returns and reduce risks.",
-    url: "https://millenniatrades.com/resources/advanced-construction",
+    url: "https://milleniatrades.com/resources/advanced-construction",
   });
 };
 

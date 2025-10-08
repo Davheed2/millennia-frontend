@@ -13,8 +13,8 @@ export function generatePageMetadata({
   image,
   url,
 }: MetaDataProps): Metadata {
-  const defaultImage = "/millennniaa.png";
-  // const defaultImage = "/millennnia.png";
+  //const defaultImage = "/millennniaa.png";
+  const defaultImage = "/millennnia.png";
 
   return {
     title: `${title}`,
@@ -25,12 +25,12 @@ export function generatePageMetadata({
       locale: "en_US",
       title: `${title}`,
       description: content,
-      url: url || "https://www.millenniatrades.com",
-      // images: ["opengraph-image.png"],
+      url: url || "https://www.milleniatrades.com",
+      images: ["opengraph-image.png"],
       // images: [
       //   {
-      //     // url: "https://www.millenniatrades.com/opengraph-image.png?v=2",
-      //     url: "https://www.millenniatrades.com/opengraph-imagee.png?v=3",
+      //     // url: "https://www.milleniatrades.com/opengraph-image.png?v=2",
+      //     url: "https://www.milleniatrades.com/opengraph-imagee.png?v=3",
       //     width: 300,
       //     height: 200,
       //     alt: "Millennia Trades Open Graph Image",
@@ -41,12 +41,12 @@ export function generatePageMetadata({
       card: image || defaultImage ? "summary" : "summary",
       title: `${title}`,
       description: content,
-      // images: ["https://www.millenniatrades.com/millennnia.png"],
-      // images: ["https://www.millenniatrades.com/millennniaa.png"],
+      images: ["https://www.milleniatrades.com/millennnia.png"],
+      //images: ["https://www.milleniatrades.com/millennniaa.png"],
     },
     other: {
       "og:locale": "en_US",
     },
-    metadataBase: new URL("https://www.millenniatrades.com"),
+    metadataBase: new URL("https://www.milleniatrades.com"),
   };
 }

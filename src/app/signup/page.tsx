@@ -6,7 +6,7 @@ export const generateMetadata = (): Metadata => {
     title: "Sign Up | Millennia Trades",
     content:
       "Create an account with Millennia Trades to start your investment journey. Gain access to a wide range of investment tools and resources to help you grow your wealth. Sign up now and take the first step towards financial success.",
-    url: "https://millenniatrades.com/signup",
+    url: "https://milleniatrades.com/signup",
   });
 };
 

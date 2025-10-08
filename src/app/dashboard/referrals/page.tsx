@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "Referrals | Millennia Trades",
     content:
       "Track your referral program and earn rewards by referring others to Millennia Trades. View your referral link, earnings, and progress to maximize your rewards.",
-    url: "https://millenniatrades.com/dashboard/referrals",
+    url: "https://milleniatrades.com/dashboard/referrals",
   });
 };
 

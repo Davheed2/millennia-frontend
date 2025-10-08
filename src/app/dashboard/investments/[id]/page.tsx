@@ -20,7 +20,7 @@ export async function generateMetadata({
         title: "Investment Details | Millennia Trades",
         content:
           "View detailed information about your investment and track its performance.",
-        url: `https://millenniatrades.com/dashboard/investments/${params.id}`,
+        url: `https://milleniatrades.com/dashboard/investments/${params.id}`,
       });
     }
 
@@ -29,7 +29,7 @@ export async function generateMetadata({
     return generatePageMetadata({
       title: `${investment.name} (${investment.symbol}) | Millennia Trades`,
       content: `Track the performance of your ${investment.name} investment. Monitor real-time price updates, total value, and profit/loss metrics.`,
-      url: `https://millenniatrades.com/dashboard/investments/${params.id}`,
+      url: `https://milleniatrades.com/dashboard/investments/${params.id}`,
     });
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
@@ -37,7 +37,7 @@ export async function generateMetadata({
       title: "Investment Details | Millennia Trades",
       content:
         "View detailed information about your investment and track its performance.",
-      url: `https://millenniatrades.com/dashboard/investments/${params.id}`,
+      url: `https://milleniatrades.com/dashboard/investments/${params.id}`,
     });
   }
 }

@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "Contact Us | Millennia Trades",
     content:
       "Get in touch with the Millennia Trades team. Reach out for support, partnership inquiries, or general questions through our contact form.",
-    url: "https://millenniatrades.com/contact",
+    url: "https://milleniatrades.com/contact",
   });
 };
 

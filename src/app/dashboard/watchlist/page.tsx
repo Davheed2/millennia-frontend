@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "My Watchlist | Millennia Trades",
     content:
       "View and manage your investment watchlist. Keep track of the investments you're interested in and make informed decisions by monitoring their performance and current prices.",
-    url: "https://millenniatrades.com/dashboard/watchlist",
+    url: "https://milleniatrades.com/dashboard/watchlist",
   });
 };
 

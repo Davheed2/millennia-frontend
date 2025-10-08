@@ -13,7 +13,7 @@ export const generateMetadata = (): Metadata => {
     title: "Millennia Trades | Your Trusted Investment Partner",
     content:
       "Join Millennia Trades for secure, innovative investment solutions. From crypto deposits to expert financial advice, we are here to help you grow your wealth. Contact us today and take the next step towards financial success!",
-    url: "https://millenniatrades.com",
+    url: "https://milleniatrades.com",
   });
 };
 

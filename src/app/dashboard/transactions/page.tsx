@@ -6,7 +6,7 @@ export const generateMetadata = (): Metadata => {
     title: "Transaction History | Millennia Trades",
     content:
       "View and manage your transaction history, including deposits, withdrawals, and investments. Filter by status, type, and date to track your financial activities.",
-    url: "https://millenniatrades.com/dashboard/transactions",
+    url: "https://milleniatrades.com/dashboard/transactions",
   });
 };
 

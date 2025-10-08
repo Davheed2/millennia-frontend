@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "Retirement Goal Planner | Millennia Trades",
     content:
       "Plan your retirement goals with the Retirement Goal Planner. Set clear targets, track progress, and adjust your strategy for a secure financial future. Start planning today and achieve your retirement dreams.",
-    url: "https://millenniatrades.com/retirement/goal-planner",
+    url: "https://milleniatrades.com/retirement/goal-planner",
   });
 };
 

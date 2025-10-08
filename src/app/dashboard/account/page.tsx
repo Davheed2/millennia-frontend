@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
     title: "Account Settings | Millennia Trades",
     content:
       "Update your personal details, change your password, and manage your account settings to keep your profile secure and up-to-date.",
-    url: "https://millenniatrades.com/dashboard/account",
+    url: "https://milleniatrades.com/dashboard/account",
   });
 };
 

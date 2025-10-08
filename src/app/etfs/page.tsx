@@ -21,7 +21,7 @@ export const generateMetadata = (): Metadata => {
     title: "Explore ETFs | Millennia Trades",
     content:
       "Browse top-performing ETFs including index funds, thematic investments, and high-dividend ETFs. Start building your diversified portfolio with Millennia Trades.",
-    url: "https://millenniatrades.com/etfs",
+    url: "https://milleniatrades.com/etfs",
   });
 };
 

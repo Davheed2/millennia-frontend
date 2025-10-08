@@ -31,7 +31,7 @@ export const generateMetadata = ({
     openGraph: {
       title: `${post.title} | Millennia Trades Blog`,
       description: post.excerpt || "",
-      url: `https://millenniatrades.com/blog/${post.id}`,
+      url: `https://milleniatrades.com/blog/${post.id}`,
       images: [
         {
           url: post.image,

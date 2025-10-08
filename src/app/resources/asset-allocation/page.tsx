@@ -11,7 +11,7 @@ export const generateMetadata = (): Metadata => {
     title: "Asset Allocation Strategies | Millennia Trades",
     content:
       "Learn about asset allocation strategies to optimize your investment portfolio. Discover major asset classes, common strategies, and how to determine your optimal allocation.",
-    url: "https://millenniatrades.com/resources/asset-allocation",
+    url: "https://milleniatrades.com/resources/asset-allocation",
   });
 };
 

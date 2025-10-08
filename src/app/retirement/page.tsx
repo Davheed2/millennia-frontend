@@ -27,7 +27,7 @@ export const generateMetadata = (): Metadata => {
     title: "Retirement Planning | Millennia Trades",
     content:
       "Explore personalized retirement planning tools, investment options, and tax-advantaged accounts. Start securing your financial future today with our retirement plans, including traditional IRAs, 401(k)s, and more.",
-    url: "https://millenniatrades.com/retirement",
+    url: "https://milleniatrades.com/retirement",
   });
 };
 
