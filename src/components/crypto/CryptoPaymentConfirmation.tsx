@@ -10,14 +10,14 @@ import { toast } from "sonner";
 
 // Mock wallet addresses for each cryptocurrency
 const mockWalletAddresses: Record<string, string> = {
-  bitcoin: "bc1q8zdvs4qsu5deyy7h7ety7truxryje0cv63zrz3",
-  ethereum: "0x70E0Ae074dAf3E72DdCDED496375d47aF7E87987",
-  litecoin: "ltc1qclelnklvzux8dvxw2u7ynncjs2wm5nawhp7e48",
-  bnb: "0x70E0Ae074dAf3E72DdCDED496375d47aF7E87987",
+  bitcoin: "bc1q64yrgytt2h8jfh0w4zkc7emtt8pt59pgdae8v7",
+  ethereum: "0x8eA7a3BBd6e3Fd3A5E0A6Ef78B5cA8A4ed2f0959",
+  litecoin: "ltc1qsm4u82deeu2hhhlhs0qel83q3qrcjjk30565ve",
+  bnb: "0x8eA7a3BBd6e3Fd3A5E0A6Ef78B5cA8A4ed2f0959",
   xrp: "r9AutR4JxiTeyGqzgQPtSCmYZbchNPT549",
-  solana: "H2V9sW6rV7tB4HMZF52o2qTVr6bavX2hqkFRnxbD8gvZ",
-  usdt_trc20: "TPP1oGf3XHooAmpcXCDwiVcogeoLiYuJ5k",
-  usdt_erc20: "0x70E0Ae074dAf3E72DdCDED496375d47aF7E87987",
+  solana: "3j1EdVfR8D3jT3rz3bkrmvjgotGLgDXSLye8zSzss5nG",
+  usdt_trc20: "TXtEJz5fBpc4KtYjFct6uZ3ccyve1nTb92",
+  usdt_erc20: "0x8eA7a3BBd6e3Fd3A5E0A6Ef78B5cA8A4ed2f0959",
 };
 
 type CryptoPaymentConfirmationProps = {
