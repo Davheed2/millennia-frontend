@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -25,6 +26,7 @@ import { ApiResponse } from "@/interfaces";
 import { FormErrorMessage } from "@/components/common";
 
 export default function DepositPage() {
+  const router = useRouter();
   const [amount, setAmount] = useState(0);
   const [success, setSuccess] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -56,7 +58,7 @@ export default function DepositPage() {
 
   const selectedCrypto: Cryptocurrency | undefined = selectedCryptoId
     ? supportedCryptocurrencies.find(
-        (c: Cryptocurrency) => c.id === selectedCryptoId
+        (c: Cryptocurrency) => c.id === selectedCryptoId,
       )
     : undefined;
 
@@ -142,7 +144,10 @@ export default function DepositPage() {
                 <Button onClick={() => setSuccess(false)} variant="outline">
                   Add More Funds
                 </Button>
-                <Button className="bg-invest hover:bg-invest-secondary">
+                <Button
+                  className="bg-invest hover:bg-invest-secondary"
+                  onClick={() => router.push("/dashboard")}
+                >
                   View Dashboard
                 </Button>
               </div>
