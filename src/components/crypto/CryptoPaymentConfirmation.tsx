@@ -10,14 +10,14 @@ import { toast } from "sonner";
 
 // Mock wallet addresses for each cryptocurrency
 const mockWalletAddresses: Record<string, string> = {
-  bitcoin: "bc1q64yrgytt2h8jfh0w4zkc7emtt8pt59pgdae8v7",
-  ethereum: "0x8eA7a3BBd6e3Fd3A5E0A6Ef78B5cA8A4ed2f0959",
-  litecoin: "ltc1qsm4u82deeu2hhhlhs0qel83q3qrcjjk30565ve",
-  bnb: "0x8eA7a3BBd6e3Fd3A5E0A6Ef78B5cA8A4ed2f0959",
-  xrp: "r9AutR4JxiTeyGqzgQPtSCmYZbchNPT549",
-  solana: "3j1EdVfR8D3jT3rz3bkrmvjgotGLgDXSLye8zSzss5nG",
-  usdt_trc20: "TXtEJz5fBpc4KtYjFct6uZ3ccyve1nTb92",
-  usdt_erc20: "0x8eA7a3BBd6e3Fd3A5E0A6Ef78B5cA8A4ed2f0959",
+  bitcoin: "bc1qsdntaa9x0s2jmtwm28mr8d6xju993m9np56wfc",
+  ethereum: "0x1c8162076d976468c681e38e0aede3c8efd826f2",
+  litecoin: "ltc1qcs8quxxndte9v3gfha4ua2uzdr2ch7chlvnsuz",
+  bnb: "0x1c8162076d976468c681e38e0aede3c8efd826f2",
+  xrp: "rU6N4xr2zE1M9J2daMkNekXr6nAfAchrmX",
+  solana: "8YeFpvQ7nEmwouYB8eZYZuYSozuCsr7fJRwTYfeSQbZT",
+  usdt_trc20: "TFhdhim1ssjn2tfmDW8AmuqfeyZgqCWapf",
+  usdt_erc20: "0x1c8162076d976468c681e38e0aede3c8efd826f2",
 };
 
 type CryptoPaymentConfirmationProps = {
@@ -88,7 +88,7 @@ const CryptoPaymentConfirmation: React.FC<CryptoPaymentConfirmationProps> = ({
           <div>
             <h3 className="text-lg font-medium mb-2">Payment Details</h3>
             <div className="text-sm text-gray-500 mb-4">
-              Please send exactly{" "}
+              \actly{" "}
               <span className="font-bold">
                 {amount} {selectedCrypto.symbol}
               </span>{" "}
