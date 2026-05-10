@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -26,6 +27,7 @@ import { ApiResponse, Wallet as IWallet } from "@/interfaces";
 import { useQuery } from "@tanstack/react-query";
 
 export default function WithdrawalPage() {
+  const router = useRouter();
   const [amount, setAmount] = useState(0);
   const [walletAddress, setWalletAddress] = useState("");
   const [memo, setMemo] = useState("");
@@ -54,13 +56,12 @@ export default function WithdrawalPage() {
   } = useQuery<IWallet[], Error>({
     queryKey: ["balance"],
     queryFn: async () => {
-      const { data: responseData, error } = await callApi<
-        ApiResponse<IWallet[]>
-      >("/wallet/user");
+      const { data: responseData, error } =
+        await callApi<ApiResponse<IWallet[]>>("/wallet/user");
       if (error) {
         throw new Error(
           error.message ||
-            "Something went wrong while fetching user wallet balance."
+            "Something went wrong while fetching user wallet balance.",
         );
       }
       if (!responseData?.data) {
@@ -112,7 +113,7 @@ export default function WithdrawalPage() {
         setSuccess(true);
         toast.success("Withdrawal request submitted", {
           description: `Your withdrawal request for $${parseFloat(
-            amount.toString()
+            amount.toString(),
           ).toLocaleString()} has been submitted.`,
         });
         setAmount(0);
@@ -138,12 +139,12 @@ export default function WithdrawalPage() {
 
   const handleMaxAmount = () => {
     setAmount(
-      availableBalance[0].balance + availableBalance[0].portfolioBalance
+      availableBalance[0].balance + availableBalance[0].portfolioBalance,
     );
   };
 
   const selectedCrypto = supportedCryptocurrencies.find(
-    (c: { id: string; symbol: string }) => c.id === selectedCryptoId
+    (c: { id: string; symbol: string }) => c.id === selectedCryptoId,
   );
 
   return (
@@ -174,7 +175,10 @@ export default function WithdrawalPage() {
                 <Button onClick={() => setSuccess(false)} variant="outline">
                   New Withdrawal
                 </Button>
-                <Button className="bg-invest hover:bg-invest-secondary">
+                <Button
+                  className="bg-invest hover:bg-invest-secondary"
+                  onClick={() => router.push("/dashboard")}
+                >
                   View Dashboard
                 </Button>
               </div>

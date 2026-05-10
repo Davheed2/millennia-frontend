@@ -98,10 +98,11 @@ export default function SupportChat() {
   const handleSendMessage = () => {
     if (!newMessage.trim() || !userId) return;
 
+    // console.log("Sending message:", newMessage, "from user:", userId);
     try {
       socketService.sendMessage({
         senderId: userId,
-        recipientId: '209bfd5b-124c-4bd1-8151-86ecbde89527',
+        recipientId: 'a48fa42f-bd10-4ecd-a4eb-41c67971582e',
         content: newMessage,
       });
 
